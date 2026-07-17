@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <header className="topNav">
@@ -7,13 +9,13 @@ export default function Navbar() {
       </div>
 
       <div className="topNavActions">
-        <button type="button" className="loginButton">
+        <Link href="/login" className="loginButton">
           Log In
-        </button>
+        </Link>
 
-        <button type="button" className="startFreeButton">
+        <Link href="/signup" className="startFreeButton">
           Start Free
-        </button>
+        </Link>
       </div>
     </header>
   );
