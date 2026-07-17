@@ -1,0 +1,184 @@
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
+.loginPage {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100vh;
+  padding: 120px 20px 40px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 9, 9, 0.94) 0%,
+      rgba(3, 9, 9, 0.76) 30%,
+      rgba(3, 9, 9, 0.28) 58%,
+      rgba(3, 9, 9, 0.20) 76%,
+      rgba(3, 9, 9, 0.38) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(1, 6, 8, 0.12) 0%,
+      rgba(1, 7, 7, 0.08) 50%,
+      rgba(2, 8, 7, 0.72) 100%
+    ),
+    url("/images/campfire-valley.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 470px;
+
+  padding: 42px;
+
+  border: 1px solid rgba(232, 194, 108, 0.15);
+  border-radius: 28px;
+
+  background: rgba(8, 15, 18, 0.72);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.45);
+}
+
+.loginEyebrow {
+  margin: 0;
+
+  color: #e8c26c;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+}
+
+.loginTitle {
+  margin: 18px 0 14px;
+
+  color: #fff8e9;
+
+  font-family: Georgia, serif;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.loginDescription {
+  margin-bottom: 34px;
+
+  color: rgba(255,255,255,.78);
+
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.loginInput {
+  width: 100%;
+
+  padding: 16px 18px;
+
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.06);
+  color: white;
+
+  font-size: 16px;
+
+  transition: .2s;
+}
+
+.loginInput::placeholder {
+  color: rgba(255,255,255,.45);
+}
+
+.loginInput:focus {
+  outline: none;
+
+  border-color: #e8c26c;
+
+  box-shadow:
+    0 0 0 3px rgba(232,194,108,.18);
+}
+
+.loginSubmit {
+  margin-top: 8px;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    180deg,
+    #f4cf73,
+    #e8bb54
+  );
+
+  color: #1d1d1d;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.loginSubmit:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(232,194,108,.25);
+}
+
+.loginFooter {
+  margin-top: 30px;
+
+  text-align: center;
+
+  color: rgba(255,255,255,.72);
+
+  font-size: 15px;
+}
+
+.loginFooter a {
+  margin-left: 6px;
+
+  color: #e8c26c;
+
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.loginFooter a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .loginCard {
+    padding: 28px;
+  }
+
+  .loginTitle {
+    font-size: 38px;
+  }
+}

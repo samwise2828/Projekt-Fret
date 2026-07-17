@@ -4,39 +4,69 @@ export default function SignupPage() {
   return (
     <main className="signupPage">
       <section className="signupCard">
-        <Link href="/" className="signupBrand">
-          <span className="signupBrandMark">PF</span>
-          <span className="signupBrandName">PROJEKT FRET</span>
-        </Link>
+        <p className="signupEyebrow">BEGIN YOUR JOURNEY</p>
 
-        <div className="signupHeading">
-          <p className="signupEyebrow">Welcome, traveler</p>
-          <h1>Begin Your Journey</h1>
-          <p>
-            Create your account and take your first step into Campfire Valley.
-          </p>
-        </div>
+        <h1 className="signupTitle">
+          Enter Campfire
+          <br />
+          Valley
+        </h1>
+
+        <p className="signupDescription">
+          Create your free account and start building your guitar skills.
+        </p>
 
         <form className="signupForm">
-          <label className="signupField">
-            <span>Name</span>
-            <input type="text" placeholder="Your name" />
-          </label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="signupInput"
+            autoComplete="name"
+            required
+          />
 
-          <label className="signupField">
-            <span>Email</span>
-            <input type="email" placeholder="you@example.com" />
-          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="signupInput"
+            autoComplete="email"
+            required
+          />
 
-          <label className="signupField">
-            <span>Password</span>
-            <input type="password" placeholder="Create a password" />
-          </label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="signupInput"
+            autoComplete="new-password"
+            required
+          />
 
-          <button type="submit" className="signupSubmitButton">
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            className="signupInput"
+            autoComplete="new-password"
+            required
+          />
+
+          <button type="submit" className="signupSubmit">
             Create Free Account
           </button>
         </form>
+
+        <p className="signupTerms">
+          By creating an account, you agree to the Terms of Service and Privacy
+          Policy.
+        </p>
+
+        <p className="signupFooter">
+          Already have an account?
+          <Link href="/login">Log in</Link>
+        </p>
       </section>
     </main>
   );
