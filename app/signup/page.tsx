@@ -1,6 +1,52 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/Lib/supabase";
 
 export default function SignupPage() {
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSignup(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setMessage("");
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          name,
+        },
+      },
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    router.push("/check-email");
+  }
+
   return (
     <main className="signupPage">
       <section className="signupCard">
@@ -16,55 +62,64 @@ export default function SignupPage() {
           Create your free account and start building your guitar skills.
         </p>
 
-        <form className="signupForm">
+        <form className="signupForm" onSubmit={handleSignup}>
           <input
-            type="text"
-            name="name"
-            placeholder="Name"
             className="signupInput"
-            autoComplete="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
 
           <input
             type="email"
-            name="email"
+            className="signupInput"
             placeholder="Email"
-            className="signupInput"
-            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
 
           <input
             type="password"
-            name="password"
+            className="signupInput"
             placeholder="Password"
-            className="signupInput"
-            autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
 
           <input
             type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
             className="signupInput"
-            autoComplete="new-password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
 
-          <button type="submit" className="signupSubmit">
-            Create Free Account
+          {message && (
+            <p
+              style={{
+                color: "#ffb6b6",
+                textAlign: "center",
+                marginTop: "10px",
+              }}
+            >
+              {message}
+            </p>
+          )}
+
+          <button
+            className="signupSubmit"
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Create Free Account"}
           </button>
         </form>
 
-        <p className="signupTerms">
-          By creating an account, you agree to the Terms of Service and Privacy
-          Policy.
-        </p>
-
         <p className="signupFooter">
-          Already have an account?
+          Already have an account?{" "}
           <Link href="/login">Log in</Link>
         </p>
       </section>
