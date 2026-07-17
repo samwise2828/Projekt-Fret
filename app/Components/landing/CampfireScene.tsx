@@ -1,4 +1,4 @@
-import LessonPath from "./LessonPath";
+
 
 export default function CampfireScene() {
   return (
@@ -29,7 +29,7 @@ export default function CampfireScene() {
           </button>
         </section>
 
-        <LessonPath />
+        
       </div>
     </section>
   );
