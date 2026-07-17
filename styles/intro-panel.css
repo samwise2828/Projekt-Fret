@@ -2,72 +2,109 @@
   position: relative;
   z-index: 2;
 
-  width: min(100%, 520px);
+  width: min(100%, 630px);
+  margin-top: 110px;
+  padding: 50px 52px 50px;
 
-  padding: 48px;
-
-  border: 1px solid rgba(232, 194, 108, 0.15);
+  border: 1px solid rgba(212, 170, 65, 0.38);
   border-radius: 28px;
 
-  background: rgba(5, 11, 12, 0.58);
-  backdrop-filter: blur(18px);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(2, 14, 15, 0.84),
+      rgba(5, 17, 16, 0.73)
+    );
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 30px 90px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
 }
 
 .introEyebrow {
-  margin: 0 0 18px;
+  margin: 0 0 12px;
 
-  color: #f7f1df;
-  font-size: 20px;
-  font-weight: 500;
+  color: #e9ad3d;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  line-height: 1;
 }
 
 .introTitle {
-  margin: 0 0 26px;
+  margin: 0 0 22px;
 
-  color: #ffffff;
-  font-size: clamp(48px, 5vw, 68px);
-  font-weight: 800;
-  line-height: 1.05;
+  color: #f8f0dc;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(58px, 6vw, 78px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -2px;
 }
 
 .introDescription {
   margin: 0 0 34px;
 
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 22px;
-  line-height: 1.6;
+  color: rgba(248, 240, 220, 0.8);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .lockCard {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  align-items: center;
+  gap: 18px;
 
-  margin-bottom: 34px;
+  width: 100%;
+  margin: 0 0 26px;
+  padding: 18px 20px;
+
+  border: 1px solid rgba(212, 170, 65, 0.26);
+  border-radius: 20px;
+
+  background: rgba(2, 10, 10, 0.46);
 }
 
 .lockIcon {
-  font-size: 22px;
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  width: 54px;
+  height: 54px;
+
+  border: 1px solid rgba(212, 170, 65, 0.42);
+  border-radius: 50%;
+
+  background: rgba(212, 170, 65, 0.08);
+  font-size: 21px;
+  line-height: 1;
+}
+
+.lockContent {
+  min-width: 0;
 }
 
 .lockTitle {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
 
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: 700;
+  color: #fff8e9;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 .lockText {
   margin: 0;
 
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 18px;
-  line-height: 1.6;
+  color: rgba(248, 240, 220, 0.8);
+  font-size: 15px;
+  line-height: 1.35;
 }
 
 .journeyButton {
@@ -75,22 +112,32 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 58px;
-  padding: 0 34px;
+  min-height: 56px;
+  padding: 0 32px;
 
+  border: 0;
   border-radius: 999px;
 
-  background: #e8c26c;
-  color: #171717;
+  background: linear-gradient(180deg, #f4cf73, #e9bd59);
+  color: #171714;
 
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 800;
-
   text-decoration: none;
 
-  transition: transform 0.2s ease;
+  box-shadow:
+    0 14px 34px rgba(218, 168, 55, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46);
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .journeyButton:hover {
   transform: translateY(-2px);
+
+  box-shadow:
+    0 18px 40px rgba(218, 168, 55, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }

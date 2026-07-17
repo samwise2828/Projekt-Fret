@@ -1,36 +1,37 @@
-
+import Link from "next/link";
 
 export default function CampfireScene() {
   return (
-    <section className="campfireScene">
-      <div className="sceneShade" />
+    <main className="campfireScene">
+      <section className="introPanel">
+        <p className="introEyebrow">WELCOME TO</p>
 
-      <div className="landingContent">
-        <section className="introPanel">
-          <p className="eyebrow">Welcome to</p>
+        <h1 className="introTitle">
+          CAMPFIRE
+          <br />
+          VALLEY
+        </h1>
 
-          <h1>Campfire Valley</h1>
+        <p className="introDescription">Learn. Level up. Play.</p>
 
-          <p className="slogan">
-            Learn. Level up. Play.
-          </p>
-
-          <div className="lockedMessage">
-            <span className="largeLock">🔒</span>
-
-            <div>
-              <strong>Campfire Valley is locked</strong>
-              <p>Create your free account to begin your journey.</p>
-            </div>
+        <div className="lockCard">
+          <div className="lockIcon" aria-hidden="true">
+            🔒
           </div>
 
-          <button className="journeyButton" type="button">
-            Start Your Journey
-          </button>
-        </section>
+          <div className="lockContent">
+            <p className="lockTitle">Campfire Valley is locked</p>
 
-        
-      </div>
-    </section>
+            <p className="lockText">
+              Create your free account to begin your journey.
+            </p>
+          </div>
+        </div>
+
+        <Link href="/signup" className="journeyButton">
+          Start Your Journey
+        </Link>
+      </section>
+    </main>
   );
 }
