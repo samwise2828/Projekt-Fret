@@ -3,7 +3,7 @@ import CampfireScene from "./Components/landing/CampfireScene";
 
 export default function Home() {
   return (
-    <main className="landingPage">
+    <main className="campfire-page">
       <Navbar />
       <CampfireScene />
     </main>

@@ -3,18 +3,15 @@ export default function Navbar() {
     <header className="topNav">
       <a href="/" className="brand">
         <span className="brandMark">PF</span>
-
-        <span className="brandName">
-          PROJEKT FRET
-        </span>
+        <span className="brandName">PROJEKT FRET</span>
       </a>
 
       <div className="topNavActions">
-        <button className="loginButton">
+        <button type="button" className="loginButton">
           Log In
         </button>
 
-        <button className="startFreeButton">
+        <button type="button" className="startFreeButton">
           Start Free
         </button>
       </div>
