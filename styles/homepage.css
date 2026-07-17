@@ -1,0 +1,84 @@
+/* =========================================================
+   CAMPFIRE SCENE
+   ========================================================= */
+
+.campfireScene {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 100vh;
+  padding: 120px 6% 70px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 9, 9, 0.95) 0%,
+      rgba(3, 9, 9, 0.72) 34%,
+      rgba(3, 9, 9, 0.18) 66%,
+      rgba(3, 9, 9, 0.38) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(1, 6, 8, 0.1) 0%,
+      rgba(1, 7, 7, 0.14) 56%,
+      rgba(2, 8, 7, 0.82) 100%
+    ),
+    url("/images/campfire-valley.png");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.campfireScene::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      circle at 72% 72%,
+      rgba(242, 145, 45, 0.2),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 76% 18%,
+      rgba(137, 178, 203, 0.1),
+      transparent 30%
+    );
+}
+
+.sceneShade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 8, 7, 0.4),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 35%,
+      rgba(0, 0, 0, 0.34) 100%
+    );
+
+  pointer-events: none;
+}
+
+.landingContent {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, 100%);
+  margin: 0 auto;
+}

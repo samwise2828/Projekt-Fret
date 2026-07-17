@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+/* =========================================================
+   PROJECT FRET — GLOBAL FOUNDATION
+   ========================================================= */
+
+:root {
+  color-scheme: dark;
+
+  /* Core backgrounds */
+  --background: #06100f;
+  --background-deep: #020706;
+  --background-soft: #0b1715;
+
+  /* Panels */
+  --panel: rgba(8, 20, 18, 0.88);
+  --panel-strong: rgba(5, 14, 13, 0.96);
+  --panel-soft: rgba(18, 32, 29, 0.72);
+
+  /* Borders */
+  --border-subtle: rgba(246, 239, 223, 0.12);
+  --border-gold: rgba(223, 181, 96, 0.32);
+  --border-gold-strong: rgba(244, 216, 137, 0.58);
+
+  /* Text */
+  --text-primary: #f6efdf;
+  --text-secondary: #b8b6ae;
+  --text-muted: #858c87;
+  --text-dark: #241906;
+
+  /* Accent colors */
+  --gold: #dfb560;
+  --gold-light: #f4d889;
+  --gold-dark: #8b672e;
+  --gold-glow: rgba(223, 181, 96, 0.24);
+
+  /* Shadows */
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.34);
+  --shadow-deep: 0 28px 80px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 12px 32px rgba(223, 181, 96, 0.22);
+
+  /* Typography */
+  --font-body: "Inter", sans-serif;
+  --font-display: "Cinzel", serif;
+
+  /* Shape */
+  --radius-small: 12px;
+  --radius-medium: 18px;
+  --radius-large: 24px;
+  --radius-pill: 999px;
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: var(--background);
+  color: var(--text-primary);
+
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   GLOBAL ELEMENTS
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================================================
+   APP ROOT
+   ========================================================= */
+
+body,
+#__next {
+  min-height: 100vh;
+}
+
+.campfire-page {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(223, 181, 96, 0.28);
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dark) var(--background-deep);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background-deep);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--background-deep);
+  border-radius: var(--radius-pill);
+  background: var(--gold-dark);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}

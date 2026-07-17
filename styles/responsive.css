@@ -1,0 +1,71 @@
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .topNav {
+    height: 68px;
+    padding: 0 18px;
+  }
+
+  .brandMark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brandName {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+
+  .loginButton {
+    display: none;
+  }
+
+  .startFreeButton {
+    min-height: 40px;
+    padding: 0 16px;
+
+    font-size: 13px;
+  }
+
+  .campfireScene {
+    min-height: 100svh;
+    padding: 96px 18px 110px;
+
+    background-position: 62% center;
+  }
+
+  .introPanel {
+    padding: 26px 21px;
+    border-radius: 20px;
+  }
+
+  .introPanel h1 {
+    font-size: clamp(38px, 13vw, 54px);
+    letter-spacing: -1px;
+  }
+
+  .lockedMessage {
+    align-items: flex-start;
+  }
+
+  .journeyButton {
+    width: 100%;
+  }
+
+  .bottomNav {
+    bottom: 10px;
+
+    width: calc(100% - 20px);
+    max-width: 520px;
+
+    justify-content: space-between;
+  }
+
+  .bottomNavItem {
+    min-width: 0;
+    flex: 1;
+    padding-inline: 4px;
+  }
+}

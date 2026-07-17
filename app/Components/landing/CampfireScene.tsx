@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 export default function CampfireScene() {
   return (
@@ -24,12 +24,10 @@ export default function CampfireScene() {
             </div>
           </div>
 
-          <button className="journeyButton" type="button">
+          <Link href="/signup" className="journeyButton">
             Start Your Journey
-          </button>
+          </Link>
         </section>
-
-        
       </div>
     </section>
   );
