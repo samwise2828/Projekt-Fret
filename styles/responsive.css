@@ -1,0 +1,40 @@
+@media (max-width: 700px) {
+  .topNav {
+    padding: 18px 20px;
+  }
+
+  .brandName {
+    display: none;
+  }
+
+  .loginButton,
+  .startFreeButton {
+    min-height: 40px;
+    padding: 0 15px;
+  }
+
+  .campfireScene,
+  .campfire-page {
+    align-items: flex-end;
+    padding: 110px 24px 70px;
+    background-position: 64% center;
+  }
+
+  .heroTitle {
+    font-size: 58px;
+    letter-spacing: -2px;
+  }
+
+  .heroText {
+    font-size: 16px;
+  }
+
+  .signupCard {
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+
+  .signupTitle {
+    font-size: 36px;
+  }
+}

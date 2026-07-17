@@ -1,0 +1,87 @@
+.topNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 24px 6%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(232, 194, 108, 0.65);
+  border-radius: 50%;
+
+  color: #e8c26c;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1;
+
+  background: rgba(8, 17, 16, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.brandName {
+  color: #f6edda;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.topNavActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loginButton,
+.startFreeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loginButton {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f6edda;
+  background: rgba(8, 17, 16, 0.58);
+}
+
+.startFreeButton {
+  color: #172018;
+  background: #e8c26c;
+  box-shadow: 0 10px 30px rgba(232, 194, 108, 0.22);
+}
+
+.loginButton:hover,
+.startFreeButton:hover,
+.brand:hover {
+  transform: translateY(-1px);
+}

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Projekt Fret",
-  description: "A new way to learn guitar.",
+  description: "Learn guitar through an interactive skill-tree journey.",
 };
 
 export default function RootLayout({
