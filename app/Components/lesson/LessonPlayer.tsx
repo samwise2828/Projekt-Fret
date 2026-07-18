@@ -131,7 +131,7 @@ export default function LessonPlayer({ lesson }: LessonPlayerProps) {
 
             <a
               className={`${styles.actionButton} ${styles.primary}`}
-              href="/dashboard"
+              href="/world"
             >
               Return to map
             </a>
