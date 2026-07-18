@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function DashboardPage() {
+export default function PaymentSuccessPage() {
   return (
     <main
       style={{
@@ -10,43 +10,43 @@ export default function DashboardPage() {
         background: "#071011",
         color: "#fff8e9",
         padding: "2rem",
-        textAlign: "center",
       }}
     >
-      <div>
-        <h1
-          style={{
-            fontSize: "2.75rem",
-            marginBottom: "1rem",
-          }}
-        >
-          Welcome to Project Fret 🎸
-        </h1>
+      <div
+        style={{
+          textAlign: "center",
+          maxWidth: "600px",
+        }}
+      >
+        <div style={{ fontSize: "4rem" }}>🎸</div>
+
+        <h1 style={{ marginTop: "1rem" }}>Welcome, Pathfinder!</h1>
 
         <p
           style={{
+            marginTop: "1rem",
             fontSize: "1.2rem",
-            opacity: 0.8,
             lineHeight: 1.6,
           }}
         >
-          Your guitar journey starts here.
+          Your subscription was successful. Your Project Fret journey begins
+          now.
         </p>
 
         <Link
-          href="/lesson-1"
+          href="/dashboard"
           style={{
             display: "inline-block",
             marginTop: "2rem",
-            padding: "14px 28px",
-            borderRadius: "10px",
+            padding: "16px 36px",
+            borderRadius: "12px",
             background: "#f59e0b",
             color: "#071011",
             fontWeight: "bold",
             textDecoration: "none",
           }}
         >
-          Start Your First Lesson
+          Continue to Project Fret
         </Link>
       </div>
     </main>
