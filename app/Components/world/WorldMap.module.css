@@ -14,22 +14,16 @@
   background:
     linear-gradient(
       90deg,
-      rgba(3, 8, 12, 0.98) 0%,
-      rgba(3, 10, 14, 0.88) 29%,
-      rgba(3, 10, 12, 0.28) 55%,
-      rgba(1, 5, 7, 0.3) 100%
+      rgba(3, 8, 12, 0.9) 0%,
+      rgba(3, 10, 14, 0.72) 30%,
+      rgba(3, 10, 12, 0.18) 58%,
+      rgba(1, 5, 7, 0.15) 100%
     ),
-    radial-gradient(
-      circle at 80% 15%,
-      rgba(214, 100, 25, 0.18),
-      transparent 24%
-    ),
-    linear-gradient(
-      180deg,
-      #071622 0%,
-      #071713 48%,
-      #020706 100%
-    );
+    url("/images/world1-background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.46),
