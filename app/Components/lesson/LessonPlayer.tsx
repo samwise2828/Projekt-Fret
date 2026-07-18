@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import LessonHeader from "./LessonHeader";
 import LessonProgress from "./LessonProgress";
@@ -93,6 +93,36 @@ export default function LessonPlayer({
   const totalSteps = lesson.steps.length;
   const currentStep = lesson.steps[currentStepIndex];
 
+  const quickCheckSteps = useMemo(
+    () => lesson.steps.filter((step) => Boolean(step.quickCheck)),
+    [lesson.steps]
+  );
+
+  const totalQuickChecks = quickCheckSteps.length;
+
+  const completedQuickChecks = useMemo(
+    () =>
+      quickCheckSteps.filter(
+        (step) =>
+          selectedAnswers[step.id] === step.quickCheck?.correctAnswer
+      ).length,
+    [quickCheckSteps, selectedAnswers]
+  );
+
+  const currentQuickCheckNumber = currentStep?.quickCheck
+    ? quickCheckSteps.findIndex((step) => step.id === currentStep.id) + 1
+    : 0;
+
+  const quickChecksRemaining = Math.max(
+    0,
+    totalQuickChecks - completedQuickChecks
+  );
+
+  const quickCheckProgressPercentage =
+    totalQuickChecks > 0
+      ? Math.round((completedQuickChecks / totalQuickChecks) * 100)
+      : 100;
+
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === totalSteps - 1;
   const isFinalWorldOneLesson = lesson.lessonNumber === 7;
@@ -109,9 +139,7 @@ export default function LessonPlayer({
 
   const currentChallengeComplete =
     currentStep?.optionalChallenge
-      ? completedChallenges.includes(
-          currentStep.optionalChallenge.id
-        )
+      ? completedChallenges.includes(currentStep.optionalChallenge.id)
       : false;
 
   const currentStepComplete = currentStep
@@ -122,6 +150,13 @@ export default function LessonPlayer({
     totalSteps > 0
       ? ((currentStepIndex + 1) / totalSteps) * 100
       : 0;
+
+  const allQuickChecksComplete =
+    totalQuickChecks === 0 ||
+    completedQuickChecks === totalQuickChecks;
+
+  const lessonStepsComplete =
+    completedSteps.length >= Math.max(0, totalSteps - 1);
 
   const markCurrentStepComplete = () => {
     if (!currentStep || currentStepComplete) {
@@ -174,10 +209,7 @@ export default function LessonPlayer({
       );
 
       setBonusXp((previousXp) =>
-        Math.max(
-          0,
-          previousXp - (challenge.xpReward ?? 5)
-        )
+        Math.max(0, previousXp - (challenge.xpReward ?? 5))
       );
 
       return;
@@ -199,9 +231,7 @@ export default function LessonPlayer({
       return;
     }
 
-    setCurrentStepIndex(
-      (previousIndex) => previousIndex - 1
-    );
+    setCurrentStepIndex((previousIndex) => previousIndex - 1);
 
     window.scrollTo({
       top: 0,
@@ -214,10 +244,7 @@ export default function LessonPlayer({
       return;
     }
 
-    if (
-      currentStep.quickCheck &&
-      !quickCheckIsCorrect
-    ) {
+    if (currentStep.quickCheck && !quickCheckIsCorrect) {
       return;
     }
 
@@ -225,9 +252,7 @@ export default function LessonPlayer({
     setSaveError("");
 
     if (!isLastStep) {
-      setCurrentStepIndex(
-        (previousIndex) => previousIndex + 1
-      );
+      setCurrentStepIndex((previousIndex) => previousIndex + 1);
 
       window.scrollTo({
         top: 0,
@@ -248,10 +273,7 @@ export default function LessonPlayer({
         behavior: "smooth",
       });
     } catch (error) {
-      console.error(
-        "Could not save lesson progress:",
-        error
-      );
+      console.error("Could not save lesson progress:", error);
 
       setSaveError(
         error instanceof Error
@@ -285,9 +307,7 @@ export default function LessonPlayer({
           <div className={styles.empty}>
             <h1>Lesson unavailable</h1>
 
-            <p>
-              This lesson does not have any steps yet.
-            </p>
+            <p>This lesson does not have any steps yet.</p>
 
             <Link
               href="/world"
@@ -318,7 +338,7 @@ export default function LessonPlayer({
             </div>
 
             <p className={styles.completeEyebrow}>
-              Boss defeated
+              Mission complete
             </p>
 
             <h1 className={styles.completeTitle}>
@@ -326,10 +346,32 @@ export default function LessonPlayer({
             </h1>
 
             <p className={styles.completeDescription}>
-              You completed all {totalSteps} steps and
-              earned {lesson.xpReward ?? 100} XP. Your
-              progress has been saved.
+              You completed all {totalSteps} steps and all{" "}
+              {totalQuickChecks} quick checks. You earned{" "}
+              {lesson.xpReward ?? 100} XP, and your progress has
+              been saved.
             </p>
+
+            <div className={styles.missionSummary}>
+              <div>
+                <span>Lesson steps</span>
+                <strong>
+                  {totalSteps} / {totalSteps}
+                </strong>
+              </div>
+
+              <div>
+                <span>Quick checks</span>
+                <strong>
+                  {totalQuickChecks} / {totalQuickChecks}
+                </strong>
+              </div>
+
+              <div>
+                <span>Boss battle</span>
+                <strong>Defeated</strong>
+              </div>
+            </div>
 
             {bonusXp > 0 && (
               <div className={styles.bonusSummary}>
@@ -392,6 +434,110 @@ export default function LessonPlayer({
             completedSteps={completedSteps.length}
           />
 
+          <section className={styles.missionStatus}>
+            <div className={styles.missionStatusHeading}>
+              <div>
+                <p className={styles.interactiveEyebrow}>
+                  Mission status
+                </p>
+                <h2>Lesson objectives</h2>
+              </div>
+
+              <span className={styles.missionPercent}>
+                {Math.round(progressPercentage)}%
+              </span>
+            </div>
+
+            <div className={styles.objectiveList}>
+              <div className={styles.objectiveItem}>
+                <span
+                  className={
+                    currentStepIndex > 0 || lessonStepsComplete
+                      ? styles.objectiveComplete
+                      : styles.objectivePending
+                  }
+                  aria-hidden="true"
+                >
+                  {currentStepIndex > 0 || lessonStepsComplete
+                    ? "✓"
+                    : "○"}
+                </span>
+
+                <span>Begin the lesson mission</span>
+              </div>
+
+              <div className={styles.objectiveItem}>
+                <span
+                  className={
+                    allQuickChecksComplete
+                      ? styles.objectiveComplete
+                      : styles.objectivePending
+                  }
+                  aria-hidden="true"
+                >
+                  {allQuickChecksComplete ? "✓" : "○"}
+                </span>
+
+                <span>
+                  Complete quick checks ({completedQuickChecks}/
+                  {totalQuickChecks})
+                </span>
+              </div>
+
+              <div className={styles.objectiveItem}>
+                <span
+                  className={
+                    isLastStep
+                      ? styles.objectiveActive
+                      : styles.objectivePending
+                  }
+                  aria-hidden="true"
+                >
+                  {isLastStep ? "⚔" : "○"}
+                </span>
+
+                <span>Defeat the lesson boss</span>
+              </div>
+            </div>
+          </section>
+
+          {totalQuickChecks > 0 && (
+            <section className={styles.quickCheckOverview}>
+              <div className={styles.quickCheckOverviewHeading}>
+                <div>
+                  <span>Quick check progress</span>
+                  <strong>
+                    {completedQuickChecks} / {totalQuickChecks}
+                  </strong>
+                </div>
+
+                <small>
+                  {quickChecksRemaining === 0
+                    ? "All checks complete"
+                    : `${quickChecksRemaining} ${
+                        quickChecksRemaining === 1 ? "check" : "checks"
+                      } left`}
+                </small>
+              </div>
+
+              <div
+                className={styles.quickCheckTrack}
+                role="progressbar"
+                aria-label="Quick check progress"
+                aria-valuemin={0}
+                aria-valuemax={totalQuickChecks}
+                aria-valuenow={completedQuickChecks}
+              >
+                <div
+                  className={styles.quickCheckFill}
+                  style={{
+                    width: `${quickCheckProgressPercentage}%`,
+                  }}
+                />
+              </div>
+            </section>
+          )}
+
           <div className={styles.bonusXpBar}>
             <span>Bonus XP</span>
             <strong>+{bonusXp}</strong>
@@ -425,12 +571,16 @@ export default function LessonPlayer({
               <div className={styles.interactiveHeading}>
                 <div>
                   <p className={styles.interactiveEyebrow}>
-                    Quick Check
+                    Quick Check {currentQuickCheckNumber} /{" "}
+                    {totalQuickChecks}
                   </p>
 
-                  <h2>
-                    {currentStep.quickCheck.question}
-                  </h2>
+                  <h2>{currentStep.quickCheck.question}</h2>
+
+                  <p className={styles.quickCheckCounter}>
+                    {completedQuickChecks} of {totalQuickChecks} complete
+                    · {quickChecksRemaining} remaining
+                  </p>
                 </div>
 
                 <span className={styles.xpPill}>
@@ -439,45 +589,43 @@ export default function LessonPlayer({
               </div>
 
               <div className={styles.answerGrid}>
-                {currentStep.quickCheck.options.map(
-                  (option) => {
-                    const isSelected =
-                      selectedAnswer === option;
+                {currentStep.quickCheck.options.map((option) => {
+                  const isSelected =
+                    selectedAnswer === option;
 
-                    const isCorrectOption =
-                      option ===
-                      currentStep.quickCheck?.correctAnswer;
+                  const isCorrectOption =
+                    option ===
+                    currentStep.quickCheck?.correctAnswer;
 
-                    let answerClass = styles.answerButton;
+                  let answerClass = styles.answerButton;
 
-                    if (isSelected && isCorrectOption) {
-                      answerClass = `${styles.answerButton} ${styles.correctAnswer}`;
-                    } else if (
-                      isSelected &&
-                      !isCorrectOption
-                    ) {
-                      answerClass = `${styles.answerButton} ${styles.incorrectAnswer}`;
-                    }
-
-                    return (
-                      <button
-                        key={option}
-                        type="button"
-                        className={answerClass}
-                        onClick={() =>
-                          handleAnswerSelect(option)
-                        }
-                      >
-                        <span
-                          className={styles.answerCircle}
-                          aria-hidden="true"
-                        />
-
-                        {option}
-                      </button>
-                    );
+                  if (isSelected && isCorrectOption) {
+                    answerClass = `${styles.answerButton} ${styles.correctAnswer}`;
+                  } else if (
+                    isSelected &&
+                    !isCorrectOption
+                  ) {
+                    answerClass = `${styles.answerButton} ${styles.incorrectAnswer}`;
                   }
-                )}
+
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      className={answerClass}
+                      onClick={() =>
+                        handleAnswerSelect(option)
+                      }
+                    >
+                      <span
+                        className={styles.answerCircle}
+                        aria-hidden="true"
+                      />
+
+                      {option}
+                    </button>
+                  );
+                })}
               </div>
 
               {quickCheckWasAnswered && (
@@ -490,7 +638,7 @@ export default function LessonPlayer({
                 >
                   <strong>
                     {quickCheckIsCorrect
-                      ? "Correct!"
+                      ? `Correct! ${completedQuickChecks} / ${totalQuickChecks} complete`
                       : "Not quite."}
                   </strong>
 
@@ -520,21 +668,15 @@ export default function LessonPlayer({
 
                 <span className={styles.xpPill}>
                   +
-                  {currentStep.optionalChallenge.xpReward ??
-                    5}{" "}
-                  XP
+                  {currentStep.optionalChallenge.xpReward ?? 5} XP
                 </span>
               </div>
 
               <p className={styles.challengeDescription}>
-                {
-                  currentStep.optionalChallenge
-                    .description
-                }
+                {currentStep.optionalChallenge.description}
               </p>
 
-              {currentStep.optionalChallenge
-                .achievement && (
+              {currentStep.optionalChallenge.achievement && (
                 <div className={styles.achievementPreview}>
                   <span aria-hidden="true">🏆</span>
 
@@ -567,10 +709,7 @@ export default function LessonPlayer({
           )}
 
           {saveError && (
-            <p
-              role="alert"
-              className={styles.saveError}
-            >
+            <p role="alert" className={styles.saveError}>
               {saveError}
             </p>
           )}
