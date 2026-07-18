@@ -5,7 +5,7 @@
 
 .lessonPlayer {
   min-height: 100vh;
-  padding: 110px 24px 70px;
+  padding: 110px 24px 140px;
 
   color: #f5f1e8;
 
@@ -35,18 +35,29 @@
 .empty {
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 16px;
 
-  min-height: 100vh;
+  min-height: calc(100vh - 250px);
+
+  padding: 32px;
 
   text-align: center;
 }
 
 .empty h1 {
-  margin-bottom: 12px;
+  margin: 0;
+
+  font-size: clamp(2rem, 6vw, 3.2rem);
 }
 
 .empty p {
+  max-width: 520px;
+  margin: 0;
+
   color: rgba(245, 241, 232, 0.65);
+
+  line-height: 1.7;
 }
 
 /* =========================================================
@@ -64,8 +75,10 @@
 .button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 
+  min-height: 52px;
   padding: 14px 24px;
 
   border: none;
@@ -79,7 +92,9 @@
   transition:
     transform 180ms ease,
     background 180ms ease,
-    opacity 180ms ease;
+    opacity 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .button:hover:not(:disabled) {
@@ -87,18 +102,18 @@
 }
 
 .button:disabled {
-  opacity: .45;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .previous {
   color: #f5f1e8;
 
-  background: rgba(255,255,255,.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .previous:hover:not(:disabled) {
-  background: rgba(255,255,255,.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .next {
@@ -109,10 +124,16 @@
     #c96d31,
     #eba55e
   );
+
+  box-shadow:
+    0 12px 26px rgba(201, 109, 49, 0.2);
 }
 
-.next:hover {
+.next:hover:not(:disabled) {
   filter: brightness(1.08);
+
+  box-shadow:
+    0 16px 32px rgba(201, 109, 49, 0.28);
 }
 
 /* =========================================================
@@ -125,7 +146,7 @@
 
   min-height: 100vh;
 
-  padding: 40px;
+  padding: 110px 24px 140px;
 }
 
 .completeCard {
@@ -135,15 +156,24 @@
 
   text-align: center;
 
-  border: 1px solid rgba(233,163,95,.18);
+  border: 1px solid rgba(233, 163, 95, 0.18);
   border-radius: 24px;
 
   background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(235, 165, 94, 0.08),
+      transparent 40%
+    ),
     linear-gradient(
       145deg,
-      rgba(18,29,27,.98),
-      rgba(8,15,14,.98)
+      rgba(18, 29, 27, 0.98),
+      rgba(8, 15, 14, 0.98)
     );
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .completeIcon {
@@ -155,33 +185,43 @@
 
   margin: 0 auto 28px;
 
+  border: 1px solid rgba(121, 226, 155, 0.25);
   border-radius: 50%;
 
-  background: rgba(82,180,117,.15);
+  background: rgba(82, 180, 117, 0.15);
 
   color: #79e29b;
 
   font-size: 2.3rem;
   font-weight: 900;
+
+  box-shadow:
+    0 0 36px rgba(121, 226, 155, 0.12);
 }
 
 .completeEyebrow {
+  margin: 0;
+
   color: #e9a35f;
 
   text-transform: uppercase;
-  letter-spacing: .12em;
-  font-size: .75rem;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
   font-weight: 800;
 }
 
 .completeTitle {
   margin: 16px 0;
 
-  font-size: 2.4rem;
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  line-height: 1.1;
 }
 
 .completeDescription {
-  color: rgba(245,241,232,.7);
+  max-width: 520px;
+  margin: 0 auto;
+
+  color: rgba(245, 241, 232, 0.7);
 
   line-height: 1.8;
 }
@@ -198,19 +238,39 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 
+  min-height: 52px;
   padding: 14px 22px;
 
+  border: none;
   border-radius: 14px;
 
+  color: white;
+
+  font: inherit;
+  font-weight: 700;
   text-decoration: none;
 
-  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-2px);
 }
 
 .secondary {
-  background: rgba(255,255,255,.08);
-  color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .primary {
@@ -220,7 +280,15 @@
     #eba55e
   );
 
-  color: white;
+  box-shadow:
+    0 12px 26px rgba(201, 109, 49, 0.2);
+}
+
+.primary:hover {
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 16px 32px rgba(201, 109, 49, 0.28);
 }
 
 /* =========================================================
@@ -228,17 +296,31 @@
    ========================================================= */
 
 @media (max-width: 640px) {
-
   .lessonPlayer {
-    padding: 90px 14px 40px;
+    padding: 90px 14px 120px;
+  }
+
+  .complete {
+    padding: 90px 14px 120px;
+  }
+
+  .completeCard {
+    padding: 38px 22px;
   }
 
   .navigation {
     flex-direction: column;
   }
 
+  .button {
+    width: 100%;
+  }
+
   .actions {
     flex-direction: column;
   }
 
+  .actionButton {
+    width: 100%;
+  }
 }

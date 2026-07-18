@@ -8,53 +8,68 @@ const navigationItems = [
   {
     label: "Profile",
     href: "/profile",
-    icon: "●",
+    icon: "👤",
   },
   {
     label: "Worlds",
     href: "/world",
-    icon: "◎",
+    icon: "🗺️",
   },
   {
     label: "Songs",
     href: "/songs",
-    icon: "♫",
+    icon: "🎵",
   },
   {
     label: "Skills",
     href: "/skills",
-    icon: "☆",
+    icon: "🌳",
   },
 ];
 
 export default function AppBottomNav() {
   const pathname = usePathname();
 
+  const isActive = (href: string) => {
+    if (
+      href === "/world" &&
+      pathname.startsWith("/lesson/")
+    ) {
+      return true;
+    }
+
+    return pathname === href;
+  };
+
   return (
-    <nav className={styles.bottomNav} aria-label="App navigation">
-      <div className={styles.navigationContent}>
-        {navigationItems.map((item) => {
-          const isActive =
-            pathname === item.href ||
-            pathname.startsWith(`${item.href}/`);
+    <nav
+      className={styles.bottomNav}
+      aria-label="Main navigation"
+    >
+      {navigationItems.map((item) => {
+        const active = isActive(item.href);
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.navigationItem} ${
-                isActive ? styles.active : ""
-              }`}
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`${styles.navItem} ${
+              active ? styles.active : ""
+            }`}
+          >
+            <span
+              className={styles.icon}
+              aria-hidden="true"
             >
-              <span className={styles.icon} aria-hidden="true">
-                {item.icon}
-              </span>
+              {item.icon}
+            </span>
 
-              <span className={styles.label}>{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
+            <span className={styles.label}>
+              {item.label}
+            </span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }
