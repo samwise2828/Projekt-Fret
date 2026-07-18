@@ -45,22 +45,24 @@ const lessonRewards: Record<number, LessonReward> = {
   3: {
     xp: 100,
     skills: [
-      "finger-placement",
-      "fretting-notes",
-      "clean-notes",
-      "hand-position",
+      "string-numbers",
+      "string-names",
+      "finding-strings",
+      "open-strings",
     ],
-    badges: ["note-apprentice"],
+    badges: ["string-explorer"],
   },
 
   4: {
     xp: 100,
     skills: [
-      "string-numbers",
-      "string-names",
-      "finding-strings",
+      "fret-numbers",
+      "finger-placement",
+      "fretting-notes",
+      "clean-notes",
+      "hand-position",
     ],
-    badges: ["string-keeper"],
+    badges: ["clean-note-rookie"],
   },
 
   5: {
@@ -137,26 +139,28 @@ export async function completeLesson(
   const reward = lessonRewards[lessonNumber];
 
   if (!reward) {
-    throw new Error(`No rewards were configured for Lesson ${lessonNumber}.`);
+    throw new Error(
+      `No rewards were configured for Lesson ${lessonNumber}.`
+    );
   }
 
-  const { data: currentProgress, error: progressError } = await supabase
-    .from("user_progress")
-    .select("*")
-    .eq("user_id", user.id)
-    .single();
+  const { data: currentProgress, error: progressError } =
+    await supabase
+      .from("user_progress")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
 
   if (progressError || !currentProgress) {
     throw new Error(
-      progressError?.message || "Your progress could not be found."
+      progressError?.message ||
+        "Your progress could not be found."
     );
   }
 
   const progress = currentProgress as UserProgress;
-  const lessonWasAlreadyCompleted =
-    progress.completed_lessons.includes(lessonNumber);
 
-  if (lessonWasAlreadyCompleted) {
+  if (progress.completed_lessons.includes(lessonNumber)) {
     return progress;
   }
 
@@ -183,24 +187,26 @@ export async function completeLesson(
       ? Math.max(progress.current_lesson, lessonNumber + 1)
       : progress.current_lesson;
 
-  const { data: updatedProgress, error: updateError } = await supabase
-    .from("user_progress")
-    .update({
-      completed_lessons: completedLessons,
-      unlocked_skills: unlockedSkills,
-      earned_badges: earnedBadges,
-      current_lesson: nextLesson,
-      xp: newXp,
-      level: newLevel,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("user_id", user.id)
-    .select()
-    .single();
+  const { data: updatedProgress, error: updateError } =
+    await supabase
+      .from("user_progress")
+      .update({
+        completed_lessons: completedLessons,
+        unlocked_skills: unlockedSkills,
+        earned_badges: earnedBadges,
+        current_lesson: nextLesson,
+        xp: newXp,
+        level: newLevel,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("user_id", user.id)
+      .select()
+      .single();
 
   if (updateError || !updatedProgress) {
     throw new Error(
-      updateError?.message || "Your lesson progress could not be saved."
+      updateError?.message ||
+        "Your lesson progress could not be saved."
     );
   }
 

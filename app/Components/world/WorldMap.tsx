@@ -20,6 +20,8 @@ type UserProgress = {
   streak: number;
 };
 
+export type LessonStatus = "completed" | "ready" | "locked";
+
 export default function WorldMap() {
   const router = useRouter();
 
@@ -67,7 +69,10 @@ export default function WorldMap() {
       <main className={styles.worldMap}>
         <section className={styles.worldIntroduction}>
           <span className={styles.worldLabel}>LOADING JOURNEY</span>
-          <h1 className={styles.worldTitle}>Preparing Your World...</h1>
+
+          <h1 className={styles.worldTitle}>
+            Preparing Your World...
+          </h1>
         </section>
       </main>
     );
@@ -78,7 +83,11 @@ export default function WorldMap() {
       <main className={styles.worldMap}>
         <section className={styles.worldIntroduction}>
           <span className={styles.worldLabel}>PROGRESS ERROR</span>
-          <h1 className={styles.worldTitle}>Journey Unavailable</h1>
+
+          <h1 className={styles.worldTitle}>
+            Journey Unavailable
+          </h1>
+
           <p className={styles.worldDescription}>
             {errorMessage || "Your progress could not be found."}
           </p>
@@ -87,22 +96,42 @@ export default function WorldMap() {
     );
   }
 
-  const totalLessons = worldOne.lessons.length;
   const completedLessons = progress.completed_lessons ?? [];
-  const completedLessonCount = completedLessons.length;
+  const totalLessons = worldOne.lessons.length;
 
-  const completionPercentage = Math.round(
-    (completedLessonCount / totalLessons) * 100
-  );
+  const completedLessonCount = worldOne.lessons.filter((lesson) =>
+    completedLessons.includes(lesson.id)
+  ).length;
+
+  const completionPercentage =
+    totalLessons > 0
+      ? Math.round((completedLessonCount / totalLessons) * 100)
+      : 0;
+
+  function getLessonStatus(lessonId: number): LessonStatus {
+    if (completedLessons.includes(lessonId)) {
+      return "completed";
+    }
+
+    if (lessonId === progress.current_lesson) {
+      return "ready";
+    }
+
+    return "locked";
+  }
 
   return (
     <main className={styles.worldMap}>
       <div className={styles.backgroundGlow} />
 
       <section className={styles.worldIntroduction}>
-        <span className={styles.worldLabel}>{worldOne.label}</span>
+        <span className={styles.worldLabel}>
+          {worldOne.label}
+        </span>
 
-        <h1 className={styles.worldTitle}>{worldOne.title}</h1>
+        <h1 className={styles.worldTitle}>
+          {worldOne.title}
+        </h1>
 
         <div className={styles.divider}>
           <span />
@@ -163,12 +192,17 @@ export default function WorldMap() {
           />
         </svg>
 
-        {worldOne.lessons.map((lesson) => (
-          <WorldNode
-            key={lesson.id}
-            lesson={lesson}
-          />
-        ))}
+        {worldOne.lessons.map((lesson) => {
+          const status = getLessonStatus(lesson.id);
+
+          return (
+            <WorldNode
+              key={lesson.id}
+              lesson={lesson}
+              status={status}
+            />
+          );
+        })}
       </section>
     </main>
   );

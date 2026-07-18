@@ -5,6 +5,8 @@ import Link from "next/link";
 import LessonHeader from "./LessonHeader";
 import LessonProgress from "./LessonProgress";
 import LessonStep from "./LessonStep";
+import StringDiagram from "./StringDiagram";
+import FretboardDiagram from "./FretboardDiagram";
 import AppBottomNav from "../navigation/AppBottomNav";
 import { completeLesson } from "@/Lib/progression";
 import styles from "./LessonPlayer.module.css";
@@ -30,12 +32,26 @@ export type OptionalChallenge = {
   xpReward?: number;
 };
 
+export type LessonVisual =
+  | {
+      type: "stringDiagram";
+      highlight?: number;
+      showNames?: boolean;
+    }
+  | {
+      type: "fretboardDiagram";
+      string?: number;
+      fret?: number;
+      showStringNames?: boolean;
+    };
+
 export type LessonStepData = {
   id: string;
   title: string;
   subtitle?: string;
   instruction: string;
   tabs?: LessonTab[];
+  visual?: LessonVisual;
   quickCheck?: QuickCheck;
   optionalChallenge?: OptionalChallenge;
 };
@@ -386,6 +402,23 @@ export default function LessonPlayer({
             stepNumber={currentStepIndex + 1}
             totalSteps={totalSteps}
           />
+
+          {currentStep.visual?.type === "stringDiagram" && (
+            <StringDiagram
+              highlight={currentStep.visual.highlight}
+              showNames={currentStep.visual.showNames}
+            />
+          )}
+
+          {currentStep.visual?.type === "fretboardDiagram" && (
+            <FretboardDiagram
+              string={currentStep.visual.string}
+              fret={currentStep.visual.fret}
+              showStringNames={
+                currentStep.visual.showStringNames
+              }
+            />
+          )}
 
           {currentStep.quickCheck && (
             <section className={styles.quickCheck}>

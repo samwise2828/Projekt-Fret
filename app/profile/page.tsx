@@ -1,93 +1,124 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import AppTopNav from "../Components/navigation/AppTopNav";
 import AppBottomNav from "../Components/navigation/AppBottomNav";
+import {
+  getPlayerProgress,
+  type PlayerProgress,
+} from "@/Lib/playerProgress";
 import styles from "./ProfilePage.module.css";
 
-const profileStats = [
-  {
-    value: "1",
-    label: "Lesson",
-    icon: "📖",
-  },
-  {
-    value: "0",
-    label: "Worlds",
-    icon: "🗺️",
-  },
-  {
-    value: "1",
-    label: "Boss",
-    icon: "⚔️",
-  },
-  {
-    value: "0",
-    label: "Songs",
-    icon: "🎵",
-  },
-];
-
-const badges = [
-  {
-    name: "First Steps",
-    description: "Begin your guitar journey.",
-    icon: "🔥",
-    unlocked: true,
-  },
-  {
-    name: "Guitar Guardian",
-    description: "Complete your first boss battle.",
-    icon: "⚔️",
-    unlocked: true,
-  },
-  {
-    name: "Campfire Explorer",
-    description: "Complete your first lesson.",
-    icon: "🏕️",
-    unlocked: true,
-  },
-  {
-    name: "Pick Apprentice",
-    description: "Master the basics of holding a pick.",
-    icon: "🎸",
-    unlocked: false,
-  },
-  {
-    name: "Rhythm Keeper",
-    description: "Complete your first rhythm challenge.",
-    icon: "🥁",
-    unlocked: false,
-  },
-];
-
-const achievements = [
-  {
-    title: "Defeated Guitar Guardian",
-    description: "Completed the first boss battle.",
-    reward: "+100 XP",
-    icon: "⚔️",
-  },
-  {
-    title: "Completed Meet Your Guitar",
-    description: "Finished Lesson 1 in The First Campfire.",
-    reward: "Lesson complete",
-    icon: "✓",
-  },
-  {
-    title: "Journey Started",
-    description: "Began your adventure through Projekt Fret.",
-    reward: "First Steps badge",
-    icon: "🔥",
-  },
-];
-
 export default function ProfilePage() {
-  const currentXp = 100;
-  const xpNeeded = 500;
+  const [progress, setProgress] =
+    useState<PlayerProgress | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
-  const xpPercentage = Math.min(
-    100,
-    Math.round((currentXp / xpNeeded) * 100)
-  );
+  useEffect(() => {
+    let active = true;
+
+    async function loadProgress() {
+      try {
+        const playerProgress = await getPlayerProgress();
+
+        if (active) {
+          setProgress(playerProgress);
+        }
+      } catch (error) {
+        console.error("Could not load profile progress:", error);
+
+        if (active) {
+          setLoadError(
+            error instanceof Error
+              ? error.message
+              : "Your profile could not be loaded."
+          );
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadProgress();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <AppTopNav />
+
+        <main className={styles.page}>
+          <header className={styles.pageHeader}>
+            <p className={styles.eyebrow}>Your adventurer</p>
+            <h1 className={styles.pageTitle}>Loading profile...</h1>
+          </header>
+        </main>
+
+        <AppBottomNav />
+      </>
+    );
+  }
+
+  if (!progress || loadError) {
+    return (
+      <>
+        <AppTopNav />
+
+        <main className={styles.page}>
+          <header className={styles.pageHeader}>
+            <p className={styles.eyebrow}>Profile unavailable</p>
+            <h1 className={styles.pageTitle}>
+              Your progress could not be loaded
+            </h1>
+            <p className={styles.pageDescription}>
+              {loadError || "Please refresh and try again."}
+            </p>
+          </header>
+        </main>
+
+        <AppBottomNav />
+      </>
+    );
+  }
+
+  const profileStats = [
+    {
+      value: progress.lessonsCompleted,
+      label:
+        progress.lessonsCompleted === 1 ? "Lesson" : "Lessons",
+      icon: "📖",
+    },
+    {
+      value: progress.worldsCompleted,
+      label:
+        progress.worldsCompleted === 1 ? "World" : "Worlds",
+      icon: "🗺️",
+    },
+    {
+      value: progress.bossesDefeated,
+      label:
+        progress.bossesDefeated === 1 ? "Boss" : "Bosses",
+      icon: "⚔️",
+    },
+    {
+      value: progress.songsCompleted,
+      label:
+        progress.songsCompleted === 1 ? "Song" : "Songs",
+      icon: "🎵",
+    },
+  ];
+
+  const unlockedBadgeCount = progress.badges.filter(
+    (badge) => badge.unlocked
+  ).length;
 
   return (
     <>
@@ -100,8 +131,8 @@ export default function ProfilePage() {
           <p className={styles.eyebrow}>Your adventurer</p>
           <h1 className={styles.pageTitle}>Profile</h1>
           <p className={styles.pageDescription}>
-            Track your progress, collect rewards, and continue your guitar
-            journey.
+            Track your progress, collect rewards, and continue your
+            guitar journey.
           </p>
         </header>
 
@@ -110,17 +141,21 @@ export default function ProfilePage() {
             <div className={styles.avatarArea}>
               <div className={styles.avatarRing}>
                 <div className={styles.avatar} aria-hidden="true">
-                  S
+                  {progress.avatarLetter}
                 </div>
               </div>
 
-              <span className={styles.levelBadge}>Level 1</span>
+              <span className={styles.levelBadge}>
+                Level {progress.level}
+              </span>
             </div>
 
             <div className={styles.playerInformation}>
-              <p className={styles.playerLabel}>Projekt Fret Adventurer</p>
+              <p className={styles.playerLabel}>
+                Projekt Fret Adventurer
+              </p>
 
-              <h2 className={styles.playerName}>Sam</h2>
+              <h2 className={styles.playerName}>{progress.name}</h2>
 
               <p className={styles.playerTitle}>
                 <span aria-hidden="true">🔥</span>
@@ -132,7 +167,8 @@ export default function ProfilePage() {
                   <span>Level progress</span>
 
                   <strong>
-                    {currentXp} / {xpNeeded} XP
+                    {progress.currentLevelXp} /{" "}
+                    {progress.xpNeededForNextLevel} XP
                   </strong>
                 </div>
 
@@ -141,13 +177,15 @@ export default function ProfilePage() {
                   role="progressbar"
                   aria-label="Level progress"
                   aria-valuemin={0}
-                  aria-valuemax={xpNeeded}
-                  aria-valuenow={currentXp}
+                  aria-valuemax={
+                    progress.xpNeededForNextLevel
+                  }
+                  aria-valuenow={progress.currentLevelXp}
                 >
                   <div
                     className={styles.xpFill}
                     style={{
-                      width: `${xpPercentage}%`,
+                      width: `${progress.xpPercentage}%`,
                     }}
                   />
                 </div>
@@ -161,7 +199,10 @@ export default function ProfilePage() {
             </span>
 
             <div>
-              <strong>1 Day</strong>
+              <strong>
+                {progress.streak}{" "}
+                {progress.streak === 1 ? "Day" : "Days"}
+              </strong>
               <span>Current streak</span>
             </div>
           </div>
@@ -177,9 +218,13 @@ export default function ProfilePage() {
                 {stat.icon}
               </span>
 
-              <strong className={styles.statValue}>{stat.value}</strong>
+              <strong className={styles.statValue}>
+                {stat.value}
+              </strong>
 
-              <span className={styles.statLabel}>{stat.label}</span>
+              <span className={styles.statLabel}>
+                {stat.label}
+              </span>
             </article>
           ))}
         </section>
@@ -187,7 +232,9 @@ export default function ProfilePage() {
         <section className={styles.contentSection}>
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.sectionEyebrow}>Continue playing</p>
+              <p className={styles.sectionEyebrow}>
+                Continue playing
+              </p>
               <h2>Current Journey</h2>
             </div>
 
@@ -206,22 +253,37 @@ export default function ProfilePage() {
             </div>
 
             <div className={styles.journeyContent}>
-              <p className={styles.worldLabel}>World 1</p>
+              <p className={styles.worldLabel}>
+                World {progress.currentWorld}
+              </p>
 
               <h3>The First Campfire</h3>
 
               <p className={styles.journeyDescription}>
-                Learn the foundations of guitar and prepare for your first
-                song.
+                Learn the foundations of guitar and prepare for your
+                first song.
               </p>
 
               <div className={styles.nextLesson}>
-                <span>Next lesson</span>
-                <strong>Holding the Pick</strong>
+                <span>
+                  {progress.worldsCompleted > 0
+                    ? "World status"
+                    : "Next lesson"}
+                </span>
+                <strong>
+                  {progress.worldsCompleted > 0
+                    ? "World 1 Complete"
+                    : progress.nextLessonTitle}
+                </strong>
               </div>
 
-              <Link href="/lesson/2" className={styles.continueButton}>
-                Continue Journey
+              <Link
+                href={progress.nextLessonHref}
+                className={styles.continueButton}
+              >
+                {progress.worldsCompleted > 0
+                  ? "Return to World Map"
+                  : "Continue Journey"}
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -231,21 +293,25 @@ export default function ProfilePage() {
         <section className={styles.contentSection}>
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.sectionEyebrow}>Your collection</p>
+              <p className={styles.sectionEyebrow}>
+                Your collection
+              </p>
               <h2>Badges</h2>
             </div>
 
             <span className={styles.badgeCount}>
-              3 / {badges.length}
+              {unlockedBadgeCount} / {progress.badges.length}
             </span>
           </div>
 
           <div className={styles.badgeGrid}>
-            {badges.map((badge) => (
+            {progress.badges.map((badge) => (
               <article
-                key={badge.name}
+                key={badge.id}
                 className={`${styles.badgeCard} ${
-                  badge.unlocked ? styles.unlocked : styles.locked
+                  badge.unlocked
+                    ? styles.unlocked
+                    : styles.locked
                 }`}
               >
                 <div className={styles.badgeIcon}>
@@ -255,7 +321,6 @@ export default function ProfilePage() {
                 </div>
 
                 <h3>{badge.name}</h3>
-
                 <p>{badge.description}</p>
 
                 <span className={styles.badgeStatus}>
@@ -269,7 +334,9 @@ export default function ProfilePage() {
         <section className={styles.contentSection}>
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.sectionEyebrow}>Recent progress</p>
+              <p className={styles.sectionEyebrow}>
+                Recent progress
+              </p>
               <h2>Achievements</h2>
             </div>
 
@@ -279,32 +346,46 @@ export default function ProfilePage() {
           </div>
 
           <div className={styles.achievementList}>
-            {achievements.map((achievement) => (
-              <article
-                className={styles.achievementCard}
-                key={achievement.title}
-              >
-                <div className={styles.achievementIcon} aria-hidden="true">
-                  {achievement.icon}
-                </div>
+            {progress.achievements.length > 0 ? (
+              progress.achievements.map((achievement, index) => (
+                <article
+                  className={styles.achievementCard}
+                  key={`${achievement.title}-${index}`}
+                >
+                  <div
+                    className={styles.achievementIcon}
+                    aria-hidden="true"
+                  >
+                    {achievement.icon}
+                  </div>
 
-                <div className={styles.achievementInformation}>
-                  <h3>{achievement.title}</h3>
-                  <p>{achievement.description}</p>
-                </div>
+                  <div
+                    className={styles.achievementInformation}
+                  >
+                    <h3>{achievement.title}</h3>
+                    <p>{achievement.description}</p>
+                  </div>
 
-                <span className={styles.achievementReward}>
-                  {achievement.reward}
-                </span>
-              </article>
-            ))}
+                  <span className={styles.achievementReward}>
+                    {achievement.reward}
+                  </span>
+                </article>
+              ))
+            ) : (
+              <p className={styles.pageDescription}>
+                Complete your first lesson to begin earning
+                achievements.
+              </p>
+            )}
           </div>
         </section>
 
         <section className={styles.accountSection}>
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.sectionEyebrow}>Player options</p>
+              <p className={styles.sectionEyebrow}>
+                Player options
+              </p>
               <h2>Account</h2>
             </div>
           </div>

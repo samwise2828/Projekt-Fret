@@ -4,14 +4,16 @@ import styles from "./WorldNode.module.css";
 
 type Props = {
   lesson: WorldLesson;
+  status: "completed" | "ready" | "locked";
 };
 
 export default function WorldNode({
   lesson,
+  status,
 }: Props) {
   const className = [
     styles.node,
-    styles[lesson.status],
+    styles[status],
   ]
     .filter(Boolean)
     .join(" ");
@@ -20,9 +22,9 @@ export default function WorldNode({
     <>
       <div className={styles.lessonMarker}>
         <span className={styles.statusIcon}>
-          {lesson.status === "complete"
+          {status === "completed"
             ? "✓"
-            : lesson.status === "available"
+            : status === "ready"
             ? "▶"
             : "🔒"}
         </span>
@@ -38,9 +40,9 @@ export default function WorldNode({
         </span>
 
         <span className={styles.lessonStatus}>
-          {lesson.status === "complete"
+          {status === "completed"
             ? "Complete"
-            : lesson.status === "available"
+            : status === "ready"
             ? "Ready"
             : "Locked"}
         </span>
@@ -53,7 +55,7 @@ export default function WorldNode({
     top: `${lesson.y}%`,
   };
 
-  if (lesson.status === "locked") {
+  if (status === "locked") {
     return (
       <div
         className={className}

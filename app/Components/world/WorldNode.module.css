@@ -96,11 +96,11 @@ a.node:hover {
   letter-spacing: 0.04em;
 }
 
-.complete {
+.completed {
   color: #8bea60;
 }
 
-.complete .lessonMarker {
+.completed .lessonMarker {
   border-color: #75dc4c;
 
   background:
@@ -115,11 +115,11 @@ a.node:hover {
     0 10px 20px rgba(0, 0, 0, 0.45);
 }
 
-.available {
+.ready {
   color: #ffb54d;
 }
 
-.available .lessonMarker {
+.ready .lessonMarker {
   border-color: #ffae42;
 
   background:
