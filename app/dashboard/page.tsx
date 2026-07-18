@@ -46,7 +46,7 @@ export default function DashboardPage() {
             textDecoration: "none",
           }}
         >
-          Start Your First Lesson
+          Explore the World of Guitar
         </Link>
       </div>
     </main>

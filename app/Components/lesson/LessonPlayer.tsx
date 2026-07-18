@@ -6,6 +6,7 @@ import LessonHeader from "./LessonHeader";
 import LessonProgress from "./LessonProgress";
 import LessonStep from "./LessonStep";
 import AppBottomNav from "../navigation/AppBottomNav";
+import { completeLesson } from "@/Lib/progression";
 import styles from "./LessonPlayer.module.css";
 
 export type LessonTab = {
@@ -39,21 +40,18 @@ type LessonPlayerProps = {
 export default function LessonPlayer({
   lesson,
 }: LessonPlayerProps) {
-  const [currentStepIndex, setCurrentStepIndex] =
-    useState(0);
-
-  const [completedSteps, setCompletedSteps] =
-    useState<string[]>([]);
-
-  const [lessonComplete, setLessonComplete] =
-    useState(false);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [lessonComplete, setLessonComplete] = useState(false);
+  const [savingProgress, setSavingProgress] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   const totalSteps = lesson.steps.length;
   const currentStep = lesson.steps[currentStepIndex];
 
   const isFirstStep = currentStepIndex === 0;
-  const isLastStep =
-    currentStepIndex === totalSteps - 1;
+  const isLastStep = currentStepIndex === totalSteps - 1;
+  const isFinalWorldOneLesson = lesson.lessonNumber === 7;
 
   const currentStepComplete = currentStep
     ? completedSteps.includes(currentStep.id)
@@ -76,7 +74,7 @@ export default function LessonPlayer({
   };
 
   const handlePreviousStep = () => {
-    if (isFirstStep) {
+    if (isFirstStep || savingProgress) {
       return;
     }
 
@@ -85,28 +83,55 @@ export default function LessonPlayer({
     );
   };
 
-  const handleNextStep = () => {
-    markCurrentStepComplete();
-
-    if (isLastStep) {
-      setLessonComplete(true);
+  const handleNextStep = async () => {
+    if (savingProgress) {
       return;
     }
 
-    setCurrentStepIndex(
-      (previousIndex) => previousIndex + 1
-    );
+    markCurrentStepComplete();
+    setSaveError("");
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    if (!isLastStep) {
+      setCurrentStepIndex(
+        (previousIndex) => previousIndex + 1
+      );
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    setSavingProgress(true);
+
+    try {
+      await completeLesson(lesson.lessonNumber);
+      setLessonComplete(true);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      console.error("Could not save lesson progress:", error);
+
+      setSaveError(
+        error instanceof Error
+          ? error.message
+          : "Your progress could not be saved. Please try again."
+      );
+    } finally {
+      setSavingProgress(false);
+    }
   };
 
   const handleRestartLesson = () => {
     setCurrentStepIndex(0);
     setCompletedSteps([]);
     setLessonComplete(false);
+    setSaveError("");
 
     window.scrollTo({
       top: 0,
@@ -163,7 +188,8 @@ export default function LessonPlayer({
 
             <p className={styles.completeDescription}>
               You completed all {totalSteps} steps and
-              earned {lesson.xpReward ?? 100} XP.
+              earned {lesson.xpReward ?? 100} XP. Your
+              progress has been saved.
             </p>
 
             <div className={styles.actions}>
@@ -177,10 +203,18 @@ export default function LessonPlayer({
 
               <Link
                 className={`${styles.actionButton} ${styles.primary}`}
-                href={`/lesson/${lesson.lessonNumber + 1}`}
+                href={
+                  isFinalWorldOneLesson
+                    ? "/world"
+                    : `/lesson/${lesson.lessonNumber + 1}`
+                }
               >
-                Continue to Lesson{" "}
-                {lesson.lessonNumber + 1}
+                {isFinalWorldOneLesson
+                  ? "Return to World Map"
+                  : `Continue to Lesson ${
+                      lesson.lessonNumber + 1
+                    }`}
+
                 <span aria-hidden="true"> →</span>
               </Link>
             </div>
@@ -218,6 +252,19 @@ export default function LessonPlayer({
             totalSteps={totalSteps}
           />
 
+          {saveError && (
+            <p
+              role="alert"
+              style={{
+                color: "#ffb6b6",
+                textAlign: "center",
+                marginTop: "18px",
+              }}
+            >
+              {saveError}
+            </p>
+          )}
+
           <nav
             className={styles.navigation}
             aria-label="Lesson navigation"
@@ -226,7 +273,7 @@ export default function LessonPlayer({
               type="button"
               className={`${styles.button} ${styles.previous}`}
               onClick={handlePreviousStep}
-              disabled={isFirstStep}
+              disabled={isFirstStep || savingProgress}
             >
               <span aria-hidden="true">←</span>
               Previous
@@ -236,14 +283,19 @@ export default function LessonPlayer({
               type="button"
               className={`${styles.button} ${styles.next}`}
               onClick={handleNextStep}
+              disabled={savingProgress}
             >
-              {isLastStep
-                ? "Defeat boss"
-                : "Continue"}
+              {savingProgress
+                ? "Saving progress..."
+                : isLastStep
+                  ? "Defeat boss"
+                  : "Continue"}
 
-              <span aria-hidden="true">
-                {isLastStep ? "⚔" : "→"}
-              </span>
+              {!savingProgress && (
+                <span aria-hidden="true">
+                  {isLastStep ? "⚔" : "→"}
+                </span>
+              )}
             </button>
           </nav>
         </section>
