@@ -5,10 +5,10 @@ export const lessonOne: LessonData = {
 
   lessonNumber: 1,
 
-  title: "Your First Notes",
+  title: "Meet Your Guitar",
 
   description:
-    "Learn how to hold the guitar, identify the strings, press the frets correctly, and play your first clean notes.",
+    "Learn the main parts of your guitar, how to hold it comfortably, how to care for it, and how lessons work in Projekt Fret.",
 
   estimatedMinutes: 15,
 
@@ -18,44 +18,196 @@ export const lessonOne: LessonData = {
 
   steps: [
     {
-      id: "get-comfortable",
+      id: "welcome-to-projekt-fret",
 
-      title: "Get Comfortable",
+      title: "Welcome to Projekt Fret",
 
       subtitle:
-        "Start with a relaxed position that gives both hands room to move.",
+        "Your guitar journey starts here.",
 
       instruction:
-        "Sit toward the front of your chair, rest the guitar against your body, and keep the neck angled slightly upward.",
+        "Grab your guitar, find a comfortable place to sit, and get ready to begin your first lesson.",
 
       tabs: [
         {
           title: "Learn",
 
           content:
-            "A comfortable playing position makes every future skill easier. Keep your back upright, your shoulders relaxed, and the guitar close enough that you do not have to reach for it.",
+            "You do not need any experience to begin. Projekt Fret will guide you one skill at a time through lessons, practice challenges, boss battles, rewards, songs, and new worlds.",
         },
 
         {
           title: "Practice",
 
           content: [
-            "Sit toward the front half of your chair.",
-            "Rest the guitar securely against your body.",
-            "Angle the guitar neck slightly upward.",
-            "Relax both shoulders.",
-            "Hold this position for 30 seconds.",
+            "Grab your guitar.",
+            "Sit somewhere comfortable.",
+            "Remove anything that may distract you.",
+            "Take a breath and relax your shoulders.",
+            "Get ready to learn one step at a time.",
           ],
         },
 
         {
           title: "Tips",
+
+          content: [
+            "Practice for a small amount of time every day.",
+            "Focus on improvement instead of perfection.",
+            "Repeat any steps that feels confusing.",
+            "Take breaks whenever your hands or shoulders feel tense.",
+          ],
+        },
+
+        {
+          title: "Do & Don’t",
+
+          content: [
+            "Do stay relaxed.",
+            "Do move through the lesson at your own pace.",
+            "Do repeat steps whenever necessary.",
+            "Don’t compare your progress to someone else.",
+            "Don’t rush through instructions.",
+            "Don’t worry about making mistakes.",
+          ],
+        },
+
+        {
+          title: "Mistakes",
+
+          content: [
+            "Trying to learn everything at once.",
+            "Skipping instructions before practicing.",
+            "Tensing the shoulders or hands.",
+            "Giving up because something does not feel natural immediately.",
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "meet-the-guitar",
+
+      title: "Meet Your Guitar",
+
+      subtitle:
+        "Learn the main parts that make up your instrument.",
+
+      instruction:
+        "Look over your guitar and locate each part as it is introduced.",
+
+      tabs: [
+        {
+          title: "Learn",
+
+          content: [
+            "Headstock: The top end of the guitar.",
+            "Tuners: The small pegs used to adjust each string.",
+            "Nut: The small piece where the strings leave the headstock and enter the neck.",
+            "Neck: The long section held by your fretting hand.",
+            "Fretboard: The front surface of the neck where notes are played.",
+            "Frets: The metal wires that divide the fretboard.",
+            "Strings: The six wires that vibrate to create sound.",
+            "Body: The large main section of the guitar.",
+            "Bridge: The part that holds the strings on the body.",
+            "Sound hole: The opening on an acoustic guitar that helps project sound.",
+            "Pickups: The parts on an electric guitar that capture the sound of the strings.",
+          ],
+        },
+
+        {
+          title: "Practice",
+
+          content: [
+            "Point to the headstock.",
+            "Find the tuners.",
+            "Point to the nut.",
+            "Trace the neck down toward the body.",
+            "Find the metal frets.",
+            "Point to the bridge.",
+            "Find the sound hole or pickups.",
+            "Name each part again without reading the list.",
+          ],
+        },
+
+        {
+          title: "Tips",
+
+          content: [
+            "Say the name of each part aloud.",
+            "Touch each part gently while naming it.",
+            "Repeat the exercise from the body back toward the headstock.",
+            "Do not worry about memorizing everything after one attempt.",
+          ],
+        },
+
+        {
+          title: "Do & Don’t",
+
+          content: [
+            "Do handle the guitar carefully.",
+            "Do use the correct name for each part.",
+            "Do repeat the exercise several times.",
+            "Don’t pull on the strings.",
+            "Don’t turn the tuners yet.",
+            "Don’t place heavy pressure on the neck.",
+          ],
+        },
+
+        {
+          title: "Mistakes",
+
+          content: [
+            "Confusing the neck with the fretboard.",
+            "Calling the metal fret wires the frets themselves.",
+            "Confusing the bridge with the nut.",
+            "Turning the tuning pegs before learning how tuning works.",
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "hold-your-guitar",
+
+      title: "Hold Your Guitar",
+
+      subtitle:
+        "Find a comfortable position that keeps your body relaxed.",
+
+      instruction:
+        "Sit toward the front of a chair, rest the guitar against your body, and angle the neck slightly upward.",
+
+      tabs: [
+        {
+          title: "Learn",
+
+          content:
+            "A comfortable playing position gives both hands room to move. Sit upright, keep your shoulders relaxed, and bring the guitar toward your body instead of leaning your body toward the guitar.",
+        },
+
+        {
+          title: "Practice",
 
           content: [
             "Use a chair without armrests when possible.",
-            "Keep both feet planted firmly on the floor.",
-            "Bring the guitar toward your body instead of leaning toward it.",
-            "Let your picking arm rest naturally over the guitar.",
+            "Sit toward the front half of the chair.",
+            "Keep both feet supported.",
+            "Rest the guitar securely against your body.",
+            "Angle the guitar neck slightly upward.",
+            "Let your picking arm rest naturally over the body.",
+            "Hold the position for 30 seconds.",
+          ],
+        },
+
+        {
+          title: "Tips",
+
+          content: [
+            "Keep the guitar close enough that you do not have to reach.",
+            "Let your shoulders hang naturally.",
+            "Keep your back upright without becoming stiff.",
+            "Adjust the guitar until both hands can move comfortably.",
           ],
         },
 
@@ -63,12 +215,12 @@ export const lessonOne: LessonData = {
           title: "Do & Don’t",
 
           content: [
-            "Do sit upright while remaining relaxed.",
-            "Do keep the guitar close to your body.",
             "Do keep the neck slightly raised.",
-            "Don’t hunch your back to see the strings.",
-            "Don’t raise or tense your shoulders.",
-            "Don’t squeeze the guitar against your body.",
+            "Do sit upright while remaining relaxed.",
+            "Do keep the guitar stable against your body.",
+            "Don’t hunch over to see the strings.",
+            "Don’t raise your shoulders.",
+            "Don’t squeeze the guitar tightly.",
           ],
         },
 
@@ -76,42 +228,43 @@ export const lessonOne: LessonData = {
           title: "Mistakes",
 
           content: [
-            "The guitar slides away because it is resting too far forward.",
-            "The neck points toward the floor instead of slightly upward.",
-            "The shoulders become tense while holding the guitar.",
-            "The player leans over the guitar to watch both hands.",
+            "Letting the guitar slide away from the body.",
+            "Pointing the neck toward the floor.",
+            "Leaning far forward over the instrument.",
+            "Holding tension in the shoulders, wrist, or back.",
           ],
         },
       ],
     },
 
     {
-      id: "learn-the-strings",
+      id: "protect-your-guitar",
 
-      title: "Meet the Six Strings",
+      title: "Care for Your Guitar",
 
       subtitle:
-        "Learn how the guitar strings are numbered before playing your first note.",
+        "Build good habits that protect your instrument.",
 
       instruction:
-        "Look at the guitar strings from the thinnest string to the thickest string and identify strings one through six.",
+        "Review each care rule and check where your guitar will be stored after practice.",
 
       tabs: [
         {
           title: "Learn",
 
           content:
-            "Guitar strings are numbered from the thinnest string to the thickest string. The thin string closest to the floor is string 1. The thick string closest to you is string 6.",
+            "A guitar can last for many years when it is stored safely and kept clean. Heat, moisture, falls, and dirt can damage the instrument or make it harder to play.",
         },
 
         {
           title: "Practice",
 
           content: [
-            "Point to the thinnest string and say, “String 1.”",
-            "Move upward and identify strings 2, 3, 4, 5, and 6.",
-            "Point to string 6, then return to string 1.",
-            "Repeat until you can identify every string without counting slowly.",
+            "Choose a safe place to store your guitar.",
+            "Make sure it cannot easily fall over.",
+            "Check that it is away from direct heat.",
+            "Wipe the strings gently after playing.",
+            "Return the guitar to its stand or case after practice.",
           ],
         },
 
@@ -119,10 +272,10 @@ export const lessonOne: LessonData = {
           title: "Tips",
 
           content: [
-            "Remember that string numbers begin with the thinnest string.",
-            "Say each number aloud while pointing to the string.",
-            "Practice moving both upward and downward through the strings.",
-            "Do not worry about memorizing the string names yet.",
+            "Use a guitar stand or case.",
+            "Keep a soft cloth near your practice space.",
+            "Wash and dry your hands before playing.",
+            "Tune the guitar before each practice session once you learn how.",
           ],
         },
 
@@ -130,12 +283,12 @@ export const lessonOne: LessonData = {
           title: "Do & Don’t",
 
           content: [
-            "Do begin counting from the thinnest string.",
-            "Do touch each string gently while naming it.",
-            "Do practice identifying strings in a random order.",
-            "Don’t count from the thickest string.",
-            "Don’t pull or bend the strings while pointing.",
-            "Don’t rush before the numbering feels natural.",
+            "Do store the guitar safely.",
+            "Do wipe the strings after playing.",
+            "Do keep food and drinks away from the instrument.",
+            "Don’t leave the guitar in a hot car.",
+            "Don’t lean it loosely against a wall.",
+            "Don’t expose it to rain or extreme moisture.",
           ],
         },
 
@@ -143,43 +296,48 @@ export const lessonOne: LessonData = {
           title: "Mistakes",
 
           content: [
-            "Starting with the thickest string as string 1.",
-            "Confusing string numbers with fret numbers.",
-            "Only memorizing the order in one direction.",
-            "Pressing the strings down while trying to identify them.",
+            "Leaving the guitar where it can fall.",
+            "Storing it near a heater or sunny window.",
+            "Allowing sweat and dirt to remain on the strings.",
+            "Leaving the instrument inside a hot vehicle.",
           ],
         },
       ],
     },
 
     {
-      id: "understand-the-frets",
+      id: "how-lessons-work",
 
-      title: "Understand the Frets",
+      title: "How Lessons Work",
 
       subtitle:
-        "Learn where your fingers should go when a lesson gives you a fret number.",
+        "Learn the path you will follow through Projekt Fret.",
 
       instruction:
-        "Find the first three metal fret wires and practice placing your finger in the spaces directly behind them.",
+        "Review the four parts of each lesson and how they help you improve.",
 
       tabs: [
         {
           title: "Learn",
 
-          content:
-            "The metal lines across the neck are called fret wires. When you are told to play a fret, place your finger in the space just behind the matching fret wire—not directly on top of the metal.",
+          content: [
+            "Learn: Read or watch the explanation for a new skill.",
+            "Practice: Repeat the skill slowly until it feels comfortable.",
+            "Boss Battle: Complete a challenge that tests what you learned.",
+            "Reward: Earn XP, unlock lessons, and continue through the world.",
+          ],
         },
 
         {
           title: "Practice",
 
           content: [
-            "Find the first fret wire near the headstock.",
-            "Place your first finger in the space just behind it.",
-            "Move your finger to the second fret.",
-            "Move your finger to the third fret.",
-            "Repeat the movement slowly without pressing hard.",
+            "Open each tab in this step.",
+            "Review the Learn section.",
+            "Complete the Practice checklist.",
+            "Read the Tips section.",
+            "Review the Do & Don’t section.",
+            "Check the Mistakes section before continuing.",
           ],
         },
 
@@ -187,10 +345,10 @@ export const lessonOne: LessonData = {
           title: "Tips",
 
           content: [
-            "Place your finger close to the fret wire on the side toward the guitar body.",
-            "Use the fingertip rather than the flat part of your finger.",
-            "Keep your finger curved.",
-            "Use light pressure while practicing the locations.",
+            "You can return to earlier tabs whenever necessary.",
+            "Boss battles are meant to test progress, not punish mistakes.",
+            "Repeating a lesson is part of learning.",
+            "Your skills will build across multiple worlds.",
           ],
         },
 
@@ -198,12 +356,12 @@ export const lessonOne: LessonData = {
           title: "Do & Don’t",
 
           content: [
-            "Do place your finger just behind the fret wire.",
-            "Do use the tip of your finger.",
-            "Do keep the finger curved.",
-            "Don’t place your finger directly on the metal fret.",
-            "Don’t place your finger in the middle of the fret space when avoidable.",
-            "Don’t flatten your finger across nearby strings.",
+            "Do complete the practice before the boss battle.",
+            "Do repeat lessons when you need more time.",
+            "Do focus on accuracy before speed.",
+            "Don’t skip directly to the challenge.",
+            "Don’t treat mistakes as failure.",
+            "Don’t rush only to earn XP.",
           ],
         },
 
@@ -211,43 +369,45 @@ export const lessonOne: LessonData = {
           title: "Mistakes",
 
           content: [
-            "Pressing directly on top of the fret wire.",
-            "Placing the finger too far away from the fret.",
-            "Using the soft, flat part of the finger.",
-            "Letting the finger touch neighboring strings.",
+            "Skipping the Learn section.",
+            "Attempting challenges without practicing.",
+            "Moving too quickly through difficult skills.",
+            "Believing a lesson must be perfect on the first try.",
           ],
         },
       ],
     },
 
     {
-      id: "fret-your-first-note",
+      id: "practice-checkpoint",
 
-      title: "Fret Your First Note",
+      title: "Practice Checkpoint",
 
       subtitle:
-        "Use your first finger to prepare a note on the thinnest string.",
+        "Review everything you learned before facing the Guitar Guardian.",
 
       instruction:
-        "Place your first finger on string 1 at the first fret, just behind the fret wire, and press with your fingertip.",
+        "Complete each challenge before continuing to the boss battle.",
 
       tabs: [
         {
           title: "Learn",
 
           content:
-            "A fretted note is created when your finger shortens the vibrating part of the string. Clean finger placement helps the note ring without buzzing or sounding muted.",
+            "This checkpoint helps you confirm that you are ready for the final challenge. Take your time and repeat any earlier step if something is unclear.",
         },
 
         {
           title: "Practice",
 
           content: [
-            "Find string 1, the thinnest string.",
-            "Place your first finger just behind the first fret.",
-            "Curve your finger so it does not touch string 2.",
-            "Press the string toward the fretboard.",
-            "Hold the position while keeping your wrist relaxed.",
+            "Point to the headstock.",
+            "Point to the bridge.",
+            "Find the neck and fretboard.",
+            "Find the sound hole or pickups.",
+            "Sit with the guitar in a comfortable position.",
+            "Keep your shoulders relaxed for 30 seconds.",
+            "Name one way to protect your guitar.",
           ],
         },
 
@@ -255,10 +415,10 @@ export const lessonOne: LessonData = {
           title: "Tips",
 
           content: [
-            "Keep your thumb relaxed behind the guitar neck.",
-            "Press only as hard as necessary.",
-            "Keep the first knuckle curved.",
-            "Move closer to the fret wire if the note later buzzes.",
+            "Say each answer aloud.",
+            "Complete the challenges without looking at earlier instructions.",
+            "Return to a previous step when you forget something.",
+            "Do not continue until the guitar feels stable and comfortable.",
           ],
         },
 
@@ -266,12 +426,12 @@ export const lessonOne: LessonData = {
           title: "Do & Don’t",
 
           content: [
-            "Do use the tip of your first finger.",
-            "Do keep your wrist and thumb relaxed.",
-            "Do press close to the fret wire.",
-            "Don’t squeeze the neck with your whole hand.",
-            "Don’t allow your finger to touch string 2.",
-            "Don’t lock or sharply bend your wrist.",
+            "Do check every challenge carefully.",
+            "Do repeat any challenge you miss.",
+            "Do stay relaxed while holding the guitar.",
+            "Don’t guess without checking.",
+            "Don’t rush into the boss battle.",
+            "Don’t ignore discomfort or tension.",
           ],
         },
 
@@ -279,54 +439,57 @@ export const lessonOne: LessonData = {
           title: "Mistakes",
 
           content: [
-            "Pressing much harder than necessary.",
-            "Allowing the fingertip to collapse and touch another string.",
-            "Holding the neck tightly with the thumb.",
-            "Placing the finger too far behind the fret wire.",
+            "Confusing the bridge with the nut.",
+            "Holding the guitar with the neck pointing downward.",
+            "Forgetting to relax the shoulders.",
+            "Continuing without understanding the guitar parts.",
           ],
         },
       ],
     },
 
     {
-      id: "pick-the-note",
+      id: "guitar-guardian",
 
-      title: "Play the Note",
+      title: "Boss Battle: Guitar Guardian",
 
       subtitle:
-        "Combine your fretting hand and picking hand for the first time.",
+        "Prove that you are ready to continue your journey.",
 
       instruction:
-        "Keep your first finger on string 1 at the first fret, then gently pick string 1 once and listen carefully to the sound.",
+        "Complete all four challenges to defeat the Guitar Guardian and finish Lesson 1.",
 
       tabs: [
         {
-          title: "Learn",
-
-          content:
-            "Your fretting hand prepares the note while your picking hand makes the string vibrate. A clean note should ring clearly without buzzing, clicking, or immediately stopping.",
-        },
-
-        {
-          title: "Practice",
+          title: "Boss",
 
           content: [
-            "Place your first finger on string 1 at the first fret.",
-            "Hold the pick between your thumb and index finger.",
-            "Pick only string 1 with a small downward motion.",
-            "Let the note ring before playing it again.",
-            "Repeat until you hear three clear notes.",
+            "Challenge 1: Point to the headstock.",
+            "Challenge 2: Point to the bridge.",
+            "Challenge 3: Identify the neck, fretboard, and body.",
+            "Challenge 4: Hold the guitar correctly for 30 seconds with relaxed shoulders.",
           ],
         },
 
         {
-          title: "Tips",
+          title: "Rules",
 
           content: [
-            "Use a small picking motion.",
-            "Keep only a small amount of the pick exposed.",
-            "Let the pick pass through the string instead of stopping against it.",
-            "Listen to each note before repeating.",
+            "Complete every challenge without rushing.",
+            "Repeat a challenge when you are unsure.",
+            "Return to an earlier lesson step whenever needed.",
+            "The goal is confidence, not perfection.",
+          ],
+        },
+
+        {
+          title: "Reward",
+
+          content: [
+            "Earn 100 XP.",
+            "Defeat the Guitar Guardian.",
+            "Complete Meet Your Guitar.",
+            "Unlock Lesson 2: Holding the Pick.",
           ],
         },
 
@@ -334,12 +497,12 @@ export const lessonOne: LessonData = {
           title: "Do & Don’t",
 
           content: [
-            "Do pick the string gently.",
-            "Do allow the note to ring.",
-            "Do check your finger position after a buzzing note.",
-            "Don’t strike several strings at once.",
-            "Don’t use your entire arm to move the pick.",
-            "Don’t immediately repeat the note without listening.",
+            "Do complete all four challenges.",
+            "Do keep the guitar stable and comfortable.",
+            "Do celebrate finishing your first lesson.",
+            "Don’t skip a challenge.",
+            "Don’t tense your shoulders.",
+            "Don’t worry if you need another attempt.",
           ],
         },
 
@@ -347,78 +510,10 @@ export const lessonOne: LessonData = {
           title: "Mistakes",
 
           content: [
-            "Picking string 2 instead of string 1.",
-            "Holding too much of the pick outside the fingers.",
-            "Using a large arm movement to pick.",
-            "Releasing the fretting finger immediately after picking.",
-          ],
-        },
-      ],
-    },
-
-    {
-      id: "play-three-notes",
-
-      title: "Play Three Different Notes",
-
-      subtitle:
-        "Move between the first three frets while keeping every note clear.",
-
-      instruction:
-        "Play string 1 at the first, second, and third frets using fingers one, two, and three.",
-
-      tabs: [
-        {
-          title: "Learn",
-
-          content:
-            "Your first finger normally handles the first fret, your second finger handles the second fret, and your third finger handles the third fret. This one-finger-per-fret approach prepares your hand for melodies and riffs.",
-        },
-
-        {
-          title: "Practice",
-
-          content: [
-            "Play string 1 at the first fret with finger 1.",
-            "Play string 1 at the second fret with finger 2.",
-            "Play string 1 at the third fret with finger 3.",
-            "Return to the second fret, then the first fret.",
-            "Repeat the pattern slowly three times.",
-          ],
-        },
-
-        {
-          title: "Tips",
-
-          content: [
-            "Keep unused fingers close to the strings.",
-            "Move only the finger needed for the next note.",
-            "Prioritize clear notes instead of speed.",
-            "Pause and reset your hand whenever tension builds.",
-          ],
-        },
-
-        {
-          title: "Do & Don’t",
-
-          content: [
-            "Do match each finger to its fret.",
-            "Do keep your fingers curved.",
-            "Do play slowly and evenly.",
-            "Don’t use only one finger for every note.",
-            "Don’t let your fingers fly far away from the fretboard.",
-            "Don’t speed up until every note sounds clear.",
-          ],
-        },
-
-        {
-          title: "Mistakes",
-
-          content: [
-            "Using the first finger for all three frets.",
-            "Lifting every finger far away after each note.",
-            "Rushing through the pattern.",
-            "Ignoring buzzing or muted notes.",
+            "Rushing through the guitar parts.",
+            "Holding the guitar in an unstable position.",
+            "Leaning over the guitar.",
+            "Finishing without reviewing a missed challenge.",
           ],
         },
       ],
