@@ -14,12 +14,30 @@ export type LessonTab = {
   content: string | string[];
 };
 
+export type QuickCheck = {
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation?: string;
+  xpReward?: number;
+};
+
+export type OptionalChallenge = {
+  id: string;
+  title: string;
+  description: string;
+  achievement?: string;
+  xpReward?: number;
+};
+
 export type LessonStepData = {
   id: string;
   title: string;
   subtitle?: string;
   instruction: string;
   tabs?: LessonTab[];
+  quickCheck?: QuickCheck;
+  optionalChallenge?: OptionalChallenge;
 };
 
 export type LessonData = {
@@ -46,12 +64,39 @@ export default function LessonPlayer({
   const [savingProgress, setSavingProgress] = useState(false);
   const [saveError, setSaveError] = useState("");
 
+  const [selectedAnswers, setSelectedAnswers] = useState<
+    Record<string, string>
+  >({});
+
+  const [completedChallenges, setCompletedChallenges] = useState<
+    string[]
+  >([]);
+
+  const [bonusXp, setBonusXp] = useState(0);
+
   const totalSteps = lesson.steps.length;
   const currentStep = lesson.steps[currentStepIndex];
 
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === totalSteps - 1;
   const isFinalWorldOneLesson = lesson.lessonNumber === 7;
+
+  const selectedAnswer = currentStep
+    ? selectedAnswers[currentStep.id]
+    : undefined;
+
+  const quickCheckIsCorrect =
+    !currentStep?.quickCheck ||
+    selectedAnswer === currentStep.quickCheck.correctAnswer;
+
+  const quickCheckWasAnswered = Boolean(selectedAnswer);
+
+  const currentChallengeComplete =
+    currentStep?.optionalChallenge
+      ? completedChallenges.includes(
+          currentStep.optionalChallenge.id
+        )
+      : false;
 
   const currentStepComplete = currentStep
     ? completedSteps.includes(currentStep.id)
@@ -73,6 +118,66 @@ export default function LessonPlayer({
     ]);
   };
 
+  const handleAnswerSelect = (answer: string) => {
+    if (!currentStep?.quickCheck) {
+      return;
+    }
+
+    const alreadyAnsweredCorrectly =
+      selectedAnswers[currentStep.id] ===
+      currentStep.quickCheck.correctAnswer;
+
+    setSelectedAnswers((previousAnswers) => ({
+      ...previousAnswers,
+      [currentStep.id]: answer,
+    }));
+
+    const isCorrect =
+      answer === currentStep.quickCheck.correctAnswer;
+
+    if (isCorrect && !alreadyAnsweredCorrectly) {
+      setBonusXp(
+        (previousXp) =>
+          previousXp + (currentStep.quickCheck?.xpReward ?? 5)
+      );
+    }
+  };
+
+  const handleChallengeToggle = () => {
+    const challenge = currentStep?.optionalChallenge;
+
+    if (!challenge) {
+      return;
+    }
+
+    if (completedChallenges.includes(challenge.id)) {
+      setCompletedChallenges((previousChallenges) =>
+        previousChallenges.filter(
+          (challengeId) => challengeId !== challenge.id
+        )
+      );
+
+      setBonusXp((previousXp) =>
+        Math.max(
+          0,
+          previousXp - (challenge.xpReward ?? 5)
+        )
+      );
+
+      return;
+    }
+
+    setCompletedChallenges((previousChallenges) => [
+      ...previousChallenges,
+      challenge.id,
+    ]);
+
+    setBonusXp(
+      (previousXp) =>
+        previousXp + (challenge.xpReward ?? 5)
+    );
+  };
+
   const handlePreviousStep = () => {
     if (isFirstStep || savingProgress) {
       return;
@@ -81,10 +186,22 @@ export default function LessonPlayer({
     setCurrentStepIndex(
       (previousIndex) => previousIndex - 1
     );
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleNextStep = async () => {
     if (savingProgress) {
+      return;
+    }
+
+    if (
+      currentStep.quickCheck &&
+      !quickCheckIsCorrect
+    ) {
       return;
     }
 
@@ -115,7 +232,10 @@ export default function LessonPlayer({
         behavior: "smooth",
       });
     } catch (error) {
-      console.error("Could not save lesson progress:", error);
+      console.error(
+        "Could not save lesson progress:",
+        error
+      );
 
       setSaveError(
         error instanceof Error
@@ -130,6 +250,9 @@ export default function LessonPlayer({
   const handleRestartLesson = () => {
     setCurrentStepIndex(0);
     setCompletedSteps([]);
+    setSelectedAnswers({});
+    setCompletedChallenges([]);
+    setBonusXp(0);
     setLessonComplete(false);
     setSaveError("");
 
@@ -192,6 +315,13 @@ export default function LessonPlayer({
               progress has been saved.
             </p>
 
+            {bonusXp > 0 && (
+              <div className={styles.bonusSummary}>
+                <span>Lesson bonus</span>
+                <strong>+{bonusXp} XP</strong>
+              </div>
+            )}
+
             <div className={styles.actions}>
               <button
                 type="button"
@@ -246,20 +376,167 @@ export default function LessonPlayer({
             completedSteps={completedSteps.length}
           />
 
+          <div className={styles.bonusXpBar}>
+            <span>Bonus XP</span>
+            <strong>+{bonusXp}</strong>
+          </div>
+
           <LessonStep
             step={currentStep}
             stepNumber={currentStepIndex + 1}
             totalSteps={totalSteps}
           />
 
+          {currentStep.quickCheck && (
+            <section className={styles.quickCheck}>
+              <div className={styles.interactiveHeading}>
+                <div>
+                  <p className={styles.interactiveEyebrow}>
+                    Quick Check
+                  </p>
+
+                  <h2>
+                    {currentStep.quickCheck.question}
+                  </h2>
+                </div>
+
+                <span className={styles.xpPill}>
+                  +{currentStep.quickCheck.xpReward ?? 5} XP
+                </span>
+              </div>
+
+              <div className={styles.answerGrid}>
+                {currentStep.quickCheck.options.map(
+                  (option) => {
+                    const isSelected =
+                      selectedAnswer === option;
+
+                    const isCorrectOption =
+                      option ===
+                      currentStep.quickCheck?.correctAnswer;
+
+                    let answerClass = styles.answerButton;
+
+                    if (isSelected && isCorrectOption) {
+                      answerClass = `${styles.answerButton} ${styles.correctAnswer}`;
+                    } else if (
+                      isSelected &&
+                      !isCorrectOption
+                    ) {
+                      answerClass = `${styles.answerButton} ${styles.incorrectAnswer}`;
+                    }
+
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        className={answerClass}
+                        onClick={() =>
+                          handleAnswerSelect(option)
+                        }
+                      >
+                        <span
+                          className={styles.answerCircle}
+                          aria-hidden="true"
+                        />
+
+                        {option}
+                      </button>
+                    );
+                  }
+                )}
+              </div>
+
+              {quickCheckWasAnswered && (
+                <div
+                  className={
+                    quickCheckIsCorrect
+                      ? styles.correctFeedback
+                      : styles.incorrectFeedback
+                  }
+                >
+                  <strong>
+                    {quickCheckIsCorrect
+                      ? "Correct!"
+                      : "Not quite."}
+                  </strong>
+
+                  <span>
+                    {quickCheckIsCorrect
+                      ? currentStep.quickCheck.explanation ??
+                        "Great work. You are ready to continue."
+                      : "Review the lesson information and try again."}
+                  </span>
+                </div>
+              )}
+            </section>
+          )}
+
+          {currentStep.optionalChallenge && (
+            <section className={styles.optionalChallenge}>
+              <div className={styles.interactiveHeading}>
+                <div>
+                  <p className={styles.interactiveEyebrow}>
+                    Optional Challenge
+                  </p>
+
+                  <h2>
+                    {currentStep.optionalChallenge.title}
+                  </h2>
+                </div>
+
+                <span className={styles.xpPill}>
+                  +
+                  {currentStep.optionalChallenge.xpReward ??
+                    5}{" "}
+                  XP
+                </span>
+              </div>
+
+              <p className={styles.challengeDescription}>
+                {
+                  currentStep.optionalChallenge
+                    .description
+                }
+              </p>
+
+              {currentStep.optionalChallenge
+                .achievement && (
+                <div className={styles.achievementPreview}>
+                  <span aria-hidden="true">🏆</span>
+
+                  <div>
+                    <small>Mini achievement</small>
+                    <strong>
+                      {
+                        currentStep.optionalChallenge
+                          .achievement
+                      }
+                    </strong>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="button"
+                className={
+                  currentChallengeComplete
+                    ? `${styles.challengeButton} ${styles.challengeComplete}`
+                    : styles.challengeButton
+                }
+                onClick={handleChallengeToggle}
+              >
+                {currentChallengeComplete
+                  ? "✓ Challenge completed"
+                  : "Mark challenge complete"}
+              </button>
+            </section>
+          )}
+
           {saveError && (
             <p
               role="alert"
-              style={{
-                color: "#ffb6b6",
-                textAlign: "center",
-                marginTop: "18px",
-              }}
+              className={styles.saveError}
             >
               {saveError}
             </p>
@@ -283,19 +560,30 @@ export default function LessonPlayer({
               type="button"
               className={`${styles.button} ${styles.next}`}
               onClick={handleNextStep}
-              disabled={savingProgress}
+              disabled={
+                savingProgress ||
+                Boolean(
+                  currentStep.quickCheck &&
+                    !quickCheckIsCorrect
+                )
+              }
             >
               {savingProgress
                 ? "Saving progress..."
-                : isLastStep
-                  ? "Defeat boss"
-                  : "Continue"}
+                : currentStep.quickCheck &&
+                    !quickCheckIsCorrect
+                  ? "Complete quick check"
+                  : isLastStep
+                    ? "Defeat boss"
+                    : "Continue"}
 
-              {!savingProgress && (
-                <span aria-hidden="true">
-                  {isLastStep ? "⚔" : "→"}
-                </span>
-              )}
+              {!savingProgress &&
+                (!currentStep.quickCheck ||
+                  quickCheckIsCorrect) && (
+                  <span aria-hidden="true">
+                    {isLastStep ? "⚔" : "→"}
+                  </span>
+                )}
             </button>
           </nav>
         </section>

@@ -1,14 +1,6 @@
-import ComingSoon from "../../Components/coming-soon/ComingSoon";
+import LessonPlayer from "@/app/Components/lesson/LessonPlayer";
+import { lessonTwo } from "@/app/data/lessons/lessonTwo";
 
 export default function LessonTwoPage() {
-  return (
-    <ComingSoon
-      icon="🎸"
-      eyebrow="Lesson 2"
-      title="Holding the Pick"
-      description="Learn how to hold a guitar pick, stay relaxed, and use controlled downstrokes and upstrokes."
-      returnHref="/world"
-      returnLabel="Return to world"
-    />
-  );
+  return <LessonPlayer lesson={lessonTwo} />;
 }

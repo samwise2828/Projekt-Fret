@@ -324,3 +324,260 @@
     width: 100%;
   }
 }
+.bonusXpBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 18px 0;
+  padding: 12px 16px;
+
+  border: 1px solid rgba(255, 210, 92, 0.24);
+  border-radius: 14px;
+
+  background: rgba(255, 196, 61, 0.08);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.bonusXpBar strong {
+  color: #ffd66b;
+}
+
+.quickCheck,
+.optionalChallenge {
+  margin-top: 24px;
+  padding: 24px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(19, 35, 33, 0.96),
+      rgba(8, 18, 19, 0.96)
+    );
+}
+
+.interactiveHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.interactiveHeading h2 {
+  margin: 4px 0 0;
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  color: white;
+}
+
+.interactiveEyebrow {
+  margin: 0;
+  color: #73e6b3;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.xpPill {
+  flex-shrink: 0;
+
+  padding: 7px 11px;
+
+  border: 1px solid rgba(255, 214, 107, 0.28);
+  border-radius: 999px;
+
+  background: rgba(255, 214, 107, 0.08);
+  color: #ffd66b;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.answerGrid {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.answerButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 15px 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.86);
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.answerButton:hover {
+  transform: translateY(-1px);
+  border-color: rgba(115, 230, 179, 0.46);
+  background: rgba(115, 230, 179, 0.07);
+}
+
+.answerCircle {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+}
+
+.correctAnswer {
+  border-color: rgba(95, 229, 153, 0.72);
+  background: rgba(95, 229, 153, 0.12);
+}
+
+.correctAnswer .answerCircle {
+  border-color: #5fe599;
+  background: #5fe599;
+  box-shadow: inset 0 0 0 4px rgba(10, 28, 21, 0.9);
+}
+
+.incorrectAnswer {
+  border-color: rgba(255, 116, 116, 0.68);
+  background: rgba(255, 116, 116, 0.1);
+}
+
+.incorrectAnswer .answerCircle {
+  border-color: #ff7474;
+  background: #ff7474;
+  box-shadow: inset 0 0 0 4px rgba(35, 12, 14, 0.9);
+}
+
+.correctFeedback,
+.incorrectFeedback {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin-top: 16px;
+  padding: 14px 16px;
+
+  border-radius: 14px;
+}
+
+.correctFeedback {
+  border: 1px solid rgba(95, 229, 153, 0.34);
+  background: rgba(95, 229, 153, 0.09);
+  color: #b9f6d3;
+}
+
+.incorrectFeedback {
+  border: 1px solid rgba(255, 116, 116, 0.34);
+  background: rgba(255, 116, 116, 0.08);
+  color: #ffc1c1;
+}
+
+.challengeDescription {
+  margin: 16px 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+}
+
+.achievementPreview {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin: 18px 0;
+  padding: 14px 16px;
+
+  border: 1px solid rgba(255, 210, 92, 0.2);
+  border-radius: 14px;
+
+  background: rgba(255, 196, 61, 0.06);
+}
+
+.achievementPreview > span {
+  font-size: 1.5rem;
+}
+
+.achievementPreview div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.achievementPreview small {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.achievementPreview strong {
+  color: #ffd66b;
+}
+
+.challengeButton {
+  width: 100%;
+  padding: 13px 16px;
+
+  border: 1px solid rgba(115, 230, 179, 0.38);
+  border-radius: 13px;
+
+  background: rgba(115, 230, 179, 0.08);
+  color: #9ef0c9;
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.challengeComplete {
+  border-color: rgba(95, 229, 153, 0.72);
+  background: rgba(95, 229, 153, 0.16);
+  color: #c2f8d9;
+}
+
+.bonusSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: min(100%, 420px);
+  margin: 20px auto 0;
+  padding: 14px 17px;
+
+  border: 1px solid rgba(255, 214, 107, 0.26);
+  border-radius: 14px;
+
+  background: rgba(255, 214, 107, 0.08);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.bonusSummary strong {
+  color: #ffd66b;
+}
+
+.saveError {
+  margin-top: 18px;
+  color: #ffb6b6;
+  text-align: center;
+}
+
+@media (max-width: 620px) {
+  .quickCheck,
+  .optionalChallenge {
+    padding: 19px;
+  }
+
+  .interactiveHeading {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
