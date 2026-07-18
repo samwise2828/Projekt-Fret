@@ -1,0 +1,244 @@
+/* =========================================================
+   LESSON PLAYER
+   Main page layout
+   ========================================================= */
+
+.lessonPlayer {
+  min-height: 100vh;
+  padding: 110px 24px 70px;
+
+  color: #f5f1e8;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(228, 139, 63, 0.12),
+      transparent 36%
+    ),
+    linear-gradient(
+      180deg,
+      #07100f 0%,
+      #050b0b 55%,
+      #030707 100%
+    );
+}
+
+.body {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty {
+  display: grid;
+  place-items: center;
+
+  min-height: 100vh;
+
+  text-align: center;
+}
+
+.empty h1 {
+  margin-bottom: 12px;
+}
+
+.empty p {
+  color: rgba(245, 241, 232, 0.65);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-top: 32px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 14px 24px;
+
+  border: none;
+  border-radius: 14px;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    opacity 180ms ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.previous {
+  color: #f5f1e8;
+
+  background: rgba(255,255,255,.08);
+}
+
+.previous:hover:not(:disabled) {
+  background: rgba(255,255,255,.12);
+}
+
+.next {
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #c96d31,
+    #eba55e
+  );
+}
+
+.next:hover {
+  filter: brightness(1.08);
+}
+
+/* =========================================================
+   COMPLETE SCREEN
+   ========================================================= */
+
+.complete {
+  display: grid;
+  place-items: center;
+
+  min-height: 100vh;
+
+  padding: 40px;
+}
+
+.completeCard {
+  width: min(650px, 100%);
+
+  padding: 48px;
+
+  text-align: center;
+
+  border: 1px solid rgba(233,163,95,.18);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,29,27,.98),
+      rgba(8,15,14,.98)
+    );
+}
+
+.completeIcon {
+  display: grid;
+  place-items: center;
+
+  width: 90px;
+  height: 90px;
+
+  margin: 0 auto 28px;
+
+  border-radius: 50%;
+
+  background: rgba(82,180,117,.15);
+
+  color: #79e29b;
+
+  font-size: 2.3rem;
+  font-weight: 900;
+}
+
+.completeEyebrow {
+  color: #e9a35f;
+
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.completeTitle {
+  margin: 16px 0;
+
+  font-size: 2.4rem;
+}
+
+.completeDescription {
+  color: rgba(245,241,232,.7);
+
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+
+  margin-top: 36px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-weight: 700;
+}
+
+.secondary {
+  background: rgba(255,255,255,.08);
+  color: white;
+}
+
+.primary {
+  background: linear-gradient(
+    135deg,
+    #c96d31,
+    #eba55e
+  );
+
+  color: white;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .lessonPlayer {
+    padding: 90px 14px 40px;
+  }
+
+  .navigation {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+}

@@ -34,7 +34,7 @@ export default function DashboardPage() {
         </p>
 
         <Link
-          href="/lesson-1"
+          href="/lesson/1"
           style={{
             display: "inline-block",
             marginTop: "2rem",

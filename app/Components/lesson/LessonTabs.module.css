@@ -1,0 +1,191 @@
+/* =========================================================
+   LESSON TABS
+   ========================================================= */
+
+.tabs {
+  margin-top: 8px;
+}
+
+/* =========================================================
+   TAB BUTTONS
+   ========================================================= */
+
+.tabList {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding-bottom: 8px;
+
+  scrollbar-width: thin;
+}
+
+.tabButton {
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: rgba(245, 241, 232, 0.58);
+
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.tabButton:hover {
+  color: #fff7e9;
+
+  border-color: rgba(233, 163, 95, 0.28);
+
+  background: rgba(233, 163, 95, 0.07);
+
+  transform: translateY(-1px);
+}
+
+.active {
+  color: #fff7e9;
+
+  border-color: rgba(233, 163, 95, 0.5);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 109, 50, 0.28),
+      rgba(239, 164, 92, 0.12)
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(233, 163, 95, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================================================
+   TAB PANEL
+   ========================================================= */
+
+.panel {
+  margin-top: 10px;
+  padding: 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.018)
+    );
+}
+
+.panelTitle {
+  margin: 0 0 14px;
+
+  color: #e9a35f;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.contentText {
+  margin: 0;
+
+  color: rgba(255, 247, 233, 0.8);
+
+  line-height: 1.75;
+}
+
+/* =========================================================
+   LIST CONTENT
+   ========================================================= */
+
+.contentList {
+  display: grid;
+  gap: 12px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.contentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  color: rgba(255, 247, 233, 0.8);
+
+  line-height: 1.65;
+}
+
+.contentMarker {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+
+  border: 1px solid rgba(233, 163, 95, 0.25);
+  border-radius: 50%;
+
+  background: rgba(233, 163, 95, 0.08);
+
+  color: #e9a35f;
+
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+/* =========================================================
+   KEYBOARD FOCUS
+   ========================================================= */
+
+.tabButton:focus-visible {
+  outline: 2px solid #e9a35f;
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .tabList {
+    margin-right: -21px;
+    padding-right: 21px;
+  }
+
+  .tabButton {
+    padding: 9px 12px;
+
+    font-size: 0.78rem;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .contentItem {
+    gap: 9px;
+  }
+}

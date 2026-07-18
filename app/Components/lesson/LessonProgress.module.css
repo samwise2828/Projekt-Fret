@@ -1,0 +1,177 @@
+/* =========================================================
+   LESSON PROGRESS
+   ========================================================= */
+
+.progress {
+  margin-bottom: 22px;
+  padding: 20px 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* =========================================================
+   TOP ROW
+   ========================================================= */
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+
+  margin-bottom: 14px;
+}
+
+.label {
+  margin: 0 0 4px;
+
+  color: rgba(245, 241, 232, 0.5);
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.stepCount {
+  margin: 0;
+
+  color: #fff7e9;
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.completed {
+  color: rgba(245, 241, 232, 0.52);
+}
+
+.percentage {
+  color: #e9a35f;
+}
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.track {
+  height: 9px;
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    #c86d32,
+    #efa45c
+  );
+
+  box-shadow: 0 0 18px rgba(233, 163, 95, 0.35);
+
+  transition: width 300ms ease;
+}
+
+/* =========================================================
+   STEP DOTS
+   ========================================================= */
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+
+  color: rgba(245, 241, 232, 0.4);
+  background: #08100f;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.current {
+  border-color: #e9a35f;
+
+  color: #fff7e9;
+
+  box-shadow: 0 0 0 4px rgba(233, 163, 95, 0.1);
+
+  transform: scale(1.05);
+}
+
+.completedDot {
+  border-color: rgba(91, 190, 132, 0.55);
+
+  color: #8ee0ad;
+  background: rgba(52, 127, 82, 0.18);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .progress {
+    padding: 18px;
+  }
+
+  .topRow {
+    align-items: flex-start;
+  }
+
+  .summary {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .steps {
+    gap: 5px;
+  }
+
+  .dot {
+    width: 26px;
+    height: 26px;
+
+    font-size: 0.68rem;
+  }
+}
