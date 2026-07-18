@@ -1,0 +1,436 @@
+.worldMap {
+  position: relative;
+  isolation: isolate;
+
+  display: grid;
+  grid-template-columns: minmax(300px, 0.75fr) minmax(640px, 1.6fr);
+
+  min-height: calc(100vh - 164px);
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 226, 185, 0.14);
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 8, 12, 0.98) 0%,
+      rgba(3, 10, 14, 0.88) 29%,
+      rgba(3, 10, 12, 0.28) 55%,
+      rgba(1, 5, 7, 0.3) 100%
+    ),
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(214, 100, 25, 0.18),
+      transparent 24%
+    ),
+    linear-gradient(
+      180deg,
+      #071622 0%,
+      #071713 48%,
+      #020706 100%
+    );
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.46),
+    inset 0 0 90px rgba(0, 0, 0, 0.42);
+}
+
+.worldMap::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 70% 90%,
+      rgba(50, 84, 40, 0.28),
+      transparent 46%
+    ),
+    repeating-linear-gradient(
+      118deg,
+      transparent 0,
+      transparent 110px,
+      rgba(20, 50, 39, 0.12) 111px,
+      rgba(20, 50, 39, 0.12) 145px
+    );
+
+  content: "";
+}
+
+.backgroundGlow {
+  position: absolute;
+  z-index: -1;
+  top: -10%;
+  right: -10%;
+
+  width: 55%;
+  height: 55%;
+
+  border-radius: 50%;
+  background: rgba(255, 125, 36, 0.08);
+  filter: blur(70px);
+}
+
+.worldIntroduction {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: clamp(40px, 6vw, 86px);
+}
+
+.worldLabel {
+  margin-bottom: 16px;
+
+  color: #ff9e36;
+
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.worldTitle {
+  max-width: 440px;
+  margin: 0;
+
+  color: #f4e5cb;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 4vw, 4.35rem);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: min(100%, 320px);
+  margin: 34px 0;
+}
+
+.divider span {
+  height: 1px;
+  flex: 1;
+  background: rgba(240, 203, 154, 0.48);
+}
+
+.divider i {
+  width: 10px;
+  height: 10px;
+
+  background: #a8845a;
+
+  transform: rotate(45deg);
+}
+
+.worldDescription {
+  max-width: 390px;
+  margin: 0;
+
+  color: rgba(247, 238, 223, 0.82);
+
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.progressCard {
+  width: min(100%, 330px);
+  margin-top: 48px;
+  padding: 28px;
+
+  border: 1px solid rgba(238, 210, 168, 0.16);
+  border-radius: 20px;
+
+  background: rgba(5, 9, 10, 0.78);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  backdrop-filter: blur(14px);
+}
+
+.progressHeading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.fireIcon {
+  color: #ff9f35;
+  font-size: 2.1rem;
+  transform: rotate(45deg);
+  text-shadow: 0 0 20px rgba(255, 141, 43, 0.55);
+}
+
+.progressHeading div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.progressHeading strong {
+  color: #f7ebd7;
+  font-size: 1.65rem;
+}
+
+.progressHeading div span {
+  color: #dbb983;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.progressTrack {
+  height: 10px;
+  margin-top: 25px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: inherit;
+
+  background: linear-gradient(90deg, #ff9634, #ffc266);
+  box-shadow: 0 0 16px rgba(255, 151, 52, 0.5);
+}
+
+.pathArea {
+  position: relative;
+  min-height: 820px;
+}
+
+.pathArea::before {
+  position: absolute;
+  right: -8%;
+  bottom: -10%;
+  left: -10%;
+
+  height: 75%;
+
+  background:
+    radial-gradient(
+      ellipse at 58% 85%,
+      rgba(76, 86, 54, 0.34),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 38% 58%,
+      rgba(41, 70, 50, 0.3),
+      transparent 43%
+    );
+
+  content: "";
+}
+
+.pathLine {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.pathLine path {
+  fill: none;
+
+  stroke: rgba(219, 175, 112, 0.34);
+  stroke-width: 3.3;
+  stroke-linecap: round;
+  stroke-dasharray: 2 2;
+
+  filter: drop-shadow(0 0 6px rgba(255, 178, 76, 0.22));
+}
+
+.moon {
+  position: absolute;
+  top: 7%;
+  left: 10%;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: #cfe6ef;
+
+  box-shadow:
+    -13px 4px 0 3px #071622 inset,
+    0 0 30px rgba(198, 230, 243, 0.28);
+}
+
+.campfire {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  right: 7%;
+
+  display: grid;
+  place-items: center;
+
+  width: 100px;
+  height: 100px;
+}
+
+.flame {
+  position: relative;
+  z-index: 2;
+
+  color: #ff9e30;
+  font-size: 4.3rem;
+
+  transform: rotate(180deg) scaleX(0.65);
+
+  text-shadow:
+    0 0 12px #ff7b20,
+    0 0 30px #ff9c35,
+    0 0 55px rgba(255, 118, 24, 0.85);
+}
+
+.fireGlow {
+  position: absolute;
+
+  width: 150px;
+  height: 75px;
+
+  border-radius: 50%;
+  background: rgba(255, 124, 27, 0.2);
+  filter: blur(24px);
+}
+
+.lanternOne,
+.lanternTwo,
+.lanternThree,
+.lanternFour {
+  position: absolute;
+  z-index: 2;
+
+  width: 8px;
+  height: 16px;
+
+  border: 1px solid #ffd08d;
+  border-radius: 3px;
+
+  background: #ff9d38;
+
+  box-shadow:
+    0 0 7px #ff9d38,
+    0 0 18px rgba(255, 157, 56, 0.68);
+}
+
+.lanternOne {
+  top: 30%;
+  left: 61%;
+}
+
+.lanternTwo {
+  top: 48%;
+  left: 66%;
+}
+
+.lanternThree {
+  top: 65%;
+  left: 47%;
+}
+
+.lanternFour {
+  top: 70%;
+  left: 27%;
+}
+
+@media (max-width: 1050px) {
+  .worldMap {
+    grid-template-columns: 310px minmax(560px, 1fr);
+    overflow-x: auto;
+  }
+
+  .worldIntroduction {
+    padding: 42px 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  .worldMap {
+    display: block;
+    overflow: hidden;
+  }
+
+  .worldIntroduction {
+    padding: 38px 25px 10px;
+  }
+
+  .worldTitle {
+    max-width: none;
+  }
+
+  .worldDescription {
+    max-width: 520px;
+  }
+
+  .progressCard {
+    margin-top: 28px;
+  }
+
+  .pathArea {
+    min-height: 760px;
+  }
+}
+
+@media (max-width: 600px) {
+  .worldMap {
+    border-radius: 18px;
+  }
+
+  .worldIntroduction {
+    padding: 30px 20px 0;
+  }
+
+  .worldLabel {
+    font-size: 0.75rem;
+  }
+
+  .worldTitle {
+    font-size: 2.5rem;
+  }
+
+  .divider {
+    margin: 24px 0;
+  }
+
+  .worldDescription {
+    font-size: 0.95rem;
+  }
+
+  .progressCard {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .pathArea {
+    min-height: 700px;
+  }
+
+  .campfire {
+    right: 0;
+    transform: scale(0.72);
+  }
+
+  .moon {
+    left: 5%;
+    transform: scale(0.75);
+  }
+}
