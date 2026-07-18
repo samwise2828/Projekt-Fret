@@ -30,6 +30,8 @@ export default function WorldMap() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    let active = true;
+
     async function loadProgress() {
       setLoading(true);
       setErrorMessage("");
@@ -38,6 +40,10 @@ export default function WorldMap() {
         data: { user },
         error: userError,
       } = await supabase.auth.getUser();
+
+      if (!active) {
+        return;
+      }
 
       if (userError || !user) {
         router.push("/login");
@@ -50,7 +56,11 @@ export default function WorldMap() {
         .eq("user_id", user.id)
         .single();
 
-      if (error) {
+      if (!active) {
+        return;
+      }
+
+      if (error || !data) {
         console.error("Could not load progress:", error);
         setErrorMessage("We could not load your progress.");
         setLoading(false);
@@ -62,6 +72,10 @@ export default function WorldMap() {
     }
 
     loadProgress();
+
+    return () => {
+      active = false;
+    };
   }, [router]);
 
   if (loading) {
@@ -97,6 +111,7 @@ export default function WorldMap() {
   }
 
   const completedLessons = progress.completed_lessons ?? [];
+  const currentLesson = progress.current_lesson;
   const totalLessons = worldOne.lessons.length;
 
   const completedLessonCount = worldOne.lessons.filter((lesson) =>
@@ -113,7 +128,7 @@ export default function WorldMap() {
       return "completed";
     }
 
-    if (lessonId === progress.current_lesson) {
+    if (lessonId === currentLesson) {
       return "ready";
     }
 
