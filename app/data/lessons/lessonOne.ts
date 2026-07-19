@@ -5,167 +5,85 @@ export const lessonOne: LessonData = {
 
   lessonNumber: 1,
 
-  title: "Meet Your Guitar",
+  title: "Welcome to the Guitar",
 
-  description:
-    "Learn the main parts of your guitar, how to hold it comfortably, how to care for it, and how lessons work in Projekt Fret.",
+description:
+  "Welcome to Campfire Valley! In this lesson you'll learn how to hold your guitar, hold a pick, identify the strings, and begin your journey toward playing real songs.",
 
-  estimatedMinutes: 15,
+estimatedMinutes: 12,
 
-  xpReward: 100,
+xpReward: 100,
 
-  difficulty: "Beginner",
+difficulty: "Beginner",
 
   steps: [
     {
-      id: "welcome-to-projekt-fret",
+  id: "welcome-to-the-guitar",
 
-      title: "Welcome to Projekt Fret",
+  title: "Welcome to the Guitar",
 
-      subtitle:
-        "Your guitar journey starts here.",
+  subtitle:
+    "Every great guitarist starts with a single lesson.",
 
-      instruction:
-        "Grab your guitar, find a comfortable place to sit, and get ready to begin your first lesson.",
+  instruction:
+    "Grab your guitar, find a comfortable place to sit, and get ready to begin your journey through Campfire Valley.",
 
-      tabs: [
-        {
-          title: "Learn",
+  tabs: [
+    {
+      title: "Learn",
 
-          content:
-            "You do not need any experience to begin. Projekt Fret will guide you one skill at a time through lessons, practice challenges, boss battles, rewards, songs, and new worlds.",
-        },
+      content:
+        "Welcome to Projekt Fret! Whether your goal is to play your favorite songs, perform on stage, write your own music, or simply have fun, every guitarist begins exactly where you are today. You don't need experience or natural talent—just a willingness to practice and enjoy the journey. Throughout Campfire Valley you'll unlock new skills, earn XP, defeat boss battles, and most importantly, learn to play real music.",
+    },
 
-        {
-          title: "Practice",
+    {
+      title: "Practice",
 
-          content: [
-            "Grab your guitar.",
-            "Sit somewhere comfortable.",
-            "Remove anything that may distract you.",
-            "Take a breath and relax your shoulders.",
-            "Get ready to learn one step at a time.",
-          ],
-        },
-
-        {
-          title: "Tips",
-
-          content: [
-            "Practice for a small amount of time every day.",
-            "Focus on improvement instead of perfection.",
-            "Repeat any steps that feels confusing.",
-            "Take breaks whenever your hands or shoulders feel tense.",
-          ],
-        },
-
-        {
-          title: "Do & Don’t",
-
-          content: [
-            "Do stay relaxed.",
-            "Do move through the lesson at your own pace.",
-            "Do repeat steps whenever necessary.",
-            "Don’t compare your progress to someone else.",
-            "Don’t rush through instructions.",
-            "Don’t worry about making mistakes.",
-          ],
-        },
-
-        {
-          title: "Mistakes",
-
-          content: [
-            "Trying to learn everything at once.",
-            "Skipping instructions before practicing.",
-            "Tensing the shoulders or hands.",
-            "Giving up because something does not feel natural immediately.",
-          ],
-        },
+      content: [
+        "Grab your guitar.",
+        "Find a comfortable place to sit.",
+        "Put away distractions for the next few minutes.",
+        "Take a deep breath and relax your shoulders.",
+        "Think about one reason you want to learn guitar.",
       ],
     },
 
     {
-      id: "meet-the-guitar",
+      title: "Tips",
 
-      title: "Meet Your Guitar",
-
-      subtitle:
-        "Learn the main parts that make up your instrument.",
-
-      instruction:
-        "Look over your guitar and locate each part as it is introduced.",
-
-      tabs: [
-        {
-          title: "Learn",
-
-          content: [
-            "Headstock: The top end of the guitar.",
-            "Tuners: The small pegs used to adjust each string.",
-            "Nut: The small piece where the strings leave the headstock and enter the neck.",
-            "Neck: The long section held by your fretting hand.",
-            "Fretboard: The front surface of the neck where notes are played.",
-            "Frets: The metal wires that divide the fretboard.",
-            "Strings: The six wires that vibrate to create sound.",
-            "Body: The large main section of the guitar.",
-            "Bridge: The part that holds the strings on the body.",
-            "Sound hole: The opening on an acoustic guitar that helps project sound.",
-            "Pickups: The parts on an electric guitar that capture the sound of the strings.",
-          ],
-        },
-
-        {
-          title: "Practice",
-
-          content: [
-            "Point to the headstock.",
-            "Find the tuners.",
-            "Point to the nut.",
-            "Trace the neck down toward the body.",
-            "Find the metal frets.",
-            "Point to the bridge.",
-            "Find the sound hole or pickups.",
-            "Name each part again without reading the list.",
-          ],
-        },
-
-        {
-          title: "Tips",
-
-          content: [
-            "Say the name of each part aloud.",
-            "Touch each part gently while naming it.",
-            "Repeat the exercise from the body back toward the headstock.",
-            "Do not worry about memorizing everything after one attempt.",
-          ],
-        },
-
-        {
-          title: "Do & Don’t",
-
-          content: [
-            "Do handle the guitar carefully.",
-            "Do use the correct name for each part.",
-            "Do repeat the exercise several times.",
-            "Don’t pull on the strings.",
-            "Don’t turn the tuners yet.",
-            "Don’t place heavy pressure on the neck.",
-          ],
-        },
-
-        {
-          title: "Mistakes",
-
-          content: [
-            "Confusing the neck with the fretboard.",
-            "Calling the metal fret wires the frets themselves.",
-            "Confusing the bridge with the nut.",
-            "Turning the tuning pegs before learning how tuning works.",
-          ],
-        },
+      content: [
+        "Practice a little every day instead of a lot once a week.",
+        "Mistakes are part of learning.",
+        "Go at your own pace.",
+        "Enjoy the process instead of rushing to the finish.",
       ],
     },
+
+    {
+      title: "Do & Don't",
+
+      content: [
+        "Do stay relaxed.",
+        "Do take your time.",
+        "Do repeat lessons whenever you need to.",
+        "Don't compare yourself to other players.",
+        "Don't expect perfection on day one.",
+        "Don't give up if something feels difficult.",
+      ],
+    },
+
+    {
+      title: "Mistakes",
+
+      content: [
+        "Trying to rush through the lesson.",
+        "Feeling discouraged after making mistakes.",
+        "Skipping practice sections.",
+        "Thinking you need natural talent to become a guitarist.",
+      ],
+    },
+  ],
+},
 
     {
       id: "hold-your-guitar",

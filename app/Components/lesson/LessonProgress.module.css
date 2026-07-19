@@ -1,216 +1,264 @@
 /* =========================================================
    LESSON PROGRESS
-   Fixed top HUD
+   Left Side Quest Tracker
    ========================================================= */
 
 .progress {
   position: fixed;
-  top: 18px;
-  left: 50%;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+
   z-index: 90;
 
-  width: min(760px, calc(100% - 360px));
-  padding: 12px 16px;
+  width: 165px;
+  max-height: 80vh;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+
+  padding: 14px 12px;
+
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 16px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(8, 22, 21, 0.94),
-      rgba(5, 14, 15, 0.94)
+      rgba(8,22,21,.96),
+      rgba(5,14,15,.96)
     );
 
+  backdrop-filter: blur(18px);
+
   box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-  backdrop-filter: blur(14px);
-
-  transform: translateX(-50%);
+    0 12px 28px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 /* =========================================================
-   TOP ROW
+   HEADER
    ========================================================= */
 
-.topRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+.topRow{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 
-  margin-bottom: 9px;
+  margin-bottom:20px;
 }
 
-.label {
-  margin: 0 0 2px;
+.label{
+  margin:0;
 
-  color: rgba(245, 241, 232, 0.46);
+  color:rgba(245,241,232,.45);
 
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
 }
 
-.stepCount {
-  margin: 0;
+.stepCount{
+  margin-top:4px;
 
-  color: #fff7e9;
+  color:#fff7e9;
 
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size:1rem;
+  font-weight:800;
 }
 
-.summary {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+.summary{
+  margin-top:8px;
 
-  font-size: 0.76rem;
-  font-weight: 800;
+  display:flex;
+  gap:8px;
+
+  font-size:.75rem;
+  font-weight:700;
 }
 
-.completed {
-  color: rgba(245, 241, 232, 0.5);
+.completed{
+  color:rgba(255,255,255,.45);
 }
 
-.percentage {
-  color: #e9a35f;
+.percentage{
+  color:#e9a35f;
 }
 
 /* =========================================================
-   PROGRESS BAR
+   REMOVE OLD BAR
    ========================================================= */
 
-.track {
-  height: 6px;
-  overflow: hidden;
-
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.fill {
-  height: 100%;
-
-  border-radius: inherit;
-
-  background: linear-gradient(
-    90deg,
-    #c86d32,
-    #efa45c
-  );
-
-  box-shadow: 0 0 16px rgba(233, 163, 95, 0.3);
-
-  transition: width 300ms ease;
+.track,
+.fill{
+  display:none;
 }
 
 /* =========================================================
-   STEP DOTS
+   QUEST PATH
    ========================================================= */
 
-.steps {
-  display: flex;
-  justify-content: space-between;
-  gap: 7px;
+.steps{
+  position:relative;
 
-  margin-top: 9px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+
+  margin-top:10px;
+  padding-left:6px;
 }
 
-.dot {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
+.steps::before{
+  content:"";
 
-  width: 23px;
-  height: 23px;
+  position:absolute;
 
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 50%;
+  left:10px;
+  top:10px;
+  bottom:10px;
 
-  color: rgba(245, 241, 232, 0.38);
-  background: #08100f;
+  width:2px;
 
-  font-size: 0.64rem;
-  font-weight: 800;
-
-  transition:
-    color 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease;
-}
-
-.current {
-  border-color: #e9a35f;
-
-  color: #fff7e9;
-
-  box-shadow: 0 0 0 3px rgba(233, 163, 95, 0.1);
-
-  transform: scale(1.06);
-}
-
-.completedDot {
-  border-color: rgba(91, 190, 132, 0.55);
-
-  color: #8ee0ad;
-  background: rgba(52, 127, 82, 0.18);
+  background:rgba(255,255,255,.08);
 }
 
 /* =========================================================
-   RESPONSIVE
+   STEP
    ========================================================= */
 
-@media (max-width: 1180px) {
-  .progress {
-    width: min(660px, calc(100% - 300px));
-  }
+.dot{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:22px;
+  height:22px;
+
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);
+
+  background:#08100f;
+
+  color:rgba(255,255,255,.45);
+
+  font-size:.7rem;
+  font-weight:800;
+
+  transition:.25s;
 }
 
-@media (max-width: 900px) {
-  .progress {
-    position: relative;
-    top: auto;
-    left: auto;
-    z-index: auto;
+.dot::after{
+  content:attr(data-label);
 
-    width: 100%;
-    margin-bottom: 20px;
+  position:absolute;
+  left:34px;
 
-    transform: none;
-  }
+  width:170px;
+
+  color:#f5f1e8;
+
+  font-size:.82rem;
+  font-weight:600;
+
+  white-space:nowrap;
 }
 
-@media (max-width: 640px) {
-  .progress {
-    padding: 12px;
-  }
+/* =========================================================
+   CURRENT STEP
+   ========================================================= */
 
-  .topRow {
-    align-items: flex-start;
-  }
+.current{
+  border-color:#e9a35f;
 
-  .summary {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
-  }
+  color:#fff;
 
-  .steps {
-    gap: 4px;
-  }
+  background:#c86d32;
 
-  .dot {
-    width: 22px;
-    height: 22px;
+  transform:scale(1.12);
 
-    font-size: 0.62rem;
-  }
+  box-shadow:
+    0 0 20px rgba(233,163,95,.45);
+}
+
+/* =========================================================
+   COMPLETED
+   ========================================================= */
+
+.completedDot{
+  border-color:#5bc27d;
+
+  background:#2e6d48;
+
+  color:white;
+}
+
+.completedDot::before{
+  content:"✓";
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width:900px){
+
+.progress{
+  position:relative;
+
+  top:auto;
+  left:auto;
+
+  width:100%;
+  max-height:none;
+
+  margin-bottom:20px;
+}
+
+.steps{
+  flex-direction:row;
+  justify-content:space-between;
+}
+
+.steps::before{
+  left:12px;
+  right:12px;
+  top:10px;
+  bottom:auto;
+
+  width:auto;
+  height:2px;
+}
+
+.dot::after{
+  display:none;
+}
+
+}
+.stepRow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.stepLabel{
+  color:#f5f1e8;
+
+  font-size:.78rem;
+  font-weight:600;
+
+  transition:.2s;
+}
+
+.current + .stepLabel{
+  color:#fff;
+
+  font-weight:700;
+}
+
+.completedDot + .stepLabel{
+  color:#9fe3b9;
 }

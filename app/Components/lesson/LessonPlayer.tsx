@@ -63,7 +63,11 @@ export type LessonData = {
   description: string;
   estimatedMinutes?: number;
   xpReward?: number;
-  difficulty?: "Beginner" | "Easy" | "Intermediate" | "Advanced";
+  difficulty?:
+    | "Beginner"
+    | "Easy"
+    | "Intermediate"
+    | "Advanced";
   steps: LessonStepData[];
 };
 
@@ -75,26 +79,38 @@ export default function LessonPlayer({
   lesson,
 }: LessonPlayerProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  const [lessonComplete, setLessonComplete] = useState(false);
-  const [savingProgress, setSavingProgress] = useState(false);
+
+  const [completedSteps, setCompletedSteps] = useState<
+    string[]
+  >([]);
+
+  const [lessonComplete, setLessonComplete] =
+    useState(false);
+
+  const [savingProgress, setSavingProgress] =
+    useState(false);
+
   const [saveError, setSaveError] = useState("");
 
   const [selectedAnswers, setSelectedAnswers] = useState<
     Record<string, string>
   >({});
 
-  const [completedChallenges, setCompletedChallenges] = useState<
-    string[]
-  >([]);
+  const [completedChallenges, setCompletedChallenges] =
+    useState<string[]>([]);
 
   const [bonusXp, setBonusXp] = useState(0);
 
   const totalSteps = lesson.steps.length;
-  const currentStep = lesson.steps[currentStepIndex];
+
+  const currentStep =
+    lesson.steps[currentStepIndex];
 
   const quickCheckSteps = useMemo(
-    () => lesson.steps.filter((step) => Boolean(step.quickCheck)),
+    () =>
+      lesson.steps.filter((step) =>
+        Boolean(step.quickCheck)
+      ),
     [lesson.steps]
   );
 
@@ -104,14 +120,18 @@ export default function LessonPlayer({
     () =>
       quickCheckSteps.filter(
         (step) =>
-          selectedAnswers[step.id] === step.quickCheck?.correctAnswer
+          selectedAnswers[step.id] ===
+          step.quickCheck?.correctAnswer
       ).length,
     [quickCheckSteps, selectedAnswers]
   );
 
-  const currentQuickCheckNumber = currentStep?.quickCheck
-    ? quickCheckSteps.findIndex((step) => step.id === currentStep.id) + 1
-    : 0;
+  const currentQuickCheckNumber =
+    currentStep?.quickCheck
+      ? quickCheckSteps.findIndex(
+          (step) => step.id === currentStep.id
+        ) + 1
+      : 0;
 
   const quickChecksRemaining = Math.max(
     0,
@@ -120,12 +140,20 @@ export default function LessonPlayer({
 
   const quickCheckProgressPercentage =
     totalQuickChecks > 0
-      ? Math.round((completedQuickChecks / totalQuickChecks) * 100)
+      ? Math.round(
+          (completedQuickChecks /
+            totalQuickChecks) *
+            100
+        )
       : 100;
 
   const isFirstStep = currentStepIndex === 0;
-  const isLastStep = currentStepIndex === totalSteps - 1;
-  const isFinalWorldOneLesson = lesson.lessonNumber === 7;
+
+  const isLastStep =
+    currentStepIndex === totalSteps - 1;
+
+  const isFinalWorldOneLesson =
+    lesson.lessonNumber === 7;
 
   const selectedAnswer = currentStep
     ? selectedAnswers[currentStep.id]
@@ -133,13 +161,17 @@ export default function LessonPlayer({
 
   const quickCheckIsCorrect =
     !currentStep?.quickCheck ||
-    selectedAnswer === currentStep.quickCheck.correctAnswer;
+    selectedAnswer ===
+      currentStep.quickCheck.correctAnswer;
 
-  const quickCheckWasAnswered = Boolean(selectedAnswer);
+  const quickCheckWasAnswered =
+    Boolean(selectedAnswer);
 
   const currentChallengeComplete =
     currentStep?.optionalChallenge
-      ? completedChallenges.includes(currentStep.optionalChallenge.id)
+      ? completedChallenges.includes(
+          currentStep.optionalChallenge.id
+        )
       : false;
 
   const currentStepComplete = currentStep
@@ -148,18 +180,25 @@ export default function LessonPlayer({
 
   const progressPercentage =
     totalSteps > 0
-      ? ((currentStepIndex + 1) / totalSteps) * 100
+      ? ((currentStepIndex + 1) /
+          totalSteps) *
+        100
       : 0;
 
   const allQuickChecksComplete =
     totalQuickChecks === 0 ||
-    completedQuickChecks === totalQuickChecks;
+    completedQuickChecks ===
+      totalQuickChecks;
 
   const lessonStepsComplete =
-    completedSteps.length >= Math.max(0, totalSteps - 1);
+    completedSteps.length >=
+    Math.max(0, totalSteps - 1);
 
   const markCurrentStepComplete = () => {
-    if (!currentStep || currentStepComplete) {
+    if (
+      !currentStep ||
+      currentStepComplete
+    ) {
       return;
     }
 
@@ -169,7 +208,9 @@ export default function LessonPlayer({
     ]);
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = (
+    answer: string
+  ) => {
     if (!currentStep?.quickCheck) {
       return;
     }
@@ -178,60 +219,88 @@ export default function LessonPlayer({
       selectedAnswers[currentStep.id] ===
       currentStep.quickCheck.correctAnswer;
 
-    setSelectedAnswers((previousAnswers) => ({
-      ...previousAnswers,
-      [currentStep.id]: answer,
-    }));
+    setSelectedAnswers(
+      (previousAnswers) => ({
+        ...previousAnswers,
+        [currentStep.id]: answer,
+      })
+    );
 
     const isCorrect =
-      answer === currentStep.quickCheck.correctAnswer;
+      answer ===
+      currentStep.quickCheck.correctAnswer;
 
-    if (isCorrect && !alreadyAnsweredCorrectly) {
+    if (
+      isCorrect &&
+      !alreadyAnsweredCorrectly
+    ) {
       setBonusXp(
         (previousXp) =>
-          previousXp + (currentStep.quickCheck?.xpReward ?? 5)
+          previousXp +
+          (currentStep.quickCheck
+            ?.xpReward ?? 5)
       );
     }
   };
 
   const handleChallengeToggle = () => {
-    const challenge = currentStep?.optionalChallenge;
+    const challenge =
+      currentStep?.optionalChallenge;
 
     if (!challenge) {
       return;
     }
 
-    if (completedChallenges.includes(challenge.id)) {
-      setCompletedChallenges((previousChallenges) =>
-        previousChallenges.filter(
-          (challengeId) => challengeId !== challenge.id
-        )
+    if (
+      completedChallenges.includes(
+        challenge.id
+      )
+    ) {
+      setCompletedChallenges(
+        (previousChallenges) =>
+          previousChallenges.filter(
+            (challengeId) =>
+              challengeId !== challenge.id
+          )
       );
 
       setBonusXp((previousXp) =>
-        Math.max(0, previousXp - (challenge.xpReward ?? 5))
+        Math.max(
+          0,
+          previousXp -
+            (challenge.xpReward ?? 5)
+        )
       );
 
       return;
     }
 
-    setCompletedChallenges((previousChallenges) => [
-      ...previousChallenges,
-      challenge.id,
-    ]);
+    setCompletedChallenges(
+      (previousChallenges) => [
+        ...previousChallenges,
+        challenge.id,
+      ]
+    );
 
     setBonusXp(
       (previousXp) =>
-        previousXp + (challenge.xpReward ?? 5)
+        previousXp +
+        (challenge.xpReward ?? 5)
     );
   };
 
   const handlePreviousStep = () => {
-    if (isFirstStep || savingProgress) {
+    if (
+      isFirstStep ||
+      savingProgress
+    ) {
       return;
     }
 
-    setCurrentStepIndex((previousIndex) => previousIndex - 1);
+    setCurrentStepIndex(
+      (previousIndex) =>
+        previousIndex - 1
+    );
 
     window.scrollTo({
       top: 0,
@@ -240,11 +309,17 @@ export default function LessonPlayer({
   };
 
   const handleNextStep = async () => {
-    if (savingProgress) {
+    if (
+      savingProgress ||
+      !currentStep
+    ) {
       return;
     }
 
-    if (currentStep.quickCheck && !quickCheckIsCorrect) {
+    if (
+      currentStep.quickCheck &&
+      !quickCheckIsCorrect
+    ) {
       return;
     }
 
@@ -252,7 +327,10 @@ export default function LessonPlayer({
     setSaveError("");
 
     if (!isLastStep) {
-      setCurrentStepIndex((previousIndex) => previousIndex + 1);
+      setCurrentStepIndex(
+        (previousIndex) =>
+          previousIndex + 1
+      );
 
       window.scrollTo({
         top: 0,
@@ -265,7 +343,10 @@ export default function LessonPlayer({
     setSavingProgress(true);
 
     try {
-      await completeLesson(lesson.lessonNumber);
+      await completeLesson(
+        lesson.lessonNumber
+      );
+
       setLessonComplete(true);
 
       window.scrollTo({
@@ -273,7 +354,10 @@ export default function LessonPlayer({
         behavior: "smooth",
       });
     } catch (error) {
-      console.error("Could not save lesson progress:", error);
+      console.error(
+        "Could not save lesson progress:",
+        error
+      );
 
       setSaveError(
         error instanceof Error
@@ -300,14 +384,26 @@ export default function LessonPlayer({
     });
   };
 
-  if (!currentStep || totalSteps === 0) {
+  if (
+    !currentStep ||
+    totalSteps === 0
+  ) {
     return (
       <>
-        <main className={styles.lessonPlayer}>
+        <main
+          className={
+            styles.lessonPlayer
+          }
+        >
           <div className={styles.empty}>
-            <h1>Lesson unavailable</h1>
+            <h1>
+              Lesson unavailable
+            </h1>
 
-            <p>This lesson does not have any steps yet.</p>
+            <p>
+              This lesson does not
+              have any steps yet.
+            </p>
 
             <Link
               href="/world"
@@ -329,62 +425,116 @@ export default function LessonPlayer({
         <main
           className={`${styles.lessonPlayer} ${styles.complete}`}
         >
-          <section className={styles.completeCard}>
+          <section
+            className={
+              styles.completeCard
+            }
+          >
             <div
-              className={styles.completeIcon}
+              className={
+                styles.completeIcon
+              }
               aria-hidden="true"
             >
               ✓
             </div>
 
-            <p className={styles.completeEyebrow}>
+            <p
+              className={
+                styles.completeEyebrow
+              }
+            >
               Mission complete
             </p>
 
-            <h1 className={styles.completeTitle}>
-              You finished {lesson.title}
+            <h1
+              className={
+                styles.completeTitle
+              }
+            >
+              You finished{" "}
+              {lesson.title}
             </h1>
 
-            <p className={styles.completeDescription}>
-              You completed all {totalSteps} steps and all{" "}
-              {totalQuickChecks} quick checks. You earned{" "}
-              {lesson.xpReward ?? 100} XP, and your progress has
+            <p
+              className={
+                styles.completeDescription
+              }
+            >
+              You completed all{" "}
+              {totalSteps} steps and
+              all {totalQuickChecks}{" "}
+              quick checks. You earned{" "}
+              {lesson.xpReward ?? 100}{" "}
+              XP, and your progress has
               been saved.
             </p>
 
-            <div className={styles.missionSummary}>
+            <div
+              className={
+                styles.missionSummary
+              }
+            >
               <div>
-                <span>Lesson steps</span>
+                <span>
+                  Lesson steps
+                </span>
+
                 <strong>
-                  {totalSteps} / {totalSteps}
+                  {totalSteps} /{" "}
+                  {totalSteps}
                 </strong>
               </div>
 
               <div>
-                <span>Quick checks</span>
+                <span>
+                  Quick checks
+                </span>
+
                 <strong>
-                  {totalQuickChecks} / {totalQuickChecks}
+                  {totalQuickChecks} /{" "}
+                  {totalQuickChecks}
                 </strong>
               </div>
 
               <div>
-                <span>Boss battle</span>
-                <strong>Defeated</strong>
+                <span>
+                  Boss battle
+                </span>
+
+                <strong>
+                  Defeated
+                </strong>
               </div>
             </div>
 
             {bonusXp > 0 && (
-              <div className={styles.bonusSummary}>
-                <span>Lesson bonus</span>
-                <strong>+{bonusXp} XP</strong>
+              <div
+                className={
+                  styles.bonusSummary
+                }
+              >
+                <span>
+                  Lesson bonus
+                </span>
+
+                <strong>
+                  +{bonusXp} XP
+                </strong>
               </div>
             )}
 
-            <div className={styles.actions}>
+            <div
+              className={
+                styles.actions
+              }
+            >
               <button
                 type="button"
                 className={`${styles.actionButton} ${styles.secondary}`}
-                onClick={handleRestartLesson}
+                onClick={
+                  handleRestartLesson
+                }
               >
                 Practice again
               </button>
@@ -394,16 +544,25 @@ export default function LessonPlayer({
                 href={
                   isFinalWorldOneLesson
                     ? "/world"
-                    : `/lesson/${lesson.lessonNumber + 1}`
+                    : `/lesson/${
+                        lesson.lessonNumber +
+                        1
+                      }`
                 }
               >
                 {isFinalWorldOneLesson
                   ? "Return to World Map"
                   : `Continue to Lesson ${
-                      lesson.lessonNumber + 1
+                      lesson.lessonNumber +
+                      1
                     }`}
 
-                <span aria-hidden="true"> →</span>
+                <span
+                  aria-hidden="true"
+                >
+                  {" "}
+                  →
+                </span>
               </Link>
             </div>
           </section>
@@ -416,57 +575,121 @@ export default function LessonPlayer({
 
   return (
     <>
-      <main className={styles.lessonPlayer}>
+      <main
+        className={styles.lessonPlayer}
+      >
         <LessonHeader
-          lessonNumber={lesson.lessonNumber}
+          lessonNumber={
+            lesson.lessonNumber
+          }
           title={lesson.title}
-          description={lesson.description}
-          estimatedMinutes={lesson.estimatedMinutes}
+          description={
+            lesson.description
+          }
+          estimatedMinutes={
+            lesson.estimatedMinutes
+          }
           xpReward={lesson.xpReward}
-          difficulty={lesson.difficulty}
+          difficulty={
+            lesson.difficulty
+          }
         />
 
-        <section className={styles.body}>
+        <section
+          className={styles.body}
+        >
           <LessonProgress
-            currentStep={currentStepIndex + 1}
-            totalSteps={totalSteps}
-            progressPercentage={progressPercentage}
-            completedSteps={completedSteps.length}
+            currentStep={
+              currentStepIndex + 1
+            }
+            totalSteps={
+              lesson.steps.length
+            }
+            progressPercentage={
+              progressPercentage
+            }
+            completedSteps={
+              completedSteps.length
+            }
+            stepTitles={lesson.steps.map(
+              (step) => step.title
+            )}
           />
 
-          <section className={styles.missionStatus}>
-            <div className={styles.missionStatusHeading}>
+          <section
+            className={
+              styles.missionStatus
+            }
+          >
+            <div
+              className={
+                styles.missionStatusHeading
+              }
+            >
               <div>
-                <p className={styles.interactiveEyebrow}>
+                <p
+                  className={
+                    styles.interactiveEyebrow
+                  }
+                >
                   Mission status
                 </p>
-                <h2>Lesson objectives</h2>
+
+                <h2>
+                  Lesson objectives
+                </h2>
               </div>
 
-              <span className={styles.missionPercent}>
-                {Math.round(progressPercentage)}%
+              <span
+                className={
+                  styles.missionPercent
+                }
+              >
+                {Math.round(
+                  progressPercentage
+                )}
+                %
               </span>
             </div>
 
-            <div className={styles.objectiveList}>
-              <div className={styles.objectiveItem}>
+            <div
+              className={
+                styles.objectiveList
+              }
+            >
+              <div
+                className={
+                  styles.objectiveItem
+                }
+              >
                 <span
                   className={
-                    currentStepIndex > 0 || lessonStepsComplete
+                    currentStepIndex >
+                      0 ||
+                    lessonStepsComplete
                       ? styles.objectiveComplete
                       : styles.objectivePending
                   }
                   aria-hidden="true"
                 >
-                  {currentStepIndex > 0 || lessonStepsComplete
+                  {currentStepIndex >
+                    0 ||
+                  lessonStepsComplete
                     ? "✓"
                     : "○"}
                 </span>
 
-                <span>Begin the lesson mission</span>
+                <span>
+                  Begin the lesson
+                  mission
+                </span>
               </div>
 
-              <div className={styles.objectiveItem}>
+              <div
+                className={
+                  styles.objectiveItem
+                }
+              >
                 <span
                   className={
                     allQuickChecksComplete
@@ -475,16 +698,23 @@ export default function LessonPlayer({
                   }
                   aria-hidden="true"
                 >
-                  {allQuickChecksComplete ? "✓" : "○"}
+                  {allQuickChecksComplete
+                    ? "✓"
+                    : "○"}
                 </span>
 
                 <span>
-                  Complete quick checks ({completedQuickChecks}/
+                  Complete quick checks (
+                  {completedQuickChecks}/
                   {totalQuickChecks})
                 </span>
               </div>
 
-              <div className={styles.objectiveItem}>
+              <div
+                className={
+                  styles.objectiveItem
+                }
+              >
                 <span
                   className={
                     isLastStep
@@ -493,43 +723,72 @@ export default function LessonPlayer({
                   }
                   aria-hidden="true"
                 >
-                  {isLastStep ? "⚔" : "○"}
+                  {isLastStep
+                    ? "⚔"
+                    : "○"}
                 </span>
 
-                <span>Defeat the lesson boss</span>
+                <span>
+                  Defeat the lesson
+                  boss
+                </span>
               </div>
             </div>
           </section>
 
           {totalQuickChecks > 0 && (
-            <section className={styles.quickCheckOverview}>
-              <div className={styles.quickCheckOverviewHeading}>
+            <section
+              className={
+                styles.quickCheckOverview
+              }
+            >
+              <div
+                className={
+                  styles.quickCheckOverviewHeading
+                }
+              >
                 <div>
-                  <span>Quick check progress</span>
+                  <span>
+                    Quick check progress
+                  </span>
+
                   <strong>
-                    {completedQuickChecks} / {totalQuickChecks}
+                    {completedQuickChecks}{" "}
+                    / {totalQuickChecks}
                   </strong>
                 </div>
 
                 <small>
-                  {quickChecksRemaining === 0
+                  {quickChecksRemaining ===
+                  0
                     ? "All checks complete"
                     : `${quickChecksRemaining} ${
-                        quickChecksRemaining === 1 ? "check" : "checks"
+                        quickChecksRemaining ===
+                        1
+                          ? "check"
+                          : "checks"
                       } left`}
                 </small>
               </div>
 
               <div
-                className={styles.quickCheckTrack}
+                className={
+                  styles.quickCheckTrack
+                }
                 role="progressbar"
                 aria-label="Quick check progress"
                 aria-valuemin={0}
-                aria-valuemax={totalQuickChecks}
-                aria-valuenow={completedQuickChecks}
+                aria-valuemax={
+                  totalQuickChecks
+                }
+                aria-valuenow={
+                  completedQuickChecks
+                }
               >
                 <div
-                  className={styles.quickCheckFill}
+                  className={
+                    styles.quickCheckFill
+                  }
                   style={{
                     width: `${quickCheckProgressPercentage}%`,
                   }}
@@ -538,94 +797,172 @@ export default function LessonPlayer({
             </section>
           )}
 
-          <div className={styles.bonusXpBar}>
+          <div
+            className={
+              styles.bonusXpBar
+            }
+          >
             <span>Bonus XP</span>
-            <strong>+{bonusXp}</strong>
+            <strong>
+              +{bonusXp}
+            </strong>
           </div>
 
           <LessonStep
             step={currentStep}
-            stepNumber={currentStepIndex + 1}
+            stepNumber={
+              currentStepIndex + 1
+            }
             totalSteps={totalSteps}
           />
 
-          {currentStep.visual?.type === "stringDiagram" && (
+          {currentStep.visual?.type ===
+            "stringDiagram" && (
             <StringDiagram
-              highlight={currentStep.visual.highlight}
-              showNames={currentStep.visual.showNames}
+              highlight={
+                currentStep.visual
+                  .highlight
+              }
+              showNames={
+                currentStep.visual
+                  .showNames
+              }
             />
           )}
 
-          {currentStep.visual?.type === "fretboardDiagram" && (
+          {currentStep.visual?.type ===
+            "fretboardDiagram" && (
             <FretboardDiagram
-              string={currentStep.visual.string}
-              fret={currentStep.visual.fret}
+              string={
+                currentStep.visual.string
+              }
+              fret={
+                currentStep.visual.fret
+              }
               showStringNames={
-                currentStep.visual.showStringNames
+                currentStep.visual
+                  .showStringNames
               }
             />
           )}
 
           {currentStep.quickCheck && (
-            <section className={styles.quickCheck}>
-              <div className={styles.interactiveHeading}>
+            <section
+              className={
+                styles.quickCheck
+              }
+            >
+              <div
+                className={
+                  styles.interactiveHeading
+                }
+              >
                 <div>
-                  <p className={styles.interactiveEyebrow}>
-                    Quick Check {currentQuickCheckNumber} /{" "}
-                    {totalQuickChecks}
+                  <p
+                    className={
+                      styles.interactiveEyebrow
+                    }
+                  >
+                    Quick Check{" "}
+                    {
+                      currentQuickCheckNumber
+                    }{" "}
+                    / {totalQuickChecks}
                   </p>
 
-                  <h2>{currentStep.quickCheck.question}</h2>
+                  <h2>
+                    {
+                      currentStep
+                        .quickCheck
+                        .question
+                    }
+                  </h2>
 
-                  <p className={styles.quickCheckCounter}>
-                    {completedQuickChecks} of {totalQuickChecks} complete
-                    · {quickChecksRemaining} remaining
+                  <p
+                    className={
+                      styles.quickCheckCounter
+                    }
+                  >
+                    {
+                      completedQuickChecks
+                    }{" "}
+                    of {totalQuickChecks}{" "}
+                    complete ·{" "}
+                    {quickChecksRemaining}{" "}
+                    remaining
                   </p>
                 </div>
 
-                <span className={styles.xpPill}>
-                  +{currentStep.quickCheck.xpReward ?? 5} XP
+                <span
+                  className={
+                    styles.xpPill
+                  }
+                >
+                  +
+                  {currentStep
+                    .quickCheck
+                    .xpReward ?? 5}{" "}
+                  XP
                 </span>
               </div>
 
-              <div className={styles.answerGrid}>
-                {currentStep.quickCheck.options.map((option) => {
-                  const isSelected =
-                    selectedAnswer === option;
+              <div
+                className={
+                  styles.answerGrid
+                }
+              >
+                {currentStep.quickCheck.options.map(
+                  (option) => {
+                    const isSelected =
+                      selectedAnswer ===
+                      option;
 
-                  const isCorrectOption =
-                    option ===
-                    currentStep.quickCheck?.correctAnswer;
+                    const isCorrectOption =
+                      option ===
+                      currentStep
+                        .quickCheck
+                        ?.correctAnswer;
 
-                  let answerClass = styles.answerButton;
+                    let answerClass =
+                      styles.answerButton;
 
-                  if (isSelected && isCorrectOption) {
-                    answerClass = `${styles.answerButton} ${styles.correctAnswer}`;
-                  } else if (
-                    isSelected &&
-                    !isCorrectOption
-                  ) {
-                    answerClass = `${styles.answerButton} ${styles.incorrectAnswer}`;
+                    if (
+                      isSelected &&
+                      isCorrectOption
+                    ) {
+                      answerClass = `${styles.answerButton} ${styles.correctAnswer}`;
+                    } else if (
+                      isSelected &&
+                      !isCorrectOption
+                    ) {
+                      answerClass = `${styles.answerButton} ${styles.incorrectAnswer}`;
+                    }
+
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        className={
+                          answerClass
+                        }
+                        onClick={() =>
+                          handleAnswerSelect(
+                            option
+                          )
+                        }
+                      >
+                        <span
+                          className={
+                            styles.answerCircle
+                          }
+                          aria-hidden="true"
+                        />
+
+                        {option}
+                      </button>
+                    );
                   }
-
-                  return (
-                    <button
-                      key={option}
-                      type="button"
-                      className={answerClass}
-                      onClick={() =>
-                        handleAnswerSelect(option)
-                      }
-                    >
-                      <span
-                        className={styles.answerCircle}
-                        aria-hidden="true"
-                      />
-
-                      {option}
-                    </button>
-                  );
-                })}
+                )}
               </div>
 
               {quickCheckWasAnswered && (
@@ -644,7 +981,9 @@ export default function LessonPlayer({
 
                   <span>
                     {quickCheckIsCorrect
-                      ? currentStep.quickCheck.explanation ??
+                      ? currentStep
+                          .quickCheck
+                          .explanation ??
                         "Great work. You are ready to continue."
                       : "Review the lesson information and try again."}
                   </span>
@@ -654,37 +993,82 @@ export default function LessonPlayer({
           )}
 
           {currentStep.optionalChallenge && (
-            <section className={styles.optionalChallenge}>
-              <div className={styles.interactiveHeading}>
+            <section
+              className={
+                styles.optionalChallenge
+              }
+            >
+              <div
+                className={
+                  styles.interactiveHeading
+                }
+              >
                 <div>
-                  <p className={styles.interactiveEyebrow}>
+                  <p
+                    className={
+                      styles.interactiveEyebrow
+                    }
+                  >
                     Optional Challenge
                   </p>
 
                   <h2>
-                    {currentStep.optionalChallenge.title}
+                    {
+                      currentStep
+                        .optionalChallenge
+                        .title
+                    }
                   </h2>
                 </div>
 
-                <span className={styles.xpPill}>
+                <span
+                  className={
+                    styles.xpPill
+                  }
+                >
                   +
-                  {currentStep.optionalChallenge.xpReward ?? 5} XP
+                  {currentStep
+                    .optionalChallenge
+                    .xpReward ?? 5}{" "}
+                  XP
                 </span>
               </div>
 
-              <p className={styles.challengeDescription}>
-                {currentStep.optionalChallenge.description}
+              <p
+                className={
+                  styles.challengeDescription
+                }
+              >
+                {
+                  currentStep
+                    .optionalChallenge
+                    .description
+                }
               </p>
 
-              {currentStep.optionalChallenge.achievement && (
-                <div className={styles.achievementPreview}>
-                  <span aria-hidden="true">🏆</span>
+              {currentStep
+                .optionalChallenge
+                .achievement && (
+                <div
+                  className={
+                    styles.achievementPreview
+                  }
+                >
+                  <span
+                    aria-hidden="true"
+                  >
+                    🏆
+                  </span>
 
                   <div>
-                    <small>Mini achievement</small>
+                    <small>
+                      Mini achievement
+                    </small>
+
                     <strong>
                       {
-                        currentStep.optionalChallenge
+                        currentStep
+                          .optionalChallenge
                           .achievement
                       }
                     </strong>
@@ -699,7 +1083,9 @@ export default function LessonPlayer({
                     ? `${styles.challengeButton} ${styles.challengeComplete}`
                     : styles.challengeButton
                 }
-                onClick={handleChallengeToggle}
+                onClick={
+                  handleChallengeToggle
+                }
               >
                 {currentChallengeComplete
                   ? "✓ Challenge completed"
@@ -709,29 +1095,48 @@ export default function LessonPlayer({
           )}
 
           {saveError && (
-            <p role="alert" className={styles.saveError}>
+            <p
+              role="alert"
+              className={
+                styles.saveError
+              }
+            >
               {saveError}
             </p>
           )}
 
           <nav
-            className={styles.navigation}
+            className={
+              styles.navigation
+            }
             aria-label="Lesson navigation"
           >
             <button
               type="button"
               className={`${styles.button} ${styles.previous}`}
-              onClick={handlePreviousStep}
-              disabled={isFirstStep || savingProgress}
+              onClick={
+                handlePreviousStep
+              }
+              disabled={
+                isFirstStep ||
+                savingProgress
+              }
             >
-              <span aria-hidden="true">←</span>
+              <span
+                aria-hidden="true"
+              >
+                ←
+              </span>
+
               Previous
             </button>
 
             <button
               type="button"
               className={`${styles.button} ${styles.next}`}
-              onClick={handleNextStep}
+              onClick={
+                handleNextStep
+              }
               disabled={
                 savingProgress ||
                 Boolean(
@@ -752,8 +1157,12 @@ export default function LessonPlayer({
               {!savingProgress &&
                 (!currentStep.quickCheck ||
                   quickCheckIsCorrect) && (
-                  <span aria-hidden="true">
-                    {isLastStep ? "⚔" : "→"}
+                  <span
+                    aria-hidden="true"
+                  >
+                    {isLastStep
+                      ? "⚔"
+                      : "→"}
                   </span>
                 )}
             </button>
