@@ -23,7 +23,7 @@ export const worldOne: WorldData = {
   title: "The First Campfire",
 
   description:
-    "Begin your journey. Learn the basics, one step at a time.",
+    "Here you will learn the strings, build proper technique, play basic chords, keep rhythm, and finish your first song.",
 
   completedLessons: 0,
 

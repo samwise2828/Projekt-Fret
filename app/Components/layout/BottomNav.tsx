@@ -4,7 +4,7 @@ const navigationItems = [
     icon: "◯",
   },
   {
-    label: "World",
+    label: "Map",
     icon: "◆",
   },
   {

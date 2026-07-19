@@ -11,8 +11,8 @@ const navigationItems = [
     icon: "👤",
   },
   {
-    label: "Worlds",
-    href: "/world",
+    label: "Maps",
+    href: "/realms/emberlands",
     icon: "🗺️",
   },
   {

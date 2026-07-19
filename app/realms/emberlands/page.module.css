@@ -1,0 +1,182 @@
+.realmPage {
+  position: relative;
+
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 7, 10, 0.18) 0%,
+      rgba(2, 7, 10, 0.38) 65%,
+      rgba(2, 7, 10, 0.72) 100%
+    ),
+    url("/images/realms/Emberlands-map.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      transparent 0%,
+      rgba(0, 0, 0, 0.12) 55%,
+      rgba(0, 0, 0, 0.52) 100%
+    );
+
+  pointer-events: none;
+}
+
+.realmHeader {
+  position: absolute;
+  z-index: 5;
+  top: 6%;
+  left: 6%;
+
+  max-width: 420px;
+}
+
+.realmHeader p {
+  margin: 0 0 8px;
+
+  color: #ff9e36;
+
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.realmHeader h1 {
+  margin: 0;
+
+  color: #f8ead1;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+.realmHeader span {
+  display: block;
+  margin-top: 14px;
+
+  color: rgba(255, 245, 226, 0.82);
+
+  font-size: 1.05rem;
+}
+
+.worldMarker {
+  position: absolute;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 170px;
+  padding: 14px 18px;
+
+  border: 1px solid rgba(255, 215, 163, 0.35);
+  border-radius: 18px;
+
+  color: #fff3df;
+  background: rgba(5, 9, 12, 0.76);
+
+  text-decoration: none;
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(10px);
+
+  transform: translate(-50%, -50%);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.worldMarker:hover {
+  border-color: rgba(255, 163, 68, 0.78);
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(255, 136, 42, 0.24);
+
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.markerIcon {
+  font-size: 2rem;
+}
+
+.worldMarker strong {
+  font-size: 1rem;
+}
+
+.worldMarker small {
+  color: #d6b687;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worldOne {
+  top: 72%;
+  left: 22%;
+}
+
+.worldTwo {
+  top: 50%;
+  left: 52%;
+}
+
+.worldThree {
+  top: 26%;
+  left: 78%;
+}
+
+.locked {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+@media (max-width: 700px) {
+  .realmHeader {
+    top: 4%;
+    left: 5%;
+  }
+
+  .worldMarker {
+    min-width: 135px;
+    padding: 11px 12px;
+  }
+
+  .worldOne {
+    top: 75%;
+    left: 25%;
+  }
+
+  .worldTwo {
+    top: 54%;
+    left: 55%;
+  }
+
+  .worldThree {
+    top: 32%;
+    left: 75%;
+  }
+}
