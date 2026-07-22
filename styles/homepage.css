@@ -3,14 +3,13 @@
    ========================================================== */
 
 .campfire-page {
-  width: calc(100% - 80px);
+  width: 100%;
   min-height: 100vh;
-  margin: 28px auto 0;
+  margin: 0;
 
   overflow-x: hidden;
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
+  border: none;
   background: #050706;
 }
 
@@ -22,16 +21,16 @@
   align-items: center;
   justify-content: flex-start;
 
-  min-height: 940px;
   width: 100%;
+  min-height: 100vh;
 
   padding: 125px 6.5% 100px;
   overflow: hidden;
 
   background-color: #020403;
   background-image: url("/images/homepage1.png");
-  background-size: auto 100%;
-  background-position: right center;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
