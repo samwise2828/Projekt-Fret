@@ -348,3 +348,9 @@
     translate(-50%, -50%)
     rotate(45deg);
 }
+.heroLogo {
+  width: 320px;
+  height: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 18px rgba(255, 215, 120, 0.35));
+}
