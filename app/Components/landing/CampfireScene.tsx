@@ -2,36 +2,52 @@ import Link from "next/link";
 
 export default function CampfireScene() {
   return (
-    <main className="campfireScene">
-      <section className="introPanel">
-        <p className="introEyebrow">WELCOME TO</p>
+    <>
+      <section className="campfireScene">
+        <div className="heroOverlay" />
 
-        <h1 className="introTitle">
-          CAMPFIRE
-          <br />
-          VALLEY
-        </h1>
+        <div className="heroContent">
+          <p className="introEyebrow">
+            LEARN. LEVEL UP. PLAY.
+          </p>
 
-        <p className="introDescription">Learn. Level up. Play.</p>
+          <div className="eyebrowDivider" />
 
-        <div className="lockCard">
-          <div className="lockIcon" aria-hidden="true">
-            🔒
-          </div>
+          <h1 className="introTitle">
+            LEARN GUITAR.
+          </h1>
 
-          <div className="lockContent">
-            <p className="lockTitle">Campfire Valley is locked</p>
+          <p className="introDescription">
+            Master guitar through guided lessons, immersive worlds, and
+            skill-based progression that keeps you motivated from your first
+            chord to your first song.
+          </p>
 
-            <p className="lockText">
-              Create your free account to begin your journey.
-            </p>
+          <div className="heroActions">
+            <Link href="/signup" className="journeyButton">
+              Start Your Journey
+              <span>›</span>
+            </Link>
+
+            <Link href="/login" className="secondaryHeroButton">
+              Log In
+            </Link>
           </div>
         </div>
 
-        <Link href="/signup" className="journeyButton">
-          Start Your Journey
-        </Link>
+        <div className="heroBottomFade" />
       </section>
-    </main>
+
+      <section className="worldPreview">
+        <p className="worldPreviewEyebrow">
+          sTOP QUITTING
+        
+        </p>
+
+        <h2>START PLAYING</h2>
+
+        <div className="worldPreviewDivider" />
+      </section>
+    </>
   );
 }
