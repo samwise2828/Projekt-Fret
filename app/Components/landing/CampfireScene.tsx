@@ -14,7 +14,7 @@ export default function CampfireScene() {
           <div className="eyebrowDivider" />
 
           <h1 className="introTitle">
-            LEARN GUITAR
+            
           </h1>
 
           <p className="introDescription">
