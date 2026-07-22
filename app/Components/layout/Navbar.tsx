@@ -1,10 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header className="topNav">
       <Link href="/" className="brand">
-        <span className="brandMark">PF</span>
+        <Image
+          src="/images/logo.png"
+          alt="Projekt Fret Logo"
+          width={52}
+          height={52}
+          className="brandLogo"
+          priority
+        />
+
         <span className="brandName">PROJEKT FRET</span>
       </Link>
 
