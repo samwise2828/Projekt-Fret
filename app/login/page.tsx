@@ -71,19 +71,13 @@ export default function LoginPage() {
             required
           />
 
-          {message && (
-            <p
-              style={{
-                color: "#ffb6b6",
-                textAlign: "center",
-                marginTop: "10px",
-              }}
-            >
-              {message}
-            </p>
-          )}
+          {message && <p className="loginMessage">{message}</p>}
 
-          <button className="loginSubmit" disabled={loading}>
+          <button
+            type="submit"
+            className="loginSubmit"
+            disabled={loading}
+          >
             {loading ? "Logging In..." : "Log In"}
           </button>
         </form>

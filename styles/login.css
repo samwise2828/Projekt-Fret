@@ -8,177 +8,485 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
+  width: 100%;
   min-height: 100vh;
-  padding: 120px 20px 40px;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(3, 9, 9, 0.94) 0%,
-      rgba(3, 9, 9, 0.76) 30%,
-      rgba(3, 9, 9, 0.28) 58%,
-      rgba(3, 9, 9, 0.20) 76%,
-      rgba(3, 9, 9, 0.38) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(1, 6, 8, 0.12) 0%,
-      rgba(1, 7, 7, 0.08) 50%,
-      rgba(2, 8, 7, 0.72) 100%
-    ),
-    url("/images/homepage1.png");
+  padding: 120px 6.5% 60px;
+  overflow: hidden;
 
+  background-color: #020403;
+  background-image: url("/images/homepage1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/* Darkens the left side behind the form while preserving
+   the castle, moon, landscape, and guitar */
+
+.loginPage::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #020403 0%,
+      rgba(2, 4, 3, 0.98) 13%,
+      rgba(2, 4, 3, 0.9) 27%,
+      rgba(2, 4, 3, 0.62) 40%,
+      rgba(2, 4, 3, 0.24) 54%,
+      rgba(2, 4, 3, 0.06) 70%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(2, 4, 3, 0.16) 0%,
+      rgba(2, 4, 3, 0.02) 45%,
+      rgba(2, 4, 3, 0.18) 68%,
+      rgba(2, 4, 3, 0.82) 100%
+    );
+}
+
+/* Subtle warm light around the form */
+
+.loginPage::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 24% 54%,
+      rgba(231, 163, 70, 0.11) 0%,
+      rgba(231, 163, 70, 0.04) 24%,
+      transparent 48%
+    );
+}
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
 .loginCard {
+  position: relative;
+  z-index: 2;
+
   width: 100%;
-  max-width: 470px;
+  max-width: 430px;
 
-  padding: 42px;
+  padding: 38px 38px 34px;
 
-  border: 1px solid rgba(232, 194, 108, 0.15);
-  border-radius: 28px;
+  border: 1px solid rgba(232, 194, 108, 0.14);
+  border-radius: 24px;
 
-  background: rgba(8, 15, 18, 0.72);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(9, 15, 16, 0.7) 0%,
+      rgba(5, 10, 11, 0.62) 100%
+    );
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 
   box-shadow:
-    0 30px 60px rgba(0,0,0,.45);
+    0 28px 70px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
 }
+
+.loginCard::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 34px;
+  right: 34px;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(232, 194, 108, 0.42),
+    transparent
+  );
+}
+
+/* =========================================================
+   LOGIN TYPOGRAPHY
+   ========================================================= */
 
 .loginEyebrow {
   margin: 0;
 
-  color: #e8c26c;
+  color: #efc866;
 
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   letter-spacing: 4px;
+  line-height: 1.4;
 
   text-transform: uppercase;
 }
 
 .loginTitle {
-  margin: 18px 0 14px;
+  margin: 16px 0 14px;
 
   color: #fff8e9;
 
-  font-family: Georgia, serif;
-  font-size: 48px;
-  line-height: 1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -1.5px;
+
+  text-wrap: balance;
 }
 
 .loginDescription {
-  margin-bottom: 34px;
+  max-width: 360px;
+  margin: 0 0 30px;
 
-  color: rgba(255,255,255,.78);
+  color: rgba(255, 255, 255, 0.72);
 
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
 }
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
 
 .loginForm {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px;
 }
 
 .loginInput {
   width: 100%;
+  min-height: 54px;
 
-  padding: 16px 18px;
+  padding: 15px 17px;
 
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 13px;
 
-  background: rgba(255,255,255,.06);
-  color: white;
+  background: rgba(255, 255, 255, 0.055);
+  color: #fffaf0;
 
-  font-size: 16px;
+  font-family: inherit;
+  font-size: 15px;
 
-  transition: .2s;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.025),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.18);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .loginInput::placeholder {
-  color: rgba(255,255,255,.45);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.loginInput:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .loginInput:focus {
   outline: none;
 
-  border-color: #e8c26c;
+  border-color: rgba(239, 200, 102, 0.82);
+  background: rgba(255, 255, 255, 0.075);
 
   box-shadow:
-    0 0 0 3px rgba(232,194,108,.18);
+    0 0 0 3px rgba(232, 194, 108, 0.12),
+    0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
+.loginMessage {
+  margin: 0;
+  padding: 11px 13px;
+
+  border: 1px solid rgba(255, 155, 155, 0.16);
+  border-radius: 11px;
+
+  background: rgba(120, 25, 25, 0.14);
+  color: #ffb6b6;
+
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
 .loginSubmit {
-  margin-top: 8px;
+  position: relative;
 
-  padding: 16px;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 4px;
+  padding: 15px 24px;
 
-  border: none;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 229, 154, 0.56);
   border-radius: 999px;
 
-  background: linear-gradient(
-    180deg,
-    #f4cf73,
-    #e8bb54
-  );
+  background:
+    linear-gradient(
+      180deg,
+      #f7d36f 0%,
+      #ebbe4d 100%
+    );
 
-  color: #1d1d1d;
+  color: #17130c;
 
-  font-size: 16px;
-  font-weight: 800;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+
+  box-shadow:
+    0 12px 30px rgba(232, 187, 84, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
 
   cursor: pointer;
 
-  transition: .2s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.loginSubmit:hover {
+.loginSubmit::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+
+  width: 30%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.loginSubmit:hover:not(:disabled) {
   transform: translateY(-2px);
+  filter: brightness(1.04);
 
   box-shadow:
-    0 12px 30px rgba(232,194,108,.25);
+    0 16px 38px rgba(232, 187, 84, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
 }
 
+.loginSubmit:hover:not(:disabled)::before {
+  left: 120%;
+}
+
+.loginSubmit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.loginSubmit:focus-visible {
+  outline: 3px solid rgba(232, 194, 108, 0.28);
+  outline-offset: 3px;
+}
+
+.loginSubmit:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  filter: saturate(0.7);
+}
+
+/* =========================================================
+   LOGIN FOOTER
+   ========================================================= */
+
 .loginFooter {
-  margin-top: 30px;
+  margin: 25px 0 0;
 
+  color: rgba(255, 255, 255, 0.62);
+
+  font-size: 14px;
+  line-height: 1.5;
   text-align: center;
-
-  color: rgba(255,255,255,.72);
-
-  font-size: 15px;
 }
 
 .loginFooter a {
-  margin-left: 6px;
+  margin-left: 5px;
 
-  color: #e8c26c;
+  color: #edc660;
 
-  font-weight: 700;
+  font-weight: 750;
   text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 .loginFooter a:hover {
+  color: #ffdc7a;
   text-decoration: underline;
+  text-underline-offset: 4px;
+
+  text-shadow: 0 0 18px rgba(232, 194, 108, 0.22);
 }
 
+.loginFooter a:focus-visible {
+  outline: 2px solid rgba(232, 194, 108, 0.38);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .loginPage {
+    justify-content: center;
+
+    padding:
+      110px
+      clamp(20px, 6vw, 60px)
+      46px;
+
+    background-position: 62% center;
+  }
+
+  .loginPage::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(2, 4, 3, 0.76) 0%,
+        rgba(2, 4, 3, 0.42) 48%,
+        rgba(2, 4, 3, 0.2) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(2, 4, 3, 0.38) 0%,
+        rgba(2, 4, 3, 0.12) 42%,
+        rgba(2, 4, 3, 0.82) 100%
+      );
+  }
+
+  .loginPage::before {
+    background:
+      radial-gradient(
+        circle at 50% 54%,
+        rgba(231, 163, 70, 0.11),
+        transparent 46%
+      );
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 600px) {
+  .loginPage {
+    align-items: center;
+
+    min-height: 100svh;
+    padding: 92px 16px 28px;
+
+    background-position: 68% center;
+  }
+
+  .loginPage::after {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 4, 3, 0.56) 0%,
+        rgba(2, 4, 3, 0.26) 38%,
+        rgba(2, 4, 3, 0.7) 100%
+      );
+  }
+
   .loginCard {
-    padding: 28px;
+    max-width: 410px;
+    padding: 30px 24px 26px;
+
+    border-radius: 20px;
+
+    background: rgba(6, 11, 12, 0.76);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  .loginCard::before {
+    left: 24px;
+    right: 24px;
+  }
+
+  .loginEyebrow {
+    font-size: 11px;
+    letter-spacing: 3.2px;
   }
 
   .loginTitle {
-    font-size: 38px;
+    margin-top: 14px;
+
+    font-size: clamp(35px, 11vw, 42px);
+    letter-spacing: -1px;
+  }
+
+  .loginDescription {
+    margin-bottom: 26px;
+
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .loginInput,
+  .loginSubmit {
+    min-height: 52px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loginInput,
+  .loginSubmit,
+  .loginFooter a,
+  .loginSubmit::before {
+    transition: none;
   }
 }
