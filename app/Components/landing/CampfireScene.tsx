@@ -43,7 +43,7 @@ export default function CampfireScene() {
       </section>
 
       <section className="worldPreview">
-        <p className="worldPreviewEyebrow">sTOP QUITTING</p>
+        <p className="worldPreviewEyebrow">STOP QUITTING</p>
 
         <h2>START PLAYING</h2>
 
