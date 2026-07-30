@@ -1,6 +1,5 @@
 import Link from "next/link";
 import AppTopNav from "../navigation/AppTopNav";
-import AppBottomNav from "../navigation/AppBottomNav";
 import styles from "./ComingSoon.module.css";
 
 type ComingSoonProps = {
@@ -67,8 +66,6 @@ export default function ComingSoon({
           </Link>
         </section>
       </main>
-
-      <AppBottomNav />
     </>
   );
 }
