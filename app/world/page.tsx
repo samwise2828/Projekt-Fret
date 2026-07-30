@@ -1,6 +1,6 @@
 import AppBottomNav from "../Components/navigation/AppBottomNav";
 import AppTopNav from "../Components/navigation/AppTopNav";
-import WorldMap from "../Components/world/WorldMap";
+import WM from "../Components/world/WM";
 import styles from "./page.module.css";
 
 export default function WorldPage() {
@@ -9,7 +9,7 @@ export default function WorldPage() {
       <AppTopNav />
 
       <div className={styles.content}>
-        <WorldMap />
+        <WM />
       </div>
 
       <AppBottomNav />

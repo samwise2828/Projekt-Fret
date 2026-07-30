@@ -1,0 +1,636 @@
+.worldMap {
+  position: relative;
+  isolation: isolate;
+
+  min-height: calc(100vh - 164px);
+  overflow: hidden;
+
+  border: 1px solid rgba(234, 210, 175, 0.14);
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 7, 10, 0.08) 0%,
+      rgba(2, 7, 10, 0.22) 52%,
+      rgba(1, 5, 7, 0.72) 100%
+    ),
+    url("/images/realms/world-map.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.48),
+    inset 0 0 120px rgba(0, 0, 0, 0.52);
+}
+
+.backgroundOverlay {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 7, 10, 0.9) 0%,
+      rgba(2, 7, 10, 0.72) 22%,
+      rgba(2, 7, 10, 0.22) 53%,
+      rgba(2, 7, 10, 0.12) 100%
+    );
+
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 36%,
+      rgba(0, 0, 0, 0.58) 100%
+    );
+
+  pointer-events: none;
+}
+
+.topGlow {
+  position: absolute;
+  z-index: 1;
+  top: -18%;
+  left: 36%;
+
+  width: 42%;
+  height: 42%;
+
+  border-radius: 50%;
+  background: rgba(255, 147, 55, 0.08);
+  filter: blur(80px);
+
+  pointer-events: none;
+}
+
+.worldHeader {
+  position: absolute;
+  z-index: 10;
+  top: 8%;
+  left: 5.5%;
+
+  max-width: 410px;
+}
+
+.eyebrow {
+  color: #e0a056;
+
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.worldHeader h1 {
+  margin: 10px 0 0;
+
+  color: #f3e4c9;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 5vw, 5.6rem);
+  font-weight: 500;
+  line-height: 0.9;
+
+  text-shadow:
+    0 5px 24px rgba(0, 0, 0, 0.74),
+    0 0 45px rgba(255, 159, 61, 0.06);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: min(100%, 280px);
+  margin: 27px 0;
+}
+
+.divider span {
+  height: 1px;
+  flex: 1;
+
+  background: rgba(230, 196, 150, 0.4);
+}
+
+.divider i {
+  width: 8px;
+  height: 8px;
+
+  background: #a77d4c;
+
+  transform: rotate(45deg);
+}
+
+.worldHeader p {
+  max-width: 380px;
+  margin: 0;
+
+  color: rgba(245, 235, 219, 0.78);
+
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.mapArea {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+}
+
+.routeLines {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.routeLines path {
+  fill: none;
+
+  stroke: rgba(221, 181, 121, 0.28);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 7 11;
+
+  filter: drop-shadow(
+    0 0 6px rgba(255, 177, 81, 0.18)
+  );
+}
+
+.realmMarker {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  min-width: 215px;
+  padding: 14px 16px;
+
+  border: 1px solid rgba(239, 213, 177, 0.23);
+  border-radius: 16px;
+
+  color: #f5e8d5;
+  background: rgba(4, 10, 13, 0.8);
+
+  text-decoration: none;
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  backdrop-filter: blur(12px);
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+.realmText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.realmText strong {
+  font-size: 0.96rem;
+  line-height: 1.2;
+}
+
+.realmText small {
+  color: #c7a777;
+
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.realmIcon {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.unlocked {
+  border-color: rgba(255, 163, 68, 0.62);
+
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.47),
+    0 0 25px rgba(255, 132, 40, 0.2);
+}
+
+.unlocked::before {
+  position: absolute;
+  inset: -1px;
+
+  border: 1px solid rgba(255, 171, 83, 0.2);
+  border-radius: inherit;
+
+  content: "";
+
+  pointer-events: none;
+}
+
+.unlocked:hover {
+  border-color: rgba(255, 181, 101, 0.95);
+
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.6),
+    0 0 38px rgba(255, 135, 40, 0.31);
+
+  transform: translate(-50%, -50%) scale(1.055);
+}
+
+.enterLabel {
+  color: #ffae57;
+
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.locked {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: saturate(0.55);
+}
+
+.lockIcon {
+  opacity: 0.76;
+  font-size: 0.83rem;
+}
+
+.emberlands {
+  top: 57%;
+  left: 50%;
+}
+
+.chordCanyon {
+  top: 35%;
+  left: 27%;
+}
+
+.frostPeaks {
+  top: 20%;
+  left: 64%;
+}
+
+.rhythmRidge {
+  top: 39%;
+  left: 80%;
+}
+
+.coastOfEchoes {
+  top: 75%;
+  left: 24%;
+}
+
+.dragonsForge {
+  top: 77%;
+  left: 79%;
+}
+
+.worldStatus {
+  position: absolute;
+  z-index: 10;
+  bottom: 5%;
+  left: 5.5%;
+
+  width: min(100% - 40px, 310px);
+  padding: 20px;
+
+  border: 1px solid rgba(237, 210, 171, 0.16);
+  border-radius: 17px;
+
+  background: rgba(4, 9, 12, 0.76);
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  backdrop-filter: blur(12px);
+}
+
+.statusHeading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.statusFlame {
+  color: #ff9d3d;
+
+  font-size: 1.8rem;
+
+  transform: rotate(45deg);
+
+  text-shadow:
+    0 0 10px rgba(255, 137, 40, 0.8),
+    0 0 23px rgba(255, 137, 40, 0.42);
+}
+
+.statusHeading div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.statusHeading strong {
+  color: #f5e7d2;
+  font-size: 1.2rem;
+}
+
+.statusHeading small {
+  color: #c9a97a;
+
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.progressTrack {
+  height: 8px;
+  margin-top: 17px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressFill {
+  width: 16.67%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f68a31,
+      #ffc065
+    );
+
+  box-shadow:
+    0 0 15px rgba(255, 151, 52, 0.5);
+}
+
+.legend {
+  position: absolute;
+  z-index: 10;
+  right: 4%;
+  bottom: 4%;
+
+  display: flex;
+  gap: 18px;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(231, 210, 178, 0.14);
+  border-radius: 12px;
+
+  color: rgba(244, 234, 219, 0.72);
+  background: rgba(4, 9, 12, 0.72);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+
+  backdrop-filter: blur(10px);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend i {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+}
+
+.availableDot {
+  background: #ff9d3f;
+
+  box-shadow:
+    0 0 9px rgba(255, 148, 55, 0.8);
+}
+
+.lockedDot {
+  background: #777873;
+}
+
+@media (max-width: 1050px) {
+  .worldHeader {
+    top: 6%;
+    left: 4.5%;
+
+    max-width: 350px;
+  }
+
+  .worldHeader h1 {
+    font-size: clamp(3rem, 6vw, 4.7rem);
+  }
+
+  .realmMarker {
+    min-width: 185px;
+    padding: 12px 14px;
+  }
+
+  .realmText small {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .worldMap {
+    min-height: 920px;
+  }
+
+  .backgroundOverlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 7, 10, 0.86) 0%,
+        rgba(2, 7, 10, 0.4) 35%,
+        rgba(2, 7, 10, 0.2) 65%,
+        rgba(1, 5, 7, 0.76) 100%
+      );
+  }
+
+  .worldHeader {
+    top: 4%;
+    right: 5%;
+    left: 5%;
+
+    max-width: none;
+  }
+
+  .worldHeader h1 {
+    font-size: 3.4rem;
+  }
+
+  .worldHeader p {
+    max-width: 510px;
+  }
+
+  .realmMarker {
+    min-width: 165px;
+  }
+
+  .realmText small {
+    display: none;
+  }
+
+  .emberlands {
+    top: 50%;
+    left: 50%;
+  }
+
+  .chordCanyon {
+    top: 37%;
+    left: 24%;
+  }
+
+  .frostPeaks {
+    top: 29%;
+    left: 70%;
+  }
+
+  .rhythmRidge {
+    top: 48%;
+    left: 77%;
+  }
+
+  .coastOfEchoes {
+    top: 68%;
+    left: 27%;
+  }
+
+  .dragonsForge {
+    top: 72%;
+    left: 74%;
+  }
+
+  .worldStatus {
+    right: 5%;
+    bottom: 10%;
+    left: 5%;
+
+    width: auto;
+  }
+
+  .legend {
+    right: 50%;
+    bottom: 3%;
+
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 560px) {
+  .worldMap {
+    min-height: 980px;
+    border-radius: 18px;
+
+    background-position: 58% center;
+  }
+
+  .worldHeader h1 {
+    font-size: 2.8rem;
+  }
+
+  .worldHeader p {
+    font-size: 0.92rem;
+  }
+
+  .divider {
+    margin: 20px 0;
+  }
+
+  .realmMarker {
+    min-width: 140px;
+    padding: 10px 11px;
+  }
+
+  .realmIcon {
+    font-size: 1.3rem;
+  }
+
+  .realmText strong {
+    font-size: 0.8rem;
+  }
+
+  .enterLabel,
+  .lockIcon {
+    font-size: 0.58rem;
+  }
+
+  .emberlands {
+    top: 47%;
+    left: 50%;
+  }
+
+  .chordCanyon {
+    top: 35%;
+    left: 27%;
+  }
+
+  .frostPeaks {
+    top: 27%;
+    left: 72%;
+  }
+
+  .rhythmRidge {
+    top: 48%;
+    left: 74%;
+  }
+
+  .coastOfEchoes {
+    top: 64%;
+    left: 27%;
+  }
+
+  .dragonsForge {
+    top: 68%;
+    left: 73%;
+  }
+
+  .worldStatus {
+    bottom: 11%;
+    padding: 16px;
+  }
+
+  .legend {
+    gap: 12px;
+    padding: 9px 11px;
+
+    font-size: 0.6rem;
+  }
+}
