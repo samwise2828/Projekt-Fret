@@ -95,7 +95,7 @@ export default function UpgradePage() {
 
         <div style={{ marginTop: "1.5rem" }}>
           <Link
-            href="/dashboard"
+            href="/"
             style={{
               color: "#fff8e9",
               textDecoration: "underline",

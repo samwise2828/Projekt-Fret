@@ -20,7 +20,7 @@ export default function LessonHeader({
   estimatedMinutes = 10,
   xpReward = 100,
   difficulty = "Beginner",
-  backHref = "/dashboard",
+  backHref = "/realms/emberlands",
 }: LessonHeaderProps) {
   const router = useRouter();
 

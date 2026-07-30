@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AppTopNav from "../Components/navigation/AppTopNav";
-import AppBottomNav from "../Components/navigation/AppBottomNav";
 import {
   getPlayerProgress,
   type PlayerProgress,
@@ -13,6 +12,7 @@ import styles from "./ProfilePage.module.css";
 export default function ProfilePage() {
   const [progress, setProgress] =
     useState<PlayerProgress | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
 
@@ -27,7 +27,10 @@ export default function ProfilePage() {
           setProgress(playerProgress);
         }
       } catch (error) {
-        console.error("Could not load profile progress:", error);
+        console.error(
+          "Could not load profile progress:",
+          error
+        );
 
         if (active) {
           setLoadError(
@@ -57,12 +60,15 @@ export default function ProfilePage() {
 
         <main className={styles.page}>
           <header className={styles.pageHeader}>
-            <p className={styles.eyebrow}>Your adventurer</p>
-            <h1 className={styles.pageTitle}>Loading profile...</h1>
+            <p className={styles.eyebrow}>
+              Your adventurer
+            </p>
+
+            <h1 className={styles.pageTitle}>
+              Loading profile...
+            </h1>
           </header>
         </main>
-
-        <AppBottomNav />
       </>
     );
   }
@@ -74,17 +80,20 @@ export default function ProfilePage() {
 
         <main className={styles.page}>
           <header className={styles.pageHeader}>
-            <p className={styles.eyebrow}>Profile unavailable</p>
+            <p className={styles.eyebrow}>
+              Profile unavailable
+            </p>
+
             <h1 className={styles.pageTitle}>
               Your progress could not be loaded
             </h1>
+
             <p className={styles.pageDescription}>
-              {loadError || "Please refresh and try again."}
+              {loadError ||
+                "Please refresh and try again."}
             </p>
           </header>
         </main>
-
-        <AppBottomNav />
       </>
     );
   }
@@ -93,25 +102,33 @@ export default function ProfilePage() {
     {
       value: progress.lessonsCompleted,
       label:
-        progress.lessonsCompleted === 1 ? "Lesson" : "Lessons",
+        progress.lessonsCompleted === 1
+          ? "Lesson"
+          : "Lessons",
       icon: "📖",
     },
     {
       value: progress.worldsCompleted,
       label:
-        progress.worldsCompleted === 1 ? "World" : "Worlds",
+        progress.worldsCompleted === 1
+          ? "World"
+          : "Worlds",
       icon: "🗺️",
     },
     {
       value: progress.bossesDefeated,
       label:
-        progress.bossesDefeated === 1 ? "Boss" : "Bosses",
+        progress.bossesDefeated === 1
+          ? "Boss"
+          : "Bosses",
       icon: "⚔️",
     },
     {
       value: progress.songsCompleted,
       label:
-        progress.songsCompleted === 1 ? "Song" : "Songs",
+        progress.songsCompleted === 1
+          ? "Song"
+          : "Songs",
       icon: "🎵",
     },
   ];
@@ -128,11 +145,17 @@ export default function ProfilePage() {
         <div className={styles.backgroundGlow} />
 
         <header className={styles.pageHeader}>
-          <p className={styles.eyebrow}>Your adventurer</p>
-          <h1 className={styles.pageTitle}>Profile</h1>
+          <p className={styles.eyebrow}>
+            Your adventurer
+          </p>
+
+          <h1 className={styles.pageTitle}>
+            Profile
+          </h1>
+
           <p className={styles.pageDescription}>
-            Track your progress, collect rewards, and continue your
-            guitar journey.
+            Track your progress, collect rewards, and
+            continue your guitar journey.
           </p>
         </header>
 
@@ -140,7 +163,10 @@ export default function ProfilePage() {
           <div className={styles.profileIdentity}>
             <div className={styles.avatarArea}>
               <div className={styles.avatarRing}>
-                <div className={styles.avatar} aria-hidden="true">
+                <div
+                  className={styles.avatar}
+                  aria-hidden="true"
+                >
                   {progress.avatarLetter}
                 </div>
               </div>
@@ -155,7 +181,9 @@ export default function ProfilePage() {
                 Projekt Fret Adventurer
               </p>
 
-              <h2 className={styles.playerName}>{progress.name}</h2>
+              <h2 className={styles.playerName}>
+                {progress.name}
+              </h2>
 
               <p className={styles.playerTitle}>
                 <span aria-hidden="true">🔥</span>
@@ -180,7 +208,9 @@ export default function ProfilePage() {
                   aria-valuemax={
                     progress.xpNeededForNextLevel
                   }
-                  aria-valuenow={progress.currentLevelXp}
+                  aria-valuenow={
+                    progress.currentLevelXp
+                  }
                 >
                   <div
                     className={styles.xpFill}
@@ -194,15 +224,21 @@ export default function ProfilePage() {
           </div>
 
           <div className={styles.streakCard}>
-            <span className={styles.streakIcon} aria-hidden="true">
+            <span
+              className={styles.streakIcon}
+              aria-hidden="true"
+            >
               🔥
             </span>
 
             <div>
               <strong>
                 {progress.streak}{" "}
-                {progress.streak === 1 ? "Day" : "Days"}
+                {progress.streak === 1
+                  ? "Day"
+                  : "Days"}
               </strong>
+
               <span>Current streak</span>
             </div>
           </div>
@@ -213,8 +249,14 @@ export default function ProfilePage() {
           aria-label="Player statistics"
         >
           {profileStats.map((stat) => (
-            <article className={styles.statCard} key={stat.label}>
-              <span className={styles.statIcon} aria-hidden="true">
+            <article
+              className={styles.statCard}
+              key={stat.label}
+            >
+              <span
+                className={styles.statIcon}
+                aria-hidden="true"
+              >
                 {stat.icon}
               </span>
 
@@ -235,10 +277,14 @@ export default function ProfilePage() {
               <p className={styles.sectionEyebrow}>
                 Continue playing
               </p>
+
               <h2>Current Journey</h2>
             </div>
 
-            <span className={styles.sectionIcon} aria-hidden="true">
+            <span
+              className={styles.sectionIcon}
+              aria-hidden="true"
+            >
               🗺️
             </span>
           </div>
@@ -247,7 +293,10 @@ export default function ProfilePage() {
             <div className={styles.journeyArtwork}>
               <div className={styles.moon} />
 
-              <div className={styles.campfire} aria-hidden="true">
+              <div
+                className={styles.campfire}
+                aria-hidden="true"
+              >
                 🔥
               </div>
             </div>
@@ -260,8 +309,8 @@ export default function ProfilePage() {
               <h3>The First Campfire</h3>
 
               <p className={styles.journeyDescription}>
-                Learn the foundations of guitar and prepare for your
-                first song.
+                Learn the foundations of guitar and
+                prepare for your first song.
               </p>
 
               <div className={styles.nextLesson}>
@@ -270,6 +319,7 @@ export default function ProfilePage() {
                     ? "World status"
                     : "Next lesson"}
                 </span>
+
                 <strong>
                   {progress.worldsCompleted > 0
                     ? "World 1 Complete"
@@ -284,6 +334,7 @@ export default function ProfilePage() {
                 {progress.worldsCompleted > 0
                   ? "Return to World Map"
                   : "Continue Journey"}
+
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -296,11 +347,13 @@ export default function ProfilePage() {
               <p className={styles.sectionEyebrow}>
                 Your collection
               </p>
+
               <h2>Badges</h2>
             </div>
 
             <span className={styles.badgeCount}>
-              {unlockedBadgeCount} / {progress.badges.length}
+              {unlockedBadgeCount} /{" "}
+              {progress.badges.length}
             </span>
           </div>
 
@@ -316,15 +369,20 @@ export default function ProfilePage() {
               >
                 <div className={styles.badgeIcon}>
                   <span aria-hidden="true">
-                    {badge.unlocked ? badge.icon : "🔒"}
+                    {badge.unlocked
+                      ? badge.icon
+                      : "🔒"}
                   </span>
                 </div>
 
                 <h3>{badge.name}</h3>
+
                 <p>{badge.description}</p>
 
                 <span className={styles.badgeStatus}>
-                  {badge.unlocked ? "Unlocked" : "Locked"}
+                  {badge.unlocked
+                    ? "Unlocked"
+                    : "Locked"}
                 </span>
               </article>
             ))}
@@ -337,44 +395,61 @@ export default function ProfilePage() {
               <p className={styles.sectionEyebrow}>
                 Recent progress
               </p>
+
               <h2>Achievements</h2>
             </div>
 
-            <span className={styles.sectionIcon} aria-hidden="true">
+            <span
+              className={styles.sectionIcon}
+              aria-hidden="true"
+            >
               🏆
             </span>
           </div>
 
           <div className={styles.achievementList}>
             {progress.achievements.length > 0 ? (
-              progress.achievements.map((achievement, index) => (
-                <article
-                  className={styles.achievementCard}
-                  key={`${achievement.title}-${index}`}
-                >
-                  <div
-                    className={styles.achievementIcon}
-                    aria-hidden="true"
+              progress.achievements.map(
+                (achievement, index) => (
+                  <article
+                    className={styles.achievementCard}
+                    key={`${achievement.title}-${index}`}
                   >
-                    {achievement.icon}
-                  </div>
+                    <div
+                      className={
+                        styles.achievementIcon
+                      }
+                      aria-hidden="true"
+                    >
+                      {achievement.icon}
+                    </div>
 
-                  <div
-                    className={styles.achievementInformation}
-                  >
-                    <h3>{achievement.title}</h3>
-                    <p>{achievement.description}</p>
-                  </div>
+                    <div
+                      className={
+                        styles.achievementInformation
+                      }
+                    >
+                      <h3>{achievement.title}</h3>
 
-                  <span className={styles.achievementReward}>
-                    {achievement.reward}
-                  </span>
-                </article>
-              ))
+                      <p>
+                        {achievement.description}
+                      </p>
+                    </div>
+
+                    <span
+                      className={
+                        styles.achievementReward
+                      }
+                    >
+                      {achievement.reward}
+                    </span>
+                  </article>
+                )
+              )
             ) : (
               <p className={styles.pageDescription}>
-                Complete your first lesson to begin earning
-                achievements.
+                Complete your first lesson to begin
+                earning achievements.
               </p>
             )}
           </div>
@@ -386,35 +461,60 @@ export default function ProfilePage() {
               <p className={styles.sectionEyebrow}>
                 Player options
               </p>
+
               <h2>Account</h2>
             </div>
           </div>
 
           <div className={styles.accountGrid}>
-            <button type="button" className={styles.accountButton}>
+            <button
+              type="button"
+              className={styles.accountButton}
+            >
               <span aria-hidden="true">✏️</span>
+
               <span>
                 <strong>Edit Profile</strong>
-                <small>Change your name and avatar</small>
+
+                <small>
+                  Change your name and avatar
+                </small>
               </span>
+
               <i aria-hidden="true">→</i>
             </button>
 
-            <button type="button" className={styles.accountButton}>
+            <button
+              type="button"
+              className={styles.accountButton}
+            >
               <span aria-hidden="true">⚙️</span>
+
               <span>
                 <strong>Settings</strong>
-                <small>Manage your app preferences</small>
+
+                <small>
+                  Manage your app preferences
+                </small>
               </span>
+
               <i aria-hidden="true">→</i>
             </button>
 
-            <button type="button" className={styles.accountButton}>
+            <button
+              type="button"
+              className={styles.accountButton}
+            >
               <span aria-hidden="true">⭐</span>
+
               <span>
                 <strong>Membership</strong>
-                <small>View your Projekt Fret plan</small>
+
+                <small>
+                  View your Projekt Fret plan
+                </small>
               </span>
+
               <i aria-hidden="true">→</i>
             </button>
 
@@ -423,17 +523,20 @@ export default function ProfilePage() {
               className={`${styles.accountButton} ${styles.signOutButton}`}
             >
               <span aria-hidden="true">↪</span>
+
               <span>
                 <strong>Sign Out</strong>
-                <small>Leave your current account</small>
+
+                <small>
+                  Leave your current account
+                </small>
               </span>
+
               <i aria-hidden="true">→</i>
             </button>
           </div>
         </section>
       </main>
-
-      <AppBottomNav />
     </>
   );
 }

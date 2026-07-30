@@ -1,12 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
-import styles from "./AppTopNav.module.css";
 
-export default function AppTopNav() {
+export default function Navbar() {
   return (
-    <header className={styles.topNav}>
-      <Link href="/world" className={styles.brand}>
-        PROJEKT FRET
+    <header className="topNav">
+      <Link href="/" className="brand">
+        <Image
+          src="/images/logo.png"
+          alt="Projekt Fret Logo"
+          width={52}
+          height={52}
+          className="brandLogo"
+          priority
+        />
+
+        <span className="brandName">PROJEKT FRET</span>
       </Link>
+
+      <nav className="navLinks">
+        <Link href="/world">Worlds</Link>
+        <Link href="/songs">Songs</Link>
+        <Link href="/skills">Skills</Link>
+        <Link href="/about">About</Link>
+      </nav>
+
+      <div className="topNavActions">
+        <Link href="/login" className="loginButton">
+          Log In
+        </Link>
+
+        <Link href="/signup" className="startFreeButton">
+          Start Free
+        </Link>
+      </div>
     </header>
   );
 }

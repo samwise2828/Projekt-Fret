@@ -34,7 +34,7 @@ export default function PaymentSuccessPage() {
         </p>
 
         <Link
-          href="/dashboard"
+          href="/world"
           style={{
             display: "inline-block",
             marginTop: "2rem",

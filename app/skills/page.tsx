@@ -33,8 +33,14 @@ type SkillBranchWithProgress = Omit<SkillBranch, "skills"> & {
 };
 
 function getStatusLabel(status: SkillStatus) {
-  if (status === "completed") return "Completed";
-  if (status === "available") return "Available";
+  if (status === "completed") {
+    return "Completed";
+  }
+
+  if (status === "available") {
+    return "Available";
+  }
+
   return "Locked";
 }
 
@@ -139,13 +145,13 @@ export default function SkillsPage() {
     );
   }, [progress]);
 
-  const activeBranch = useMemo(
-    () =>
+  const activeBranch = useMemo(() => {
+    return (
       branchesWithProgress.find(
         (branch) => branch.id === activeBranchId
-      ) ?? branchesWithProgress[0],
-    [activeBranchId, branchesWithProgress]
-  );
+      ) ?? branchesWithProgress[0]
+    );
+  }, [activeBranchId, branchesWithProgress]);
 
   const selectedSkill = useMemo(() => {
     return (
@@ -170,23 +176,24 @@ export default function SkillsPage() {
 
   const currentLessonNumber = progress?.current_lesson ?? 1;
 
+  const allSkills = branchesWithProgress.flatMap(
+    (branch) => branch.skills
+  );
+
   const nextLessonSkill =
-    branchesWithProgress
-      .flatMap((branch) => branch.skills)
-      .find(
-        (skill) =>
-          skill.lessonNumber === currentLessonNumber &&
-          skill.status === "available"
-      ) ??
-    branchesWithProgress
-      .flatMap((branch) => branch.skills)
-      .find((skill) => skill.status === "available") ??
-    branchesWithProgress[0].skills[0];
+    allSkills.find(
+      (skill) =>
+        skill.lessonNumber === currentLessonNumber &&
+        skill.status === "available"
+    ) ??
+    allSkills.find((skill) => skill.status === "available") ??
+    allSkills[0];
 
   const xp = progress?.xp ?? 0;
   const level = progress?.level ?? 1;
 
   const xpForCurrentLevel = xp % 500;
+
   const levelProgressPercentage = Math.min(
     Math.round((xpForCurrentLevel / 500) * 100),
     100
@@ -197,7 +204,9 @@ export default function SkillsPage() {
       (item) => item.id === branchId
     );
 
-    if (!branch) return;
+    if (!branch) {
+      return;
+    }
 
     setActiveBranchId(branchId);
     setSelectedSkillId(branch.skills[0].id);
@@ -211,8 +220,12 @@ export default function SkillsPage() {
         <main className={styles.page}>
           <header className={styles.header}>
             <div>
-              <p className={styles.eyebrow}>Loading progression</p>
+              <p className={styles.eyebrow}>
+                Loading progression
+              </p>
+
               <h1>Skill Tree</h1>
+
               <p>Preparing your unlocked skills...</p>
             </div>
           </header>
@@ -232,7 +245,9 @@ export default function SkillsPage() {
           <header className={styles.header}>
             <div>
               <p className={styles.eyebrow}>Progress error</p>
+
               <h1>Skill Tree Unavailable</h1>
+
               <p>
                 {errorMessage ||
                   "Your skill progress could not be found."}
@@ -256,10 +271,12 @@ export default function SkillsPage() {
         <header className={styles.header}>
           <div>
             <p className={styles.eyebrow}>Your progression</p>
+
             <h1>Skill Tree</h1>
+
             <p>
-              Learn new techniques, complete lessons, and unlock songs and
-              worlds.
+              Learn new techniques, complete lessons, and unlock
+              songs and worlds.
             </p>
           </div>
 
@@ -280,12 +297,15 @@ export default function SkillsPage() {
               <div className={styles.progressTrack}>
                 <div
                   className={styles.progressFill}
-                  style={{ width: `${totalProgress}%` }}
+                  style={{
+                    width: `${totalProgress}%`,
+                  }}
                 />
               </div>
 
               <div className={styles.progressStat}>
                 <span>Skills unlocked</span>
+
                 <strong>
                   {completedSkills} / {totalSkills}
                 </strong>
@@ -298,7 +318,9 @@ export default function SkillsPage() {
             </article>
 
             <article className={styles.journeyCard}>
-              <p className={styles.cardLabel}>Current Journey</p>
+              <p className={styles.cardLabel}>
+                Current Journey
+              </p>
 
               <div className={styles.journeyArtwork}>
                 <span>🔥</span>
@@ -306,6 +328,7 @@ export default function SkillsPage() {
 
               <div className={styles.journeyText}>
                 <small>World 1</small>
+
                 <h2>The First Campfire</h2>
 
                 <div>
@@ -328,6 +351,7 @@ export default function SkillsPage() {
 
               <div>
                 <strong>Level {level}</strong>
+
                 <span>
                   {xpForCurrentLevel} / 500 XP
                 </span>
@@ -368,7 +392,9 @@ export default function SkillsPage() {
             <div className={styles.treeHeader}>
               <div>
                 <p>World 1: The First Campfire</p>
+
                 <h2>{activeBranch.name}</h2>
+
                 <span>{activeBranch.description}</span>
               </div>
 
@@ -376,7 +402,8 @@ export default function SkillsPage() {
                 <strong>
                   {
                     activeBranch.skills.filter(
-                      (skill) => skill.status === "completed"
+                      (skill) =>
+                        skill.status === "completed"
                     ).length
                   }
                   /{activeBranch.skills.length}
@@ -406,7 +433,9 @@ export default function SkillsPage() {
                         ? styles.selectedNode
                         : ""
                     }`}
-                    onClick={() => setSelectedSkillId(skill.id)}
+                    onClick={() =>
+                      setSelectedSkillId(skill.id)
+                    }
                   >
                     <span className={styles.nodeConnector} />
 
@@ -418,7 +447,9 @@ export default function SkillsPage() {
 
                     <strong>{skill.name}</strong>
 
-                    <small>{getStatusLabel(skill.status)}</small>
+                    <small>
+                      {getStatusLabel(skill.status)}
+                    </small>
 
                     <div className={styles.nodeProgress}>
                       <div
@@ -444,7 +475,8 @@ export default function SkillsPage() {
 
                 <small>
                   {activeBranch.skills.every(
-                    (skill) => skill.status === "completed"
+                    (skill) =>
+                      skill.status === "completed"
                   )
                     ? "Boss Defeated"
                     : "Boss Locked"}

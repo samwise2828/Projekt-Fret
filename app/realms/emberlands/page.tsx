@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AppBottomNav from "../../Components/navigation/AppBottomNav";
 import styles from "./page.module.css";
 
 export default function EmberlandsPage() {
@@ -47,8 +46,6 @@ export default function EmberlandsPage() {
 
         <small>World 3</small>
       </button>
-
-      <AppBottomNav />
     </main>
   );
 }
