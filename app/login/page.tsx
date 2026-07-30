@@ -31,7 +31,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/realms/emberlands");
+    router.push("/world");
     router.refresh();
   }
 
